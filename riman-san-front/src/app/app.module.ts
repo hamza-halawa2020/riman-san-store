@@ -12,12 +12,19 @@ import { UsersComponent } from './users/users.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiServiceService } from './services/api-service.service';
 import { UserDetailsComponent } from './user-details/user-details.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { CommonModule } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CarusolComponent } from './shared/carusol/carusol.component';
+import { CarusolItemComponent } from './shared/carusol-item/carusol-item.component';
+import { AboutComponent } from './shared/about/about.component';
+import { HomepageComponent } from './homepage/homepage.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,8 +40,20 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     ProductsComponent,
     ProductDetailsComponent,
     ContactUsComponent,
+    CarusolComponent,
+    CarusolItemComponent,
+    AboutComponent,
+    HomepageComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    NgbModule,
+  ],
   providers: [ApiServiceService],
   bootstrap: [AppComponent],
 })

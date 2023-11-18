@@ -1,74 +1,74 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ContactService } from '../services/contact.service';
 
 @Component({
   selector: 'app-contact-us',
   templateUrl: './contact-us.component.html',
-  styleUrls: ['./contact-us.component.css']
+  styleUrls: ['./contact-us.component.css'],
 })
 export class ContactUsComponent {
+  contactForm!: FormGroup;
+  myEmail: string = 'support@rimansan.net';
+  errors: string[] = [];
+  isSending: boolean = false;
+  name: any;
+  email: any;
+  subject: any;
+  message: any;
 
-  ContactForm: FormGroup;
-myEmail: string = 'support@ta-meri.com';
-errors: string[] = [];
-isSending: boolean = false
-  constructor(private contactApi: ContactService, private router :Router) {
-    this.ContactForm = new FormGroup({
-      name: new FormControl('', [
-        Validators.required,
-        Validators.minLength(4),
-      ]),
-      email: new FormControl('', [
-        Validators.required,
-        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
-      ]),
-      subject: new FormControl('', [
-        Validators.required,
-        Validators.minLength(4),
-      ]),
-      message:  new FormControl('', [
-        Validators.required,
-        Validators.minLength(20),
+  constructor(
+    private formBuilder: FormBuilder,
+    private contactApi: ContactService,
+    private router: Router
+  ) {
+    this.initForm();
+  }
 
-      ]),
+  private initForm(): void {
+    this.contactForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(4)]],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+          ),
+        ],
+      ],
+      subject: ['', [Validators.required, Validators.minLength(4)]],
+      message: ['', [Validators.required, Validators.minLength(20)]],
     });
   }
 
-  formSubmited() {
-    this.isSending = true
-    this.errors = []
-    this.errors.push('sending...')
+  get formControls() {
+    return this.contactForm.controls;
+  }
 
-    this.ContactForm.markAllAsTouched();
-    if (this.ContactForm.valid) {
-     this.contactApi.contactUs(this.ContactForm.value).subscribe((data)=>{
-console.log(data);
+  formSubmitted(): void {
+    this.isSending = true;
+    this.errors = ['Sending...'];
 
-      this.router.navigate(['/notification'], { queryParams: { notify: 'contact' }});
+    this.contactForm.markAllAsTouched();
 
-
-     },(error)=>{
-      console.log(error);
-      this.isSending = false
-      this.errors = []
-this.errors.push('An error occurred while sending message, please try again later.')
-     })
-     
+    if (this.contactForm.valid) {
+      this.contactApi.contactUs(this.contactForm.value).subscribe(
+        (data) => {
+          console.log(data);
+          this.router.navigate(['/notification'], {
+            queryParams: { notify: 'contact' },
+          });
+        },
+        (error) => {
+          console.log(error);
+          this.isSending = false;
+          this.errors = [
+            'An error occurred while sending the message. Please try again later.',
+          ];
+        }
+      );
     }
   }
-  get name(): FormControl {
-    return this.ContactForm.get('name') as FormControl;
-  }
-  get email(): FormControl {
-    return this.ContactForm.get('email') as FormControl;
-  }
-  get subject(): FormControl {
-    return this.ContactForm.get('subject') as FormControl;
-  }
-  get message(): FormControl {
-    return this.ContactForm.get('message') as FormControl;
-  }
-
 }

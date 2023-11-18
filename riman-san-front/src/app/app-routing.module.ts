@@ -9,8 +9,13 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 import { ProductsComponent } from './products/products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { HomepageComponent } from './homepage/homepage.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: HomepageComponent,
+  },
   {
     path: 'login',
     component: LoginComponent,
