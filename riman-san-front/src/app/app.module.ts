@@ -17,6 +17,7 @@ import { RegisterComponent } from './register/register.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +32,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     ForgetPasswordComponent,
     ProductsComponent,
     ProductDetailsComponent,
+    ContactUsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [ApiServiceService],
