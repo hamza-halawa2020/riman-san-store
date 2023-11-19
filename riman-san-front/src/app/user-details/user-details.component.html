@@ -1,5 +1,7 @@
-<!-- user-details.component.html -->
-
+<div class="container" *ngIf="loading">
+  <app-loading></app-loading>
+</div>
+<div *ngIf="!loading" class="container mb-5">
 <h2>User Details</h2>
 <div>
   <p><strong>ID:</strong> {{ userDetails?.id }}</p>
@@ -7,4 +9,5 @@
   <p><strong>Mobile:</strong> {{ userDetails?.mobile }}</p>
   <p><strong>Role:</strong> {{ userDetails?.role }}</p>
   <!-- Display other user details as needed -->
+</div>
 </div>

@@ -1,7 +1,56 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary shadow mb-5 fixed-top">
+<!-- Top bar -->
+<div class="container-fluid bg-dark">
+  <div class="row g-0">
+    <div class="col-2 col-md-6 col-lg-8 ps-5 text-start">
+      <div class="h-100 d-inline-flex align-items-center text-white fs-5">
+        <i class="fa-regular fa-envelope fa-sm d-none d-lg-block"></i>
+        <a
+          class="btn btn-link text-light fs-5 text-decoration-none d-none d-lg-block"
+
+          href="mailto:info@rimansan.com"
+        >
+          {{email}}
+        </a>
+        <i class="fa-regular fa-envelope fa-sm d-none d-lg-block"></i>
+
+        <a
+          class="btn btn-link text-light fs-5 text-decoration-none d-none d-lg-block"
+          href="mailto:support@rimansan.com"
+        >
+          {{email2}}
+        </a>
+        <div class="d-none d-lg-block">
+          <i class="p-1 me-2 fab fa-facebook-f fa-xs"></i>
+          <i class="p-1 me-2 fab fa-linkedin-in fa-xs"></i>
+          <i class="p-1 me-2 fab fa-tiktok fa-xs"></i>
+          <i class="p-1 me-2 fab fa-youtube fa-xs"></i>
+          <i class="p-1 me-2 fab fa-instagram fa-xs"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-10 col-md-6 col-lg-4 text-end">
+      <div
+        class="h-100 topbar-right bg-primary d-inline-flex align-items-center text-white px-2"
+      >
+        <span class="fw-bold me-2"
+          ><i class="fas fa-phone me-2 fs-6"></i>Call Us:</span
+        >
+        <a
+          class="fs-6 fw-bold text-white text-decoration-none"
+          href="tel:+01068743043"
+          >+2010 687 43 0 43</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Main header -->
+
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary shadow sticky-top">
   <div class="container">
     <a class="navbar-brand" routerLink="/">
-      <img src="../../assets/images/logo.png" alt="" width="80px" />
+      <img src="assets/images/logo.png" alt="" width="80px" />
     </a>
     <button
       class="navbar-toggler"
@@ -89,5 +138,3 @@
     </div>
   </div>
 </nav>
-<br class="mb-5 mt-5" />
-<br class="mb-2" />

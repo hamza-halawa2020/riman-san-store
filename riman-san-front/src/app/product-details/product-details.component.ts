@@ -10,15 +10,22 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductDetailsComponent {
   id!: number;
   productDetails: any;
+  loading: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private productService: ApiServiceService
   ) {}
   ngOnInit(): void {
+this.getProduct();
+  }
+  getProduct(){
+    this.loading = true;
     this.route.params.subscribe((params) => {
       this.id = +params['id'];
       this.productService.getProductById(this.id).subscribe((data) => {
         this.productDetails = data;
+        this.loading = false;
       });
     });
   }

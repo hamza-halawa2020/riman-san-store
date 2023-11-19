@@ -10,10 +10,17 @@ export class ProductsComponent {
   products: any = [];
   selectedProducts: any;
   selectedProductsIndex: number | null = null;
+  loading: boolean = false;
+
   constructor(private productsService: ApiServiceService) {}
   ngOnInit(): void {
+this.getProducts();
+  }
+  getProducts(){
+    this.loading = true;
     this.productsService.getProducts().subscribe((data) => {
       this.products = data;
+      this.loading = false;
     });
   }
   deleteProduct(productId: number): void {

@@ -3,3 +3,33 @@ footer {
       url(/assets/images/logo.png) center center no-repeat;
     background-size: cover;
   }
+  a{
+    text-decoration: none;
+    color: black;
+  }
+
+
+  .footer .btn.btn-link {
+    display: block;
+    margin-bottom: 5px;
+    padding: 0;
+    text-align: left;
+    color: rgb(0, 0, 0);
+    font-weight: normal;
+    text-transform: capitalize;
+    transition: 0.3s;
+  }
+  
+  .footer .btn.btn-link::before {
+    position: relative;
+    content: "\f105";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 10px;
+  }
+  
+  .footer .btn.btn-link:hover {
+    color: var(--light);
+    letter-spacing: 1px;
+    box-shadow: none;
+  }

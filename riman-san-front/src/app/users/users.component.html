@@ -1,3 +1,7 @@
+<div class="container" *ngIf="loading">
+  <app-loading></app-loading>
+</div>
+<div *ngIf="!loading" class="container mb-5">
 <table class="table table-striped text-center">
   <thead>
     <tr>
@@ -65,3 +69,4 @@
     </ng-container>
   </tbody>
 </table>
+</div>

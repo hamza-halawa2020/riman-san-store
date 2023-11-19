@@ -24,6 +24,9 @@ import { CarusolComponent } from './shared/carusol/carusol.component';
 import { CarusolItemComponent } from './shared/carusol-item/carusol-item.component';
 import { AboutComponent } from './shared/about/about.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { LoadingComponent } from './shared/loading/loading.component';
+import { PalestineComponent } from './shared/palestine/palestine.component';
+import { About2Component } from './shared/about2/about2.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,9 @@ import { HomepageComponent } from './homepage/homepage.component';
     CarusolItemComponent,
     AboutComponent,
     HomepageComponent,
+    LoadingComponent,
+    PalestineComponent,
+    About2Component,
   ],
   imports: [
     BrowserModule,
