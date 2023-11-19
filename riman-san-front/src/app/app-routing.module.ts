@@ -42,10 +42,17 @@ const routes: Routes = [
     component: ProductsComponent,
   },
   { path: 'product/:id', component: ProductDetailsComponent },
-  // {
-  //   path: '**',
-  //   component: NotFoundComponent,
-  // },
+  {
+    path: '404',
+    component: NotFoundComponent,
+    data: { title: '404 Page not found' },
+  },
+
+  {
+    path: '**',
+    component: NotFoundComponent,
+    data: { title: '404 Page not found' },
+  },
 ];
 
 @NgModule({

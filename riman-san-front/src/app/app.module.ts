@@ -27,6 +27,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { PalestineComponent } from './shared/palestine/palestine.component';
 import { About2Component } from './shared/about2/about2.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { About2Component } from './shared/about2/about2.component';
     LoadingComponent,
     PalestineComponent,
     About2Component,
+    ProductCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ApiServiceService {
   private apiUrl = 'https://retoolapi.dev/isM3PA/data';
-  private productsUrl = 'https://retoolapi.dev/uWZMN0/products';
+  private productsUrl = 'https://retoolapi.dev/zPdtlU/products';
 
   constructor(private http: HttpClient) {}
 

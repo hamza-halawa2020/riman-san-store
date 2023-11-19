@@ -1,0 +1,47 @@
+<div class="card mb-4 rounded-4 shadow">
+  <div style="height: 250px">
+    <img
+      [src]="products.images"
+      class="card-img-top rounded-4 w-100 h-100"
+      [alt]="products.name"
+      style="object-fit: cover"
+    />
+  </div>
+  <div class="card-body">
+    <h5
+      class="card-title fw-bold fs-4 bg-primary text-white p-1 pt-2 text-center rounded-5 mb-4"
+      [style.line-height]="'1'"
+      [style.margin-top]="'-35px'"
+    >
+      {{ products.name }}
+      {{ products.id }}
+    </h5>
+    <div class="row align-items-center">
+      <div class="col-7">
+        <p class="card-text fs-5 fw-medium">
+          <i class="fas fa-money-check-alt text-red me-3"></i>
+          {{ products.price | currency }}
+        </p>
+      </div>
+      <div class="col-5 text-end">
+        <ngb-rating
+          [rate]="rating"
+          [readonly]="true"
+          class="text-warning fs-3"
+        ></ngb-rating>
+      </div>
+    </div>
+    <p class="card-text mt-3 hotel-text">
+      {{ products.description }}
+    </p>
+
+    <div class="w-50 mx-auto" style="margin-bottom: -55px">
+      <a
+        [routerLink]="['/product', products.id]"
+        class="btn btn-danger fw-bold w-100"
+      >
+        Read More
+      </a>
+    </div>
+  </div>
+</div>
