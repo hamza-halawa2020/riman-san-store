@@ -8,7 +8,7 @@ export class ApiServiceService {
   private apiUrl = 'https://retoolapi.dev/isM3PA/data';
   // private productsUrl = 'https://retoolapi.dev/zPdtlU/products';
   private productsUrl = 'http://127.0.0.1:8000/api/products';
-
+  // private productsUrl = '  https://dummyjson.com/products/';
 
   constructor(private http: HttpClient) {}
 
@@ -37,5 +37,5 @@ export class ApiServiceService {
   }
 }
 // getAllTourguides(): Observable<any> {
-//   return this.http.get(`${this.url}`); 
+//   return this.http.get(`${this.url}`);
 // }

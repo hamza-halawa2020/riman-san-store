@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Http\Resources\ProductResource;
+
 class ProductController extends Controller
 {
 
@@ -18,21 +19,22 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        
+
     }
 
     public function show(string $id)
     {
-        
+        $product = Product::findOrFail($id);
+        return new ProductResource($product);
     }
 
     public function update(Request $request, string $id)
     {
-        
+
     }
 
     public function destroy(string $id)
     {
-        
+
     }
 }

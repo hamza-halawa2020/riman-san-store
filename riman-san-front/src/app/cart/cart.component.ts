@@ -5,14 +5,12 @@ import { CartService } from '../services/cart.service';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css']
+  styleUrls: ['./cart.component.css'],
 })
 export class CartComponent {
-
   allProduct: any = 0;
   card: any = [];
   totalPaice: any = 0;
-
 
   constructor(private cartApi: CartService) {}
 
@@ -24,7 +22,7 @@ export class CartComponent {
     this.cartApi.getCart().subscribe((data) => {
       this.card = data;
       this.allProduct = this.cartApi.getcounterCart();
-      console.log(this.card);
+      // console.log(this.card);
     });
   }
 
@@ -41,7 +39,7 @@ export class CartComponent {
   updateTotal(price: number, quantity: number | undefined) {
     if (quantity !== undefined && quantity >= 0) {
       const total = price * quantity;
-      console.log('Total:', total);
+      // console.log('Total:', total);
     }
   }
 

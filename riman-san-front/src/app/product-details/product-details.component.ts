@@ -16,69 +16,39 @@ export class ProductDetailsComponent {
   constructor(
     private activateRoute: ActivatedRoute,
     private productService: ApiServiceService,
-    private cartApi: CartService
-    // private titleService: Title,
-
-
+    private cartApi: CartService // private titleService: Title,
   ) {}
   ngOnInit(): void {
-// this.getProduct();
+    this.getProduct();
+  }
 
+  getProduct() {
+    this.loading = true;
+    this.activateRoute.params.subscribe((params) => {
+      this.id = +params['id'];
+      this.productService.getProductById(this.id).subscribe((data) => {
+        this.productDetails = Object.values(data)[0];
+        // console.log(this.productDetails);
 
-const productId = +this.activateRoute.snapshot.params['id'];
-
-this.productService.getProductById(productId).subscribe((res) => {
-  console.log(res);
-  this.productDetails = res;
-  Object.assign(this.productDetails, { quantity: 1 });
-});
-}
-
-  // }
-  // getProduct(){
-//     this.loading = true;
-//     this.activateRoute.params.subscribe((params) => {
-//       this.id = +params['id'];
-//       // this.id = this.activateRoute.snapshot.params['id'];
-
-//       this.productService.getProductById(this.id).subscribe((data) => {
-//                 this.productDetails = data;
-//                 console.log(this.productDetails);
-
-//         // this.productDetails = Object.values(data)[0];
-//         // console.log(this.productDetails);
-        
-//         this.loading = false;
-//       });
-//     });
-// }
-
+        this.loading = false;
+      });
+    });
+  }
 
   addProdutToCart(item: any) {
     this.cartApi.addProductToCart(item);
   }
 
-
-
   toggleDescriptionDisplay() {
     this.showMore = !this.showMore;
   }
-    tourguide: any = {};
+  tourguide: any = {};
   p: number = 1;
   itemsPerPage: number = 3;
 
-
-
-
-
-
-
-
-
-
   // scrollToTop(pageNumber: number) {
   //   this.p = pageNumber; // Update the current page number
-  
+
   //   // Scroll to the top of the content container by targeting the anchor element
   //   const contentContainer = document.querySelector('.reviews');
   //   const anchorElement = document.querySelector('[name="contentTop"]');
@@ -93,15 +63,8 @@ this.productService.getProductById(productId).subscribe((res) => {
   //         const offsetPosition = bookingFormElement.offsetTop - headerHeight;
   //         window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
   //       }
-  //     }  
-    
-  }
-
-
-
-
-
-
+  //     }
+}
 
 // ngOnInit() {
 //   this.id = this.activateRoute.snapshot.params['id'];
@@ -114,8 +77,8 @@ this.productService.getProductById(productId).subscribe((res) => {
 
 //     });
 //   }
-  // this.tourguideApi.getTourGuideReviews().subscribe((data) => {
-  //   this.reviews = data as Array<Ireview>;
-  //   this.totaltourguide = this.reviews.length;
-  // });
+// this.tourguideApi.getTourGuideReviews().subscribe((data) => {
+//   this.reviews = data as Array<Ireview>;
+//   this.totaltourguide = this.reviews.length;
+// });
 // }

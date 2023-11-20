@@ -1,11 +1,13 @@
 <div class="card mb-4 rounded-4 shadow">
   <div style="height: 250px">
-    <img
-      [src]="products.images"
-      class="card-img-top rounded-4 w-100 h-100"
-      [alt]="products.name"
-      style="object-fit: cover"
-    />
+    <a [routerLink]="['/product', products.id]">
+      <img
+        [src]="products.images"
+        class="card-img-top rounded-4 w-100 h-100"
+        [alt]="products.name"
+        style="object-fit: cover"
+      />
+    </a>
   </div>
   <div class="card-body mt-5 mb-5">
     <h5
@@ -35,15 +37,13 @@
       {{ products.description }}
     </p>
 
-    <div class="w-50 mx-auto" style="margin-bottom: -55px">
-      <a
-        [routerLink]="['/product', products.id]"
-        class="btn btn-danger fw-bold w-100"
-      >
+    <div class="" style="margin-bottom: -60px">
+      <a [routerLink]="['/product', products.id]" class="btn btn-primary w-50">
         Read More
       </a>
-      <a class="btn primary-bg mt-4 w-100 bg-success fw-bold text-white" (click)="addProdutToCart(products)"
-        >add to cart</a>
+      <a class="m-4 btn btn-success w-25" (click)="addProdutToCart(products)"
+        ><i class="fa-solid fa-cart-plus fa-lg"></i>
+      </a>
     </div>
   </div>
 </div>

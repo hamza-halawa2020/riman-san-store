@@ -11,11 +11,16 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { CartComponent } from './cart/cart.component';
+import { OrderNowComponent } from './order-now/order-now.component';
 
 const routes: Routes = [
   {
     path: '',
     component: HomepageComponent,
+  },
+  {
+    path: 'order',
+    component: OrderNowComponent,
   },
   {
     path: 'login',
