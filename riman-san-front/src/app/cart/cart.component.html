@@ -1,0 +1,66 @@
+<div class="container" *ngIf="card.length > 0; else emptyCart">
+    <div class="container text-center">
+      <div class="h1">Shopping Cart</div>
+      <div class="h5">you have {{ card.length }} item in your cart</div>
+      <div class="btn btn-danger" (click)="removeAllProduct()">
+        clear your cart
+      </div>
+    </div>
+    <table class="table table-bordered mt-5 text-center">
+      <thead>
+        <tr>
+          <th>N</th>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let item of card; let i = index"
+          style="vertical-align: middle"
+        >
+          <td>{{ i + 1 }}</td>
+          <td>
+            <img
+              src="{{ item.images }}"
+              alt="Product Image"
+              class="rounded border"
+              style="height: 45px"
+            />
+          </td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.price }}</td>
+          <td>
+            <input
+              type="number"
+              class="rounded"
+              [(ngModel)]="item.quantity"
+              (input)="updateTotal(item.price, item.quantity)"
+            />
+          </td>
+          <td>{{ calculateTotal(item)}}</td>
+          <td>
+            <button class="btn btn-danger" (click)="removeProduct(item)">
+              X
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div class="row mt-5 text-center">
+      <div class="col">Total: {{ calculateTotalAllProduct()}}</div>
+      <div class="col"><button class="btn btn-success">Order Now</button></div>
+    </div>
+  </div>
+  
+  <ng-template #emptyCart>
+    <div class="container text-center">
+      <h1 class="mt-5">Your cart is empty.</h1>
+      <a class="h1 mt-5" routerLink="/products">CONTINUE TO SHOPPING...</a>
+    </div>
+  </ng-template>

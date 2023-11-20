@@ -15,7 +15,9 @@ export class HomepageComponent {
   }
   getProducts() {
     this.productsService.getProducts().subscribe((data) => {
-      this.products = data;
+      // this.products = data;
+      this.products = Object.values(data)[0];
+
     });
   }
 }

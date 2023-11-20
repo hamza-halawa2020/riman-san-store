@@ -10,6 +10,7 @@ import { ProductsComponent } from './products/products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { CartComponent } from './cart/cart.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,8 @@ const routes: Routes = [
     component: ProductsComponent,
   },
   { path: 'product/:id', component: ProductDetailsComponent },
+  { path: 'cart', component: CartComponent },
+
   {
     path: '404',
     component: NotFoundComponent,

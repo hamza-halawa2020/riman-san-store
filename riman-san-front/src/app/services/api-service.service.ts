@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class ApiServiceService {
   private apiUrl = 'https://retoolapi.dev/isM3PA/data';
-  private productsUrl = 'https://retoolapi.dev/zPdtlU/products';
+  // private productsUrl = 'https://retoolapi.dev/zPdtlU/products';
+  private productsUrl = 'http://127.0.0.1:8000/api/products';
+
 
   constructor(private http: HttpClient) {}
 
@@ -21,7 +24,7 @@ export class ApiServiceService {
     return this.http.delete(url);
   }
 
-  getProducts() {
+  getProducts(): Observable<any> {
     return this.http.get(this.productsUrl);
   }
   getProductById(productId: number) {
@@ -33,3 +36,6 @@ export class ApiServiceService {
     return this.http.delete(url);
   }
 }
+// getAllTourguides(): Observable<any> {
+//   return this.http.get(`${this.url}`); 
+// }
