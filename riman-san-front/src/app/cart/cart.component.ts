@@ -11,6 +11,7 @@ export class CartComponent {
   allProduct: any = 0;
   card: any = [];
   totalPaice: any = 0;
+  x: any = 'http://127.0.0.1:8000/img/';
 
   constructor(private cartApi: CartService) {}
 

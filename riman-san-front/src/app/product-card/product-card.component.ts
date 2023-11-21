@@ -10,13 +10,15 @@ import { CartService } from '../services/cart.service';
 })
 export class ProductCardComponent {
   @Input() products: any;
+
+  x: any = 'http://127.0.0.1:8000/img/';
   rating: any = 0;
-  productDetails:any;
+  productDetails: any;
   constructor(
     private ratingConfig: NgbRatingConfig,
     private router: Router,
     private cartApi: CartService
-    ) {
+  ) {
     this.ratingConfig.max = 5;
   }
 

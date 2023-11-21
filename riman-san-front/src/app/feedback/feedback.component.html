@@ -1,0 +1,105 @@
+<div
+  class="border p-3 rounded-3 shadow-lg py-5 my-5 bg-white"
+  *ngIf="reviewSubmitted"
+>
+  <div class="text-center text-success">
+    <h2 class="text-primary">Thank you</h2>
+    <h4>
+      We highly value your opinion. <br />
+      Your review is currently awaiting administrative approval.
+    </h4>
+  </div>
+</div>
+<form
+  [formGroup]="usersForm"
+  (ngSubmit)="getUserFormData(usersForm.value)"
+  class="border p-3 rounded-3 shadow-lg my-5 bg-white"
+  *ngIf="!reviewSubmitted"
+>
+  <div class="row g-0">
+    <div class="col text-center p-2 mb-3 bg-light">
+      <span class="fs-3">Leave your Feedback 😃</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col mb-3">
+      <div class="m-1">Rating<span class="text-danger">*</span></div>
+
+      <ngb-rating [rate]="3" [max]="5" formControlName="stars"></ngb-rating>
+
+      <div
+        *ngIf="
+          usersForm.get('stars')?.invalid &&
+          (usersForm.get('stars')?.touched || usersForm.get('title')?.touched)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="usersForm.get('stars')?.errors?.['required']">
+          Rating is required.
+        </div>
+      </div>
+      <div
+        class="form-text text-success"
+        *ngIf="
+          usersForm.get('stars')?.valid &&
+          (usersForm.get('stars')?.touched || usersForm.get('title')?.touched)
+        "
+      >
+        <i class="fa-solid fa-check"></i> Looks good!
+      </div>
+    </div>
+  </div>
+  <div class="col mb-3">
+    <label for="title">Title:<span class="text-danger">*</span></label>
+    <input type="text" formControlName="title" class="form-control" />
+    <div
+      *ngIf="usersForm.get('title')?.invalid && usersForm.get('title')?.touched"
+      class="text-danger"
+    >
+      <div *ngIf="usersForm.get('title')?.errors?.['required']">
+        Title is required.
+      </div>
+    </div>
+    <div
+      class="form-text text-success"
+      *ngIf="usersForm.get('title')?.valid && usersForm.get('title')?.touched"
+    >
+      <i class="fa-solid fa-check"></i> Looks good!
+    </div>
+  </div>
+
+  <div class="col mb-3">
+    <label for="comment">Comment:<span class="text-danger">*</span></label>
+    <textarea
+      id="comment"
+      formControlName="comment"
+      class="form-control"
+    ></textarea>
+    <div
+      *ngIf="
+        usersForm.get('comment')?.invalid && usersForm.get('comment')?.touched
+      "
+      class="text-danger"
+    >
+      <div *ngIf="usersForm.get('comment')?.errors?.['required']">
+        Comment is required.
+      </div>
+    </div>
+    <div
+      class="form-text text-success"
+      *ngIf="
+        usersForm.get('comment')?.valid && usersForm.get('comment')?.touched
+      "
+    >
+      <i class="fa-solid fa-check"></i> Looks good!
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <ngb-alert [dismissible]="false" *ngFor="let error of errors">
+        <strong>Warning!</strong> {{ error }}
+      </ngb-alert>
+    </div>
+  </div>
+  <button class="btn btn-primary" [disabled]="usersForm.invalid">Submit</button>
+</form>

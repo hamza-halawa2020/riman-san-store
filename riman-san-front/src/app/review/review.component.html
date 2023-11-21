@@ -1,0 +1,24 @@
+<div class="card mt-4">
+  <div class="row py-4 px-2">
+    <div *ngIf="review.tourist_avatar" class="col-md-3 text-center">
+      <img
+        [src]="review?.tourist_avatar"
+        [alt]="review.title"
+        class="rounded-circle mb-3"
+        style="width: 100px; height: 100px"
+      />
+    </div>
+    <div class="col-md-9 text-sm-center text-md-start">
+      <h5 *ngIf="review.tourist_name">{{ review.tourist_name }}</h5>
+      <i
+        class="fa-solid fa-star me-2"
+        *ngFor="let star of [1, 2, 3, 4, 5]"
+        [ngClass]="review.stars >= star ? 'text-warning' : 'text-black-50'"
+      ></i>
+
+      <h6 class="mt-4 mb-3">{{ review.title }}</h6>
+      <p>{{ review.comment }}</p>
+      <p class="me-3 fw-bold text-end">{{ review.date | date }}</p>
+    </div>
+  </div>
+</div>

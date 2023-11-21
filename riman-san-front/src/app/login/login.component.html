@@ -1,12 +1,28 @@
+<div
+  class="alert alert-success mt-3 text-center"
+  role="alert"
+  *ngIf="formSubmitted"
+>
+  Data sent successfully!
+</div>
 <div class="wrapper">
   <div class="logo">
     <img src="../../assets/images/logo.png" alt="" />
   </div>
-  <div class="text-center mt-4 name">Riman San</div>
-  <form class="p-3 mt-3">
+  <div class="text-center mt-4 name">Login</div>
+  <form class="p-3 mt-3" [formGroup]="login" (ngSubmit)="onSubmit()">
+    <div
+      class="text-danger"
+      *ngIf="login.controls['email'].touched && login.controls['email'].invalid"
+    >
+      <div *ngIf="login.controls['email'].hasError('required')">
+        Email is required
+      </div>
+    </div>
     <div class="form-field d-flex align-items-center">
       <span class="far fa-user"></span>
       <input
+        formControlName="email"
         type="email"
         name="email"
         id="userName"
@@ -14,16 +30,32 @@
         required
       />
     </div>
+    <div
+      class="text-danger"
+      *ngIf="
+        login.controls['password'].touched && login.controls['password'].invalid
+      "
+    >
+      <div *ngIf="login.controls['password'].hasError('required')">
+        Password is required
+      </div>
+    </div>
     <div class="form-field d-flex align-items-center">
       <span class="fas fa-key"></span>
       <input
+        formControlName="password"
         type="password"
         name="password"
         id="pwd"
         placeholder="Enter Your Password"
       />
     </div>
-    <button class="btn mt-3">Login</button>
+    <input
+      [disabled]="login.invalid"
+      type="submit"
+      value="Login"
+      class="btn mt-3"
+    />
   </form>
   <div class="text-center fs-6">
     <a routerLink="/recovery">Forget password?</a> or

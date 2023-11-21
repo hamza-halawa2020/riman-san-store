@@ -13,6 +13,7 @@ export class ProductDetailsComponent {
   productDetails: any;
   loading: boolean = false;
   showMore: boolean = false;
+  x: any = 'http://127.0.0.1:8000/img/';
   constructor(
     private activateRoute: ActivatedRoute,
     private productService: ApiServiceService,
@@ -39,9 +40,6 @@ export class ProductDetailsComponent {
     this.cartApi.addProductToCart(item);
   }
 
-  toggleDescriptionDisplay() {
-    this.showMore = !this.showMore;
-  }
   tourguide: any = {};
   p: number = 1;
   itemsPerPage: number = 3;

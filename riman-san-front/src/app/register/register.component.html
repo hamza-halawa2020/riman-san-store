@@ -1,12 +1,31 @@
+<div
+  class="alert alert-success mt-3 text-center"
+  role="alert"
+  *ngIf="formSubmitted"
+>
+  Data sent successfully!
+</div>
 <div class="register-wrapper">
   <div class="logo">
     <img src="../../assets/images/logo.png" alt="" />
   </div>
   <div class="text-center mt-4 name">Register</div>
-  <form class="p-3 mt-3">
+  <form class="p-3 mt-3" [formGroup]="register" (ngSubmit)="onSubmit()">
+    <div
+      class="text-danger"
+      *ngIf="
+        register.controls['username'].touched &&
+        register.controls['username'].invalid
+      "
+    >
+      <div *ngIf="register.controls['username'].hasError('required')">
+        Email is required
+      </div>
+    </div>
     <div class="form-field d-flex align-items-center">
       <span class="far fa-user"></span>
       <input
+        formControlName="username"
         type="text"
         name="username"
         id="username"
@@ -14,9 +33,20 @@
         required
       />
     </div>
+    <div
+      class="text-danger"
+      *ngIf="
+        register.controls['email'].touched && register.controls['email'].invalid
+      "
+    >
+      <div *ngIf="register.controls['email'].hasError('required')">
+        Email is required
+      </div>
+    </div>
     <div class="form-field d-flex align-items-center">
       <span class="far fa-envelope"></span>
       <input
+        formControlName="email"
         type="email"
         name="email"
         id="email"
@@ -24,9 +54,21 @@
         required
       />
     </div>
+    <div
+      class="text-danger"
+      *ngIf="
+        register.controls['password'].touched &&
+        register.controls['password'].invalid
+      "
+    >
+      <div *ngIf="register.controls['password'].hasError('required')">
+        Email is required
+      </div>
+    </div>
     <div class="form-field d-flex align-items-center">
       <span class="fas fa-key"></span>
       <input
+        formControlName="password"
         type="password"
         name="password"
         id="password"
@@ -34,7 +76,12 @@
         required
       />
     </div>
-    <button class="btn mt-3">Register</button>
+    <input
+      [disabled]="register.invalid"
+      type="submit"
+      value="Register"
+      class="btn mt-3"
+    />
   </form>
   <div class="text-center fs-6">
     <a routerLink="/login">Already have an account? Login here</a>

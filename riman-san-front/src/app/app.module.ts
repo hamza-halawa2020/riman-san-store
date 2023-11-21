@@ -30,6 +30,9 @@ import { About2Component } from './shared/about2/about2.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { CartComponent } from './cart/cart.component';
 import { OrderNowComponent } from './order-now/order-now.component';
+import { TruncatePipe } from './pipes/truncate.pipe';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { ReviewComponent } from './review/review.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +59,9 @@ import { OrderNowComponent } from './order-now/order-now.component';
     ProductCardComponent,
     CartComponent,
     OrderNowComponent,
+    TruncatePipe,
+    FeedbackComponent,
+    ReviewComponent,
     
 
   ],

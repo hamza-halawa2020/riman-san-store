@@ -2,7 +2,7 @@
   <div style="height: 250px">
     <a [routerLink]="['/product', products.id]">
       <img
-        [src]="products.images"
+        [src]="x + products.img"
         class="card-img-top rounded-4 w-100 h-100"
         [alt]="products.name"
         style="object-fit: cover"
@@ -33,8 +33,8 @@
         ></ngb-rating>
       </div>
     </div>
-    <p class="card-text mt-3 hotel-text">
-      {{ products.description }}
+    <p class="card-text mt-3">
+      {{ products.description | truncate : 10 }}
     </p>
 
     <div class="" style="margin-bottom: -60px">
