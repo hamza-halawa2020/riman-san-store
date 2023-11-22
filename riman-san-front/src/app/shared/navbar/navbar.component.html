@@ -82,12 +82,12 @@
             >All Products</a
           >
         </li>
-        
+
         <li>
           <a class="nav-link" routerLink="contact" routerLinkActive="active"
             >Contact Us</a
           >
-        </li> 
+        </li>
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -117,12 +117,13 @@
           >
         </li>
         <li>
-        <a class="nav-link" routerLink="cart" routerLinkActive="active"
-          ><i class="fa-solid fa-cart-plus fa-lg"></i>
-          <span class="" *ngIf="totalNumber > 0">{{totalNumber}}</span>
-          </a
-        >
-      </li>
+          <a class="nav-link" routerLink="cart" routerLinkActive="active"
+            ><i class="fa-solid fa-cart-plus fa-lg"></i>
+            <span class="text-danger" *ngIf="totalNumber > 0">{{
+              totalNumber
+            }}</span>
+          </a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="#">Log Out</a>
         </li>

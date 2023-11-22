@@ -2,7 +2,9 @@
   <div class="container text-center">
     <div class="h1">Shopping Cart</div>
     <div class="h5">you have {{ card.length }} item in your cart</div>
-    <div class="btn btn-danger" (click)="removeAllProduct()">
+    <div class="btn" (click)="removeAllProduct()">
+      <i class="fa-solid fa-trash fa-2xl"></i>
+
       clear your cart
     </div>
   </div>
@@ -44,8 +46,8 @@
         </td>
         <td>{{ calculateTotal(item) }}</td>
         <td>
-          <button class="btn btn-danger" (click)="removeProduct(item)">
-            X
+          <button class="btn" (click)="removeProduct(item)">
+            <i class="fa-solid fa-trash fa-xl"></i>
           </button>
         </td>
       </tr>

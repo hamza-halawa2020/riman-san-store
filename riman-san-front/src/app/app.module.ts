@@ -33,6 +33,7 @@ import { OrderNowComponent } from './order-now/order-now.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { ReviewComponent } from './review/review.component';
+import { Carusol2Component } from './shared/carusol2/carusol2.component';
 
 @NgModule({
   declarations: [
@@ -62,8 +63,7 @@ import { ReviewComponent } from './review/review.component';
     TruncatePipe,
     FeedbackComponent,
     ReviewComponent,
-    
-
+    Carusol2Component,
   ],
   imports: [
     BrowserModule,

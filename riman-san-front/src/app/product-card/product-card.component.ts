@@ -23,7 +23,7 @@ export class ProductCardComponent {
   }
 
   ngOnInit() {
-    // this.rating = Math.ceil(this.products?.rating?.avg) ?? 0;
+    this.rating = Math.ceil(this.products?.rating?.avg) ?? 0;
     this.rating = this.products.rating;
   }
   addProdutToCart(item: any) {

@@ -1,4 +1,4 @@
-<div class="card mb-4 rounded-4 shadow">
+<!-- <div class="card mb-4 rounded-4 shadow">
   <div style="height: 250px">
     <a [routerLink]="['/product', products.id]">
       <img
@@ -45,5 +45,58 @@
         ><i class="fa-solid fa-cart-plus fa-lg"></i>
       </a>
     </div>
+  </div>
+</div> -->
+
+<div class="container d-flex justify-content-center mt-100">
+  <div class="row">
+    <p class="card-text mt-3 h5">
+      {{ products.name }}
+    </p>
+    <div class="product-wrapper text-center">
+      <div class="product-img">
+        <a [routerLink]="['/product', products.id]">
+          <img
+            [src]="x + products.img"
+            class="card-img-top rounded-4"
+            [alt]="products.name"
+            style="object-fit: cover"
+          />
+        </a>
+
+        <span class="oldspan">
+          <div>
+            <ngb-rating
+              [rate]="rating"
+              [readonly]="true"
+              class="text-warning fs-3"
+            ></ngb-rating>
+          </div>
+        </span>
+        <span class="newspan">
+          <i class="fas fa-money-check-alt 2xl me-3"></i
+          >{{ products.price | currency }}</span
+        >
+        <div class="product-action">
+          <div class="product-action-style">
+            <!-- <a href="1">
+              <i class="fa fa-plus"></i>
+            </a>
+            <a href="2">
+              <i class="fa fa-heart"></i>
+            </a> -->
+            <!-- <a href="3">
+              <i class="fa fa-shopping-cart"></i>
+            </a> -->
+            <a class="btn" (click)="addProdutToCart(products)"
+              ><i class="fa-solid fa-cart-plus fa-lg"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="card-text mt-3">
+      {{ products.description | truncate : 10 }}
+    </p>
   </div>
 </div>

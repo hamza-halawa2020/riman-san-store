@@ -1,0 +1,31 @@
+<div class="text-center h2">Gallery</div>
+
+<div class="container mt-4">
+  <div class="row">
+    <button class="col btn" (click)="movePrev()">
+      <i class="fa-solid fa-forward fa-rotate-180 fa-2xl"></i>
+    </button>
+    <div class="col">
+      <div
+        class="carousel-item"
+        *ngFor="let product of products; let i = index"
+        [class.active]="i === activeProductIndex"
+      >
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">{{ product.description }}</p>
+            <div class="">
+              <img class="" [src]="product.img" alt="" width="100%" />
+              <!-- <img class="m-2" [src]="product.img" alt="" width="200x" /> -->
+              <!-- <img class="m-2" [src]="product.img" alt="" width="200x" /> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="col btn" (click)="moveNext()">
+      <i class="fa-solid fa-forward fa-2xl"></i>
+    </button>
+  </div>
+</div>

@@ -1,39 +1,66 @@
 <div class="container" *ngIf="loading">
   <app-loading></app-loading>
 </div>
-<div *ngIf="!loading" class="container mb-5">
-  <h2>Product Details</h2>
 
-  <div class="container mt-5 mb-5">
-    <div class="rounded-3 pb-5" style="height: 350px">
-      <img
-        [src]="x + productDetails.img"
-        [alt]="productDetails.name"
-        class="img-fluid w-100 h-100 rounded-3 shadow"
-        style="object-fit: cover"
-      />
-      <div class="text-center" style="margin-top: -75px">
-        <img
-          [src]="x + productDetails.img"
-          [alt]="productDetails.name"
-          height="150"
-          width="150"
-          class="rounded-circle shadow"
-        />
-      </div>
-    </div>
-    <div class="row mt-5">
-      <div class="col-md-8 mt-4">
-        <div>
-          <h2>Description</h2>
-          <div [innerHTML]="productDetails.description"></div>
-        </div>
-
-        <div class="mt-5">
-          <div id="bookingFormSection">
-            <!-- <app-booking-form [id]="id" [areas]="tourguide.areas" [price]="tourguide.day_price"></app-booking-form> -->
+<div class="container mt-5 mb-5">
+  <div class="card">
+    <div class="row g-0">
+      <div class="col-md-6 border-end">
+        <div class="d-flex flex-column justify-content-center">
+          <div class="main_image">
+            <img [src]="x + productDetails.img" width="350" />
+          </div>
+          <div class="thumbnail_images">
+            <ul id="thumbnail">
+              <li *ngFor="let image of thumbnailImages">
+                <img
+                  (click)="changeImage(image)"
+                  [src]="x + productDetails.img"
+                  width="70"
+                />
+              </li>
+            </ul>
           </div>
         </div>
+      </div>
+      <div class="col-md-6">
+        <div class="p-3 right-side">
+          <div class="d-flex justify-content-between align-items-center">
+            <h3>{{ productDetails.name }}</h3>
+            <span class="heart"><i class="bx bx-heart"></i></span>
+          </div>
+          <div class="mt-2 pr-3 content">
+            <p>
+              {{ productDetails.description }}
+            </p>
+          </div>
+          <h3>{{ productDetails.price | currency }}</h3>
+          <div class="ratings d-flex flex-row align-items-center">
+            <div>
+              <ngb-rating
+                [rate]="rating"
+                [readonly]="true"
+                class="text-warning fs-3"
+              ></ngb-rating>
+            </div>
+          </div>
+          <div class="buttons d-flex flex-row mt-5 gap-3">
+            <button
+              class="btn btn-outline-dark"
+              (click)="addProdutToCart(productDetails)"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!loading" class="container mb-5">
+  <div class="container mt-5 mb-5">
+    <div class="row mt-5">
+      <div class="col mt-4">
         <a name="contentTop"></a>
         <div class="mt-5 reviews">
           <h2 class="mb-3">Reviews</h2>
@@ -44,77 +71,6 @@
           >
             <h3>{{ productDetails.name }} has no any reviews yet</h3>
           </div>
-          <!-- <ng-container *ngIf="tourguide.reviews?.length">
-          <app-review
-            [review]="review"
-            *ngFor="let review of tourguide.reviews | paginate: { itemsPerPage: itemsPerPage, currentPage: p }"
-          ></app-review>
-          <div class="text-center fs-4 mt-3">
-            <pagination-controls (pageChange)="scrollToTop($event)"></pagination-controls>
-          </div>
-        </ng-container> -->
-        </div>
-      </div>
-      <div class="col-md-4 mobile-first mt-4">
-        <div
-          class="border shadow rounded-3 py-4 px-3 sticky-top bg-white"
-          style="top: 120px; z-index: 10"
-        >
-          <div class="text-center mb-3">
-            <div class="text-center" style="margin-top: -75px">
-              <img
-                [src]="x + productDetails.img"
-                [alt]="productDetails.name"
-                height="150"
-                width="150"
-                class="rounded shadow"
-              />
-            </div>
-            <h1 class="fs-3">{{ productDetails.name }}</h1>
-            <span>{{ productDetails.bio }}</span>
-          </div>
-          <div class="border-top">
-            <div class="d-flex mt-3 ms-3">
-              <i class="fa-solid fa-dollar-sign me-3 text-danger fs-3"></i>
-              <div *ngIf="productDetails.price">
-                <h5>Price</h5>
-                <span> {{ productDetails.price | currency }} </span>
-              </div>
-            </div>
-          </div>
-          <div class="border-top" *ngIf="tourguide.areas?.length">
-            <div class="d-flex mt-3 ms-3">
-              <i class="fa-solid fa-location-dot me-3 text-danger fs-3"></i>
-              <div>
-                <h5>Available Areas</h5>
-                <span
-                  class="badge bg-light text-dark border shadow-light p-2 me-2 mb-2"
-                  *ngFor="let item of tourguide.areas"
-                >
-                  {{ item.area }}
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="border-top mt-2" *ngIf="tourguide.languages?.length">
-            <div class="d-flex mt-3 ms-3">
-              <i class="fa-regular fa-comments me-3 text-danger fs-3"></i>
-              <div>
-                <h5>Languages</h5>
-                <span
-                  class="badge bg-light text-dark border shadow-light p-2 me-2 mb-2"
-                  *ngFor="let item of tourguide.languages"
-                >
-                  {{ item.language }}
-                </span>
-              </div>
-            </div>
-          </div>
-          <a
-            class="btn primary-bg mt-4 w-100 bg-success fw-bold text-white"
-            (click)="addProdutToCart(productDetails)"
-            >add to cart</a
-          >
         </div>
       </div>
     </div>
