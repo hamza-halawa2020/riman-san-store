@@ -75,7 +75,7 @@
         </span>
         <span class="newspan">
           <i class="fas fa-money-check-alt 2xl me-3"></i
-          >{{ products.price | currency }}</span
+          >{{ products.price | price }}</span
         >
         <div class="product-action">
           <div class="product-action-style">
@@ -88,9 +88,14 @@
             <!-- <a href="3">
               <i class="fa fa-shopping-cart"></i>
             </a> -->
+
             <a class="btn" (click)="addProdutToCart(products)"
+            [class.disabled]="!products.stock"
               ><i class="fa-solid fa-cart-plus fa-lg"></i>
             </a>
+            <div class="list-group-item fw-bold" [ngClass]="{'text-success': products.stock,'text-danger':!products.stock}">
+              {{products.stock | stock}}
+            </div>
           </div>
         </div>
       </div>

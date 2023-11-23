@@ -34,6 +34,8 @@ import { TruncatePipe } from './pipes/truncate.pipe';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { ReviewComponent } from './review/review.component';
 import { Carusol2Component } from './shared/carusol2/carusol2.component';
+import { PricePipe } from './pipes/price.pipe';
+import { StockPipe } from './pipes/stock.pipe';
 
 @NgModule({
   declarations: [
@@ -64,6 +66,8 @@ import { Carusol2Component } from './shared/carusol2/carusol2.component';
     FeedbackComponent,
     ReviewComponent,
     Carusol2Component,
+    PricePipe,
+    StockPipe,
   ],
   imports: [
     BrowserModule,

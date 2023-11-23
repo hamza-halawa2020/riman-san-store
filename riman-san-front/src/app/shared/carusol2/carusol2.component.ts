@@ -76,7 +76,7 @@ export class Carusol2Component {
   startCarousel() {
     this.intervalId = setInterval(() => {
       this.moveNext();
-    }, 5000);
+    }, 3000);
   }
 
   stopCarousel() {

@@ -34,7 +34,7 @@
               {{ productDetails.description }}
             </p>
           </div>
-          <h3>{{ productDetails.price | currency }}</h3>
+          <h3>{{ productDetails.price | price }}</h3>
           <div class="ratings d-flex flex-row align-items-center">
             <div>
               <ngb-rating
@@ -44,9 +44,14 @@
               ></ngb-rating>
             </div>
           </div>
-          <div class="buttons d-flex flex-row mt-5 gap-3">
+          <div class="list-group-item fw-bold" [ngClass]="{'text-success': productDetails.stock,'text-danger':!productDetails.stock}">
+            {{productDetails.stock | stock}}
+          </div>
+          <div class="buttons d-flex flex-row mt-2 gap-3">
             <button
               class="btn btn-outline-dark"
+              [class.disabled]="!productDetails.stock"
+
               (click)="addProdutToCart(productDetails)"
             >
               Add to Cart

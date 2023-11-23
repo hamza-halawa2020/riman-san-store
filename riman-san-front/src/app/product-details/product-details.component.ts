@@ -13,12 +13,12 @@ export class ProductDetailsComponent {
   productDetails: any;
   loading: boolean = false;
   x: any = 'http://127.0.0.1:8000/img/';
-  rating: any = 0;
+  rating: any;
 
   constructor(
     private activateRoute: ActivatedRoute,
     private productService: ApiServiceService,
-    private cartApi: CartService // private titleService: Title,
+    private cartApi: CartService
   ) {}
   ngOnInit(): void {
     this.getProduct();
@@ -43,30 +43,8 @@ export class ProductDetailsComponent {
     this.cartApi.addProductToCart(item);
   }
 
-  tourguide: any = {};
-  p: number = 1;
-  itemsPerPage: number = 3;
 
-  // scrollToTop(pageNumber: number) {
-  //   this.p = pageNumber; // Update the current page number
-
-  //   // Scroll to the top of the content container by targeting the anchor element
-  //   const contentContainer = document.querySelector('.reviews');
-  //   const anchorElement = document.querySelector('[name="contentTop"]');
-  //   if (contentContainer && anchorElement) {
-  //     anchorElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  //   }
-  // }
-  // scrollToBookingForm() {
-  //       const headerHeight = 100;  // Adjust this value with your actual header height
-  //       const bookingFormElement = document.getElementById('bookingFormSection');
-  //       if (bookingFormElement) {
-  //         const offsetPosition = bookingFormElement.offsetTop - headerHeight;
-  //         window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-  //       }
-  //     }
-
-  mainProductImage: string = 'https://i.imgur.com/TAzli1U.jpg';
+  // mainProductImage: string = 'https://i.imgur.com/TAzli1U.jpg';
   thumbnailImages: string[] = [
     'https://i.imgur.com/TAzli1U.jpg',
     'https://i.imgur.com/w6kEctd.jpg',
@@ -75,23 +53,6 @@ export class ProductDetailsComponent {
   ];
 
   changeImage(image: string): void {
-    this.mainProductImage = image;
+    this.productDetails = image;
   }
 }
-
-// ngOnInit() {
-//   this.id = this.activateRoute.snapshot.params['id'];
-//   if (this.id) {
-//     this.tourguideApi.getTourGuideById(this.id).subscribe(( data) => {
-//       this.tourguide =  data
-//       this.titleService.setTitle('Tour guide: ' + this.tourguide.name);
-//     },(error)=>{
-//       this.router.navigate(['/404']);
-
-//     });
-//   }
-// this.tourguideApi.getTourGuideReviews().subscribe((data) => {
-//   this.reviews = data as Array<Ireview>;
-//   this.totaltourguide = this.reviews.length;
-// });
-// }
