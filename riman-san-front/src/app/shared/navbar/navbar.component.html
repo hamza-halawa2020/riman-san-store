@@ -72,11 +72,11 @@
             >Home</a
           >
         </li>
-        <li>
+        <!-- <li>
           <a class="nav-link" routerLink="users" routerLinkActive="active"
             >All Users</a
           >
-        </li>
+        </li> -->
         <li>
           <a class="nav-link" routerLink="products" routerLinkActive="active"
             >All Products</a
@@ -88,7 +88,7 @@
             >Contact Us</a
           >
         </li>
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
             role="button"
@@ -105,27 +105,41 @@
               <a class="dropdown-item" routerLink="#">Something else here</a>
             </li>
           </ul>
-        </li>
+        </li> -->
         <li class="nav-item">
-          <a class="nav-link" routerLink="login" routerLinkActive="active"
+          <a
+            class="nav-link"
+            routerLink="login"
+            routerLinkActive="active"
+            *ngIf="!isLoggedIn"
             >Log In</a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="register" routerLinkActive="active"
+          <a
+            class="nav-link"
+            routerLink="register"
+            routerLinkActive="active"
+            *ngIf="!isLoggedIn"
             >Register</a
           >
         </li>
         <li>
           <a class="nav-link" routerLink="cart" routerLinkActive="active"
             ><i class="fa-solid fa-cart-plus fa-lg"></i>
-            <span class="text-danger fw-bold h5" *ngIf="totalNumber > 0">{{
-              totalNumber
+            <span class="text-danger fw-bold h5" *ngIf="total > 0">{{
+              total
             }}</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="#">Log Out</a>
+          <a
+            class="nav-link"
+            *ngIf="isLoggedIn"
+            routerLink="#"
+            (click)="logout()"
+            >Log Out</a
+          >
         </li>
       </ul>
       <form class="d-flex" role="search">
