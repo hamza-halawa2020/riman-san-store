@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./review.component.css'],
 })
 export class ReviewComponent {
-  @Input() review!: any;
+  @Input() review: any;
 }

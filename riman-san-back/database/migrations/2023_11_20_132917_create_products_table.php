@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->string('name');
             $table->string('description');
             $table->string('img');
-            $table->string('cover');
             $table->boolean('stock')->default(true);
             $table->integer('rating');
             $table->integer('price');

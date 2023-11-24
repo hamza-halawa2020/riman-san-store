@@ -8,14 +8,14 @@
       <div class="col-md-6 border-end">
         <div class="d-flex flex-column justify-content-center">
           <div class="main_image">
-            <img [src]="x + productDetails.img" width="350" />
+            <img [src]="mainProductImage" width="350" />
           </div>
           <div class="thumbnail_images">
             <ul id="thumbnail">
               <li *ngFor="let image of thumbnailImages">
                 <img
                   (click)="changeImage(image)"
-                  [src]="x + productDetails.img"
+                  [src]="x + id + '/' + image"
                   width="70"
                 />
               </li>
@@ -44,14 +44,19 @@
               ></ngb-rating>
             </div>
           </div>
-          <div class="list-group-item fw-bold" [ngClass]="{'text-success': productDetails.stock,'text-danger':!productDetails.stock}">
-            {{productDetails.stock | stock}}
+          <div
+            class="list-group-item fw-bold"
+            [ngClass]="{
+              'text-success': productDetails.stock,
+              'text-danger': !productDetails.stock
+            }"
+          >
+            {{ productDetails.stock | stock }}
           </div>
           <div class="buttons d-flex flex-row mt-2 gap-3">
             <button
               class="btn btn-outline-dark"
               [class.disabled]="!productDetails.stock"
-
               (click)="addProdutToCart(productDetails)"
             >
               Add to Cart

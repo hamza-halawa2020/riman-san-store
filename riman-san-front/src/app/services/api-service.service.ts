@@ -36,6 +36,3 @@ export class ApiServiceService {
     return this.http.delete(url);
   }
 }
-// getAllTourguides(): Observable<any> {
-//   return this.http.get(`${this.url}`);
-// }

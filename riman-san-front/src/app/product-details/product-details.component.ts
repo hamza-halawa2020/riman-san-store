@@ -14,7 +14,8 @@ export class ProductDetailsComponent {
   loading: boolean = false;
   x: any = 'http://127.0.0.1:8000/img/';
   rating: any;
-
+  mainProductImage: string = '';
+  thumbnailImages: string[] = ['1.jpg', '2.jpg', '3.jpg', '4.jpg'];
   constructor(
     private activateRoute: ActivatedRoute,
     private productService: ApiServiceService,
@@ -32,8 +33,7 @@ export class ProductDetailsComponent {
       this.id = +params['id'];
       this.productService.getProductById(this.id).subscribe((data) => {
         this.productDetails = Object.values(data)[0];
-        console.log(this.productDetails);
-
+        this.mainProductImage = `${this.x}${this.id}/${this.productDetails.img}`;
         this.loading = false;
       });
     });
@@ -43,16 +43,7 @@ export class ProductDetailsComponent {
     this.cartApi.addProductToCart(item);
   }
 
-
-  // mainProductImage: string = 'https://i.imgur.com/TAzli1U.jpg';
-  thumbnailImages: string[] = [
-    'https://i.imgur.com/TAzli1U.jpg',
-    'https://i.imgur.com/w6kEctd.jpg',
-    'https://i.imgur.com/L7hFD8X.jpg',
-    'https://i.imgur.com/6ZufmNS.jpg',
-  ];
-
   changeImage(image: string): void {
-    this.productDetails = image;
+    this.mainProductImage = `${this.x}${this.id}/${image}`;
   }
 }
