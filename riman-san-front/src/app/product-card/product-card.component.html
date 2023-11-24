@@ -89,19 +89,27 @@
               <i class="fa fa-shopping-cart"></i>
             </a> -->
 
-            <a class="btn" (click)="addProdutToCart(products)"
-            [class.disabled]="!products.stock"
+            <a
+              class="btn"
+              (click)="addProdutToCart(products)"
+              [class.disabled]="!products.stock"
               ><i class="fa-solid fa-cart-plus fa-lg"></i>
             </a>
-            <div class="list-group-item fw-bold" [ngClass]="{'text-success': products.stock,'text-danger':!products.stock}">
-              {{products.stock | stock}}
+            <div
+              class="list-group-item fw-bold"
+              [ngClass]="{
+                'text-success': products.stock,
+                'text-danger': !products.stock
+              }"
+            >
+              {{ products.stock | stock }}
             </div>
           </div>
         </div>
       </div>
     </div>
-    <p class="card-text mt-3">
+    <!-- <p class="card-text mt-3">
       {{ products.description | truncate : 10 }}
-    </p>
+    </p> -->
   </div>
 </div>

@@ -11,8 +11,8 @@
   </div>
 </div>
 <form
-  [formGroup]="usersForm"
-  (ngSubmit)="getUserFormData(usersForm.value)"
+  [formGroup]="sendReview"
+  (ngSubmit)="onSubmit()"
   class="border p-3 rounded-3 shadow-lg my-5 bg-white"
   *ngIf="!reviewSubmitted"
 >
@@ -29,20 +29,20 @@
 
       <div
         *ngIf="
-          usersForm.get('stars')?.invalid &&
-          (usersForm.get('stars')?.touched || usersForm.get('title')?.touched)
+          sendReview.get('stars')?.invalid &&
+          (sendReview.get('stars')?.touched || sendReview.get('title')?.touched)
         "
         class="text-danger"
       >
-        <div *ngIf="usersForm.get('stars')?.errors?.['required']">
+        <div *ngIf="sendReview.get('stars')?.errors?.['required']">
           Rating is required.
         </div>
       </div>
       <div
         class="form-text text-success"
         *ngIf="
-          usersForm.get('stars')?.valid &&
-          (usersForm.get('stars')?.touched || usersForm.get('title')?.touched)
+          sendReview.get('stars')?.valid &&
+          (sendReview.get('stars')?.touched || sendReview.get('title')?.touched)
         "
       >
         <i class="fa-solid fa-check"></i> Looks good!
@@ -53,16 +53,18 @@
     <label for="title">Title:<span class="text-danger">*</span></label>
     <input type="text" formControlName="title" class="form-control" />
     <div
-      *ngIf="usersForm.get('title')?.invalid && usersForm.get('title')?.touched"
+      *ngIf="
+        sendReview.get('title')?.invalid && sendReview.get('title')?.touched
+      "
       class="text-danger"
     >
-      <div *ngIf="usersForm.get('title')?.errors?.['required']">
+      <div *ngIf="sendReview.get('title')?.errors?.['required']">
         Title is required.
       </div>
     </div>
     <div
       class="form-text text-success"
-      *ngIf="usersForm.get('title')?.valid && usersForm.get('title')?.touched"
+      *ngIf="sendReview.get('title')?.valid && sendReview.get('title')?.touched"
     >
       <i class="fa-solid fa-check"></i> Looks good!
     </div>
@@ -77,18 +79,18 @@
     ></textarea>
     <div
       *ngIf="
-        usersForm.get('comment')?.invalid && usersForm.get('comment')?.touched
+        sendReview.get('comment')?.invalid && sendReview.get('comment')?.touched
       "
       class="text-danger"
     >
-      <div *ngIf="usersForm.get('comment')?.errors?.['required']">
+      <div *ngIf="sendReview.get('comment')?.errors?.['required']">
         Comment is required.
       </div>
     </div>
     <div
       class="form-text text-success"
       *ngIf="
-        usersForm.get('comment')?.valid && usersForm.get('comment')?.touched
+        sendReview.get('comment')?.valid && sendReview.get('comment')?.touched
       "
     >
       <i class="fa-solid fa-check"></i> Looks good!
@@ -96,10 +98,12 @@
   </div>
   <div class="row">
     <div class="col">
-      <ngb-alert [dismissible]="false" *ngFor="let error of errors">
+      <!-- <ngb-alert [dismissible]="false" *ngFor="let error of errors">
         <strong>Warning!</strong> {{ error }}
-      </ngb-alert>
+      </ngb-alert> -->
     </div>
   </div>
-  <button class="btn btn-primary" [disabled]="usersForm.invalid">Submit</button>
+  <button class="btn btn-primary" [disabled]="sendReview.invalid">
+    Submit
+  </button>
 </form>
