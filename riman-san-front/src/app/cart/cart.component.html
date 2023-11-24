@@ -8,7 +8,10 @@
       clear your cart
     </div>
   </div>
-  <table class="table table-bordered mt-5 text-center">
+  <div class="h3 mt-5 mb-3 text-danger text-center">
+    From your class, put the appropriate amount for you
+  </div>
+  <table class="table table-bordered text-center">
     <thead>
       <tr>
         <th>N</th>
@@ -42,6 +45,7 @@
             class="rounded"
             [(ngModel)]="item.quantity"
             (input)="updateTotal(item.price, item.quantity)"
+            min="1"
           />
         </td>
         <td>{{ calculateTotal(item) }}</td>
@@ -55,9 +59,29 @@
   </table>
 
   <div class="row mt-5 text-center">
-    <div class="col">Total: {{ calculateTotalAllProduct() }}</div>
+    <table class="table table-bordered text-center">
+      <thead>
+        <tr>
+          <th>Total</th>
+          <th></th>
+          <th>Shipping Expenses</th>
+          <th></th>
+          <th>Total after Shipping Expenses</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ calculateTotalAllProduct() | price }}</td>
+          <td>+</td>
+          <td>{{ Shipping_expenses | price }}</td>
+          <td>=</td>
+          <td>{{ calculateTotalAllProduct() + Shipping_expenses | price }}</td>
+        </tr>
+      </tbody>
+    </table>
+
     <div class="col">
-      <a routerLink="/order" class="btn btn-success">Order Now</a>
+      <a routerLink="/order" class="btn btn-success w-100">Make Order Now</a>
     </div>
   </div>
 </div>

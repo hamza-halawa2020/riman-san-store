@@ -8,10 +8,12 @@ import { CartService } from '../services/cart.service';
   styleUrls: ['./cart.component.css'],
 })
 export class CartComponent {
-  allProduct: any = 0;
+  allProduct: any;
   card: any = [];
-  totalPaice: any = 0;
-  x: any = 'http://127.0.0.1:8000/img/';
+  totalPaice: any;
+  x = 'http://127.0.0.1:8000/img/';
+
+  Shipping_expenses = 50;
 
   constructor(private cartApi: CartService) {}
 
@@ -23,21 +25,20 @@ export class CartComponent {
     this.cartApi.getCart().subscribe((data) => {
       this.card = data;
       this.allProduct = this.cartApi.getcounterCart();
-      // console.log(this.card);
     });
   }
 
   calculateTotal(item: any) {
     if (item && item.quantity !== undefined && item.quantity >= 0) {
-      if (item.quantity > item.stock) {
-        alert('there is no stock with this quantity');
-      }
+      // if (item.quantity > item.stock) {
+      //   alert('there is no stock with this quantity');
+      // }
       return item.price * item.quantity;
     }
-    return 0;
+    return null;
   }
 
-  updateTotal(price: number, quantity: number | undefined) {
+  updateTotal(price: number, quantity: number) {
     if (quantity !== undefined && quantity >= 0) {
       const total = price * quantity;
       // console.log('Total:', total);
