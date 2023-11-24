@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ApiServiceService } from '../services/api-service.service';
 import { CartService } from '../services/cart.service';
+import { OrderService } from '../services/order.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -15,7 +17,11 @@ export class CartComponent {
 
   Shipping_expenses = 50;
 
-  constructor(private cartApi: CartService) {}
+  constructor(
+    private cartApi: CartService,
+    private sharedService: OrderService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getCartProducts();
@@ -63,5 +69,24 @@ export class CartComponent {
 
   removeAllProduct() {
     this.cartApi.removeAllDate();
+  }
+
+  //   makeOrder() {
+  //     const orderData = {
+  //       products: this.card,
+  //       total: this.calculateTotalAllProduct() + this.Shipping_expenses,
+  //       shippingExpenses: this.Shipping_expenses,
+  //     };
+  //     console.log('Order Data:', orderData);
+  //   }
+  // }
+
+  makeOrder() {
+    const orderData = {
+      products: this.card,
+      total: this.calculateTotalAllProduct() + this.Shipping_expenses,
+      shippingExpenses: this.Shipping_expenses,
+    };
+    this.sharedService.setProductData(orderData);
   }
 }

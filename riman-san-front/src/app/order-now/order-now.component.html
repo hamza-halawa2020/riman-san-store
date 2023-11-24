@@ -2,6 +2,17 @@
   <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="mt-4">
     <div class="mb-3">
       <label for="name" class="form-label">Name:</label>
+      <div
+        class="text-danger"
+        *ngIf="
+          orderForm.controls['name'].touched &&
+          orderForm.controls['name'].invalid
+        "
+      >
+        <div *ngIf="orderForm.controls['name'].hasError('required')">
+          Name is required
+        </div>
+      </div>
       <input
         type="text"
         id="name"
@@ -13,6 +24,17 @@
 
     <div class="mb-3">
       <label for="address" class="form-label">Address:</label>
+      <div
+        class="text-danger"
+        *ngIf="
+          orderForm.controls['address'].touched &&
+          orderForm.controls['address'].invalid
+        "
+      >
+        <div *ngIf="orderForm.controls['address'].hasError('required')">
+          address is required
+        </div>
+      </div>
       <input
         type="text"
         id="address"
@@ -24,6 +46,17 @@
 
     <div class="mb-3">
       <label for="phone" class="form-label">Phone:</label>
+      <div
+        class="text-danger"
+        *ngIf="
+          orderForm.controls['phone'].touched &&
+          orderForm.controls['phone'].invalid
+        "
+      >
+        <div *ngIf="orderForm.controls['phone'].hasError('required')">
+          phone is required
+        </div>
+      </div>
       <input
         type="text"
         id="phone"
@@ -35,6 +68,17 @@
 
     <div class="mb-3">
       <label for="city" class="form-label">City:</label>
+      <div
+        class="text-danger"
+        *ngIf="
+          orderForm.controls['city'].touched &&
+          orderForm.controls['city'].invalid
+        "
+      >
+        <div *ngIf="orderForm.controls['city'].hasError('required')">
+          city is required
+        </div>
+      </div>
       <input
         type="text"
         id="city"
@@ -52,7 +96,11 @@
         formControlName="notes"
       ></textarea>
     </div>
-
-    <button type="submit" class="btn btn-primary">Submit Order</button>
+    <input
+      [disabled]="orderForm.invalid"
+      type="submit"
+      value="Submit Order"
+      class="btn btn-light"
+    />
   </form>
 </div>

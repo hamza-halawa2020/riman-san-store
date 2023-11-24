@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { OrderService } from '../services/order.service';
 
 @Component({
   selector: 'app-order-now',
@@ -7,34 +8,45 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./order-now.component.css'],
 })
 export class OrderNowComponent {
-  orderForm!: FormGroup;
+  orderForm: FormGroup;
+  formSubmitted: boolean = false;
+  productData: any;
 
-  constructor(private fb: FormBuilder) {}
-
-  ngOnInit(): void {
-    this.orderForm = this.fb.group({
-      name: ['', [Validators.required]],
-      address: ['', [Validators.required]],
-      phone: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(
-            /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/
-          ),
-        ],
-      ],
-      city: ['', [Validators.required]],
-      notes: [''],
+  constructor(private sharedService: OrderService) {
+    this.orderForm = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      address: new FormControl('', [Validators.required]),
+      phone: new FormControl('', [
+        Validators.required,
+        // Validators.pattern(
+        //   /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/
+        // ),
+        Validators.pattern(/^\d+$/), // Allow only digits
+        Validators.min(11),
+      ]),
+      city: new FormControl('', [Validators.required]),
+      notes: new FormControl(''),
     });
   }
-
-  onSubmit(): void {
-    // Handle form submission
+  ngOnInit() {
+    // Subscribe to productData$ to get the product data
+    this.sharedService.productData$.subscribe((data) => {
+      this.productData = data;
+      // console.log('Product Data in Order Component:', this.productData);
+    });
+  }
+  onSubmit() {
     if (this.orderForm.valid) {
-      const formData = this.orderForm.value;
-      console.log('Form data submitted:', formData);
-      // You can send the form data to your server or perform other actions here
+      this.formSubmitted = true;
+      console.log(
+        'user data',
+        this.orderForm.value,
+        'Product Data in Order Component:',
+        this.productData
+      );
+      this.orderForm.reset();
+    } else {
+      console.log('Form is invalid. Please fill all the required fields.');
     }
   }
 }
