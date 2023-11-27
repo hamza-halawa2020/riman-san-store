@@ -14,22 +14,22 @@
     <div
       class="text-danger"
       *ngIf="
-        register.controls['username'].touched &&
-        register.controls['username'].invalid
+        register.controls['name'].touched &&
+        register.controls['name'].invalid
       "
     >
-      <div *ngIf="register.controls['username'].hasError('required')">
-        Email is required
+      <div *ngIf="register.controls['name'].hasError('required')">
+        Name is required
       </div>
     </div>
     <div class="form-field d-flex align-items-center">
       <span class="far fa-user"></span>
       <input
-        formControlName="username"
+        formControlName="name"
         type="text"
-        name="username"
-        id="username"
-        placeholder="Choose a Username"
+        name="name"
+        id="name"
+        placeholder="Choose a name"
         required
       />
     </div>
@@ -62,7 +62,7 @@
       "
     >
       <div *ngIf="register.controls['password'].hasError('required')">
-        Email is required
+        password is required
       </div>
     </div>
     <div class="form-field d-flex align-items-center">

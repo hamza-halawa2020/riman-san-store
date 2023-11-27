@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { OrderService } from '../services/order.service';
+import { ApiServiceService } from '../services/api-service.service';
 
 @Component({
   selector: 'app-order-now',
@@ -12,7 +13,8 @@ export class OrderNowComponent {
   formSubmitted: boolean = false;
   productData: any;
 
-  constructor(private sharedService: OrderService) {
+  constructor(private sharedService: OrderService,
+    private userService: ApiServiceService) {
     this.orderForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       address: new FormControl('', [Validators.required]),
@@ -37,6 +39,9 @@ export class OrderNowComponent {
   }
   onSubmit() {
     if (this.orderForm.valid) {
+      const orderData = this.orderForm.value;
+      this.userService.order(orderData).subscribe(
+        (response) => {
       this.formSubmitted = true;
       console.log(
         'user data',
@@ -45,8 +50,13 @@ export class OrderNowComponent {
         this.productData
       );
       this.orderForm.reset();
-    } else {
-      console.log('Form is invalid. Please fill all the required fields.');
+    },
+    (error) => {
+      console.error('Registration failed:', error);
     }
+  );
+} else {
+    console.log('Form is invalid. Please fill all the required fields.');
   }
+}
 }
