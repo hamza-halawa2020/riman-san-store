@@ -36,6 +36,10 @@ import { ReviewComponent } from './review/review.component';
 import { Carusol2Component } from './shared/carusol2/carusol2.component';
 import { PricePipe } from './pipes/price.pipe';
 import { StockPipe } from './pipes/stock.pipe';
+import { AdminNavbarComponent } from './shared/admin-navbar/admin-navbar.component';
+import { AdminContactComponent } from './shared/admin-contact/admin-contact.component';
+import { AdminOrderComponent } from './shared/admin-order/admin-order.component';
+import { AdminReviewComponent } from './shared/admin-review/admin-review.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +72,10 @@ import { StockPipe } from './pipes/stock.pipe';
     Carusol2Component,
     PricePipe,
     StockPipe,
+    AdminNavbarComponent,
+    AdminContactComponent,
+    AdminOrderComponent,
+    AdminReviewComponent,
   ],
   imports: [
     BrowserModule,

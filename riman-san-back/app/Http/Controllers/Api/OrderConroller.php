@@ -25,17 +25,12 @@ class OrderConroller extends Controller
             return response()->json(['message' => 'An error occurred while creating the order'], 500);
         }
     }
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //

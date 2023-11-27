@@ -14,5 +14,7 @@ class Order extends Model
         'phone',
         'city',
         'notes',
+        'product_id',
+
     ];
 }

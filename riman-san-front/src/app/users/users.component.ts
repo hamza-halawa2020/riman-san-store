@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ApiServiceService } from '../services/api-service.service';
+import { UserService } from '../services/user/user.service';
 
 @Component({
   selector: 'app-users',
@@ -11,16 +11,16 @@ export class UsersComponent {
   selectedUser: any; // Track the user being edited
   selectedUserIndex: number | null = null; // Add this line
   loading: boolean = false;
-  constructor(private userService: ApiServiceService) {}
+  constructor(private userService: UserService) {}
   ngOnInit(): void {
     this.getUser();
   }
 
-  getUser(){
+  getUser() {
     this.loading = true;
     this.userService.getUsers().subscribe((data) => {
       this.users = data;
-      this.loading = false;  
+      this.loading = false;
     });
   }
   deleteUser(userId: number): void {

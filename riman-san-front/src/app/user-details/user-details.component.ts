@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ApiServiceService } from '../services/api-service.service';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../services/user/user.service';
 
 @Component({
   selector: 'app-user-details',
@@ -14,20 +14,19 @@ export class UserDetailsComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private userService: ApiServiceService
+    private userService: UserService
   ) {}
   ngOnInit(): void {
-this.getUser();
+    this.getUser();
   }
 
-  getUser(){
+  getUser() {
     this.loading = true;
     this.route.params.subscribe((params) => {
       this.id = +params['id'];
       this.userService.getUserById(this.id).subscribe((data) => {
         this.userDetails = data;
         this.loading = false;
-
       });
     });
   }

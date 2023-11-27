@@ -11,28 +11,18 @@ export class ApiServiceService {
   // private productsUrl = '  https://dummyjson.com/products/';
 
   constructor(private http: HttpClient) {}
-  registerUser(userData: any) {
-    return this.http.post(`${this.apiUrl}/users`, userData);
-  }
+
   contact(contact: any) {
     return this.http.post(`${this.apiUrl}/contacts`, contact);
+  }
+  getContacts() {
+    return this.http.get(`${this.apiUrl}/contacts`);
   }
   order(order: any) {
     return this.http.post(`${this.apiUrl}/orders`, order);
   }
   review(review: any) {
     return this.http.post(`${this.apiUrl}/reviews`, review);
-  }
-  getUsers() {
-    return this.http.get(this.apiUrl);
-  }
-  getUserById(userId: number) {
-    const url = `${this.apiUrl}/${userId}`;
-    return this.http.get(url);
-  }
-  deleteUser(userId: number) {
-    const url = `${this.apiUrl}/${userId}`;
-    return this.http.delete(url);
   }
 
   getProducts(): Observable<any> {

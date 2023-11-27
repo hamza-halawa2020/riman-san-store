@@ -12,6 +12,9 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { CartComponent } from './cart/cart.component';
 import { OrderNowComponent } from './order-now/order-now.component';
+import { AdminContactComponent } from './shared/admin-contact/admin-contact.component';
+import { AdminOrderComponent } from './shared/admin-order/admin-order.component';
+import { AdminReviewComponent } from './shared/admin-review/admin-review.component';
 
 const routes: Routes = [
   {
@@ -33,6 +36,18 @@ const routes: Routes = [
   {
     path: 'contact',
     component: ContactUsComponent,
+  },
+  {
+    path: 'admincontact',
+    component: AdminContactComponent,
+  },
+  {
+    path: 'adminorders',
+    component: AdminOrderComponent,
+  },
+  {
+    path: 'adminreviews',
+    component: AdminReviewComponent,
   },
   {
     path: 'recovery',
