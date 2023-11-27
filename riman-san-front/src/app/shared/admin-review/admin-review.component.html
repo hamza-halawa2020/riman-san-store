@@ -1,1 +1,86 @@
-<p>admin-review works!</p>
+<div class="container" *ngIf="loading">
+  <app-loading></app-loading>
+</div>
+<div *ngIf="!loading" class="container mb-5">
+  <table class="table table-striped text-center">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">stars</th>
+        <th scope="col">title</th>
+        <th scope="col">comment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let review of reviews; let i = index">
+        <tr class="align-middle">
+          <th scope="row">{{ review?.id }}</th>
+          <td>{{ review?.stars }}</td>
+          <td>{{ review?.title }}</td>
+          <td>{{ review?.comment }}</td>
+          <td class="align-middle">
+            <a [routerLink]="['/review', review.id]" class="btn btn-primary m-1"
+              >Show</a
+            >
+            <button class="btn btn-warning m-1" (click)="editReview(review)">
+              {{ selectedReviewIndex === i ? "Cancel" : "Update" }}
+            </button>
+            <button
+              (click)="deleteReview(review.id)"
+              class="btn btn-danger m-1"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="selectedReviewIndex === i">
+          <td colspan="5">
+            <h2>Edit review</h2>
+            <table class="table table-striped text-center">
+              <tr>
+                <th>Name</th>
+                <td>
+                  <input class="form-control w-50" [(ngModel)]="review.name" />
+                </td>
+              </tr>
+              <tr>
+                <th>stars</th>
+                <td>
+                  <input class="form-control w-50" [(ngModel)]="review.stars" />
+                </td>
+              </tr>
+              <tr>
+                <th>title</th>
+                <td>
+                  <input class="form-control w-50" [(ngModel)]="review.title" />
+                </td>
+              </tr>
+              <tr>
+                <th>comment</th>
+                <td>
+                  <input
+                    class="form-control w-50"
+                    [(ngModel)]="review.comment"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <button
+                    class="btn btn-success m-1"
+                    (click)="updateReview(review)"
+                  >
+                    Save
+                  </button>
+                  <button class="btn btn-danger" (click)="cancelEdit()">
+                    Cancel
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
