@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { HttpResponse } from '@angular/common/http';
+import { ApiServiceService } from '../services/api-service.service';
 
 @Component({
   selector: 'app-feedback',
@@ -17,7 +18,7 @@ export class FeedbackComponent {
   reviewSubmitted: boolean = false;
   sendReview: FormGroup;
 
-  constructor() {
+  constructor(private userService: ApiServiceService) {
     this.sendReview = new FormGroup({
       stars: new FormControl('', [Validators.required]),
       title: new FormControl('', [Validators.required]),
@@ -31,9 +32,18 @@ export class FeedbackComponent {
 
   onSubmit() {
     if (this.sendReview.valid) {
-      this.reviewSubmitted = true;
-      console.log(this.sendReview.value);
-      this.sendReview.reset();
+      const reviewData = this.sendReview.value;
+
+      this.userService.review(reviewData).subscribe(
+        (response) => {
+          this.reviewSubmitted = true;
+          console.log(this.sendReview.value);
+          this.sendReview.reset();
+        },
+        (error) => {
+          console.error('Registration failed:', error);
+        }
+      );
     } else {
       console.log('Form is invalid. Please fill all the required fields.');
     }

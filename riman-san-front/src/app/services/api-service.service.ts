@@ -11,14 +11,17 @@ export class ApiServiceService {
   // private productsUrl = '  https://dummyjson.com/products/';
 
   constructor(private http: HttpClient) {}
-  registerUser(userData: any){
+  registerUser(userData: any) {
     return this.http.post(`${this.apiUrl}/users`, userData);
   }
-  contact(contact: any){
+  contact(contact: any) {
     return this.http.post(`${this.apiUrl}/contacts`, contact);
   }
-  order(order: any){
+  order(order: any) {
     return this.http.post(`${this.apiUrl}/orders`, order);
+  }
+  review(review: any) {
+    return this.http.post(`${this.apiUrl}/reviews`, review);
   }
   getUsers() {
     return this.http.get(this.apiUrl);
