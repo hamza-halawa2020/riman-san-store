@@ -14,24 +14,6 @@ export class CartService {
     return this.productList.asObservable();
   }
 
-  // setCart(myProduct: any) {
-  //   this.cartDataList.push(...myProduct);
-  //   this.productList.next(myProduct)
-  // }
-
-  // addProductToCart(myProduct: any) {
-  //   const productAlreadyInCart = this.cartDataList.some((product:any) => product.id === myProduct.id);
-
-  //   if (productAlreadyInCart) {
-  //     alert('Product is already in the cart.');
-  //   } else {
-  //     this.cartDataList.push(myProduct);
-  //     this.productList.next(this.cartDataList);
-  //     // this.getAll();
-  //     console.log('hamza', this.cartDataList);
-  //   }
-
-  // }
   addProductToCart(myProduct: any): void {
     const productAlreadyInCart = this.cartDataList.some(
       (product: any) => product.id === myProduct.id
@@ -42,16 +24,8 @@ export class CartService {
     } else {
       this.cartDataList.push(myProduct);
       this.productList.next([...this.cartDataList]);
-      // console.log('Cart Data:', this.cartDataList);
     }
   }
-
-  // getAll() {
-  //   let Gtotal = 0;
-  //   this.cartDataList.map((a: any) => {
-  //     Gtotal += a.total;
-  //   })
-  // }
 
   removeDate(myProduct: any) {
     this.cartDataList.map((a: any, index: any) => {

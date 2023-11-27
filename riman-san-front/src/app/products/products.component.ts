@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ApiServiceService } from '../services/api-service.service';
+import { ProductService } from '../services/product/product.service';
 
 @Component({
   selector: 'app-products',
@@ -12,7 +12,7 @@ export class ProductsComponent {
   selectedProductsIndex: number | null = null;
   loading: boolean = false;
 
-  constructor(private productsService: ApiServiceService) {}
+  constructor(private productsService: ProductService) {}
   ngOnInit(): void {
     this.getProducts();
   }

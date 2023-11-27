@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { ApiServiceService } from '../services/api-service.service';
 import { CartService } from '../services/cart.service';
-import { OrderService } from '../services/order.service';
 import { Router } from '@angular/router';
+import { OrderService } from '../services/order/order.service';
 
 @Component({
   selector: 'app-cart',
@@ -19,8 +18,7 @@ export class CartComponent {
 
   constructor(
     private cartApi: CartService,
-    private sharedService: OrderService,
-    private router: Router
+    private sharedService: OrderService
   ) {}
 
   ngOnInit(): void {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ApiServiceService } from '../services/api-service.service';
+import { ProductService } from '../services/product/product.service';
 
 @Component({
   selector: 'app-homepage',
@@ -9,7 +9,7 @@ import { ApiServiceService } from '../services/api-service.service';
 export class HomepageComponent {
   products: any = [];
 
-  constructor(private productsService: ApiServiceService) {}
+  constructor(private productsService: ProductService) {}
   ngOnInit(): void {
     this.getProducts();
   }
@@ -17,7 +17,6 @@ export class HomepageComponent {
     this.productsService.getProducts().subscribe((data) => {
       // this.products = data;
       this.products = Object.values(data)[0];
-
     });
   }
 }

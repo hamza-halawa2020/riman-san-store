@@ -1,12 +1,6 @@
 import { Component, Input } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { HttpResponse } from '@angular/common/http';
-import { ApiServiceService } from '../services/api-service.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ReviewService } from '../services/review/review.service';
 
 @Component({
   selector: 'app-feedback',
@@ -18,7 +12,7 @@ export class FeedbackComponent {
   reviewSubmitted: boolean = false;
   sendReview: FormGroup;
 
-  constructor(private userService: ApiServiceService) {
+  constructor(private userService: ReviewService) {
     this.sendReview = new FormGroup({
       stars: new FormControl('', [Validators.required]),
       title: new FormControl('', [Validators.required]),

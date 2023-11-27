@@ -10,7 +10,6 @@ import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { UsersComponent } from './users/users.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ApiServiceService } from './services/api-service.service';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
@@ -86,7 +85,7 @@ import { AdminReviewComponent } from './shared/admin-review/admin-review.compone
     CommonModule,
     NgbModule,
   ],
-  providers: [ApiServiceService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

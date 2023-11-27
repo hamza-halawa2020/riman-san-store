@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import { ApiServiceService } from '../services/api-service.service';
+import { ContactService } from '../services/contact/contact.service';
 
 @Component({
   selector: 'app-contact-us',
@@ -14,7 +19,7 @@ export class ContactUsComponent {
   sendMessage: FormGroup;
   formSubmitted: boolean = false;
 
-  constructor(private userService: ApiServiceService) {    
+  constructor(private userService: ContactService) {
     this.sendMessage = new FormGroup({
       fullName: new FormControl('', [
         Validators.required,
@@ -40,16 +45,16 @@ export class ContactUsComponent {
 
       this.userService.contact(contatcData).subscribe(
         (response) => {
-      this.formSubmitted = true;
-      console.log(this.sendMessage.value);
-      this.sendMessage.reset();
-    },
-    (error) => {
-      console.error('Registration failed:', error);
+          this.formSubmitted = true;
+          console.log(this.sendMessage.value);
+          this.sendMessage.reset();
+        },
+        (error) => {
+          console.error('Registration failed:', error);
+        }
+      );
+    } else {
+      console.log('Form is invalid. Please fill all the required fields.');
     }
-  );
-} else {
-    console.log('Form is invalid. Please fill all the required fields.');
   }
-}
 }

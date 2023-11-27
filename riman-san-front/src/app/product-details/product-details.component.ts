@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ApiServiceService } from '../services/api-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '../services/cart.service';
+import { ProductService } from '../services/product/product.service';
 
 @Component({
   selector: 'app-product-details',
@@ -18,7 +18,7 @@ export class ProductDetailsComponent {
   thumbnailImages: string[] = ['1.jpg', '2.jpg', '3.jpg', '4.jpg'];
   constructor(
     private activateRoute: ActivatedRoute,
-    private productService: ApiServiceService,
+    private productService: ProductService,
     private cartApi: CartService
   ) {}
   ngOnInit(): void {
