@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CartService } from '../services/cart.service';
+import { CartService } from '../services/cart/cart.service';
 import { Router } from '@angular/router';
 import { OrderService } from '../services/order/order.service';
 

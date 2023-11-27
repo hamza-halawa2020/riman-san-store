@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
-import { CartService } from '../services/cart.service';
+import { CartService } from '../services/cart/cart.service';
 
 @Component({
   selector: 'app-product-card',
