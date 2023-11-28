@@ -15,4 +15,13 @@ export class ContactService {
   getContacts() {
     return this.http.get(`${this.apiUrl}/contacts`);
   }
+
+getContactById(contactId: number) {
+  const url = `${this.apiUrl}/${contactId}`;
+  return this.http.get(url);
+}
+deleteContacts(contactId: number) {
+  const url = `${this.apiUrl}/${contactId}`;
+  return this.http.delete(url);
+}
 }

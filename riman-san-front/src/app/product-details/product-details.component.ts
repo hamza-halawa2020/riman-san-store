@@ -9,6 +9,7 @@ import { ProductService } from '../services/product/product.service';
   styleUrls: ['./product-details.component.css'],
 })
 export class ProductDetailsComponent {
+  product:any;
   id: any;
   productDetails: any;
   loading: boolean = false;

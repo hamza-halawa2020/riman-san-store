@@ -12,5 +12,11 @@ class Review extends Model
         'stars',
         'title',
         'comment',
+        'status',
+        'product_id'
     ];
+
+    function product(){
+        return $this->belongsTo(Product::class);
+    }
 }

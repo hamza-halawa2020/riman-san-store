@@ -6,58 +6,69 @@
     <thead>
       <tr>
         <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Mobile</th>
-        <th scope="col">Role</th>
-        <th scope="col">Action</th>
+        <th scope="col">fullName</th>
+        <th scope="col">email</th>
+        <th scope="col">subject</th>
+        <th scope="col">message</th>
+        <th scope="col">action</th>
+
       </tr>
-    </thead>
+    </thead> 
     <tbody>
-      <ng-container *ngFor="let user of users; let i = index">
+      <ng-container *ngFor="let user of Contacts; let i = index">
         <tr class="align-middle">
           <th scope="row">{{ user.id }}</th>
-          <td>{{ user.name }}</td>
-          <td>{{ user.mobile }}</td>
-          <td>{{ user.role }}</td>
+          <td>{{ user.fullName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.subject }}</td>
+          <td>{{ user.message }}</td>
+
           <td class="align-middle">
             <a [routerLink]="['/user', user.id]" class="btn btn-primary m-1"
               >Show</a
             >
-            <button class="btn btn-warning m-1" (click)="editUser(user)">
-              {{ selectedUserIndex === i ? "Cancel" : "Update" }}
+            <button class="btn btn-warning m-1" (click)="editContact(user)">
+              {{ selectedContactIndex === i ? "Cancel" : "Update" }}
             </button>
-            <button (click)="deleteUser(user.id)" class="btn btn-danger m-1">
+            <button (click)="deleteContact(user.id)" class="btn btn-danger m-1">
               Delete
             </button>
           </td>
         </tr>
-        <tr *ngIf="selectedUserIndex === i">
+        <tr *ngIf="selectedContactIndex === i">
           <td colspan="5">
-            <h2>Edit User</h2>
+            <h2>Edit Contact</h2>
             <table class="table table-striped text-center">
               <tr>
-                <th>Name</th>
+                <th>fullName</th>
                 <td>
-                  <input class="form-control w-50" [(ngModel)]="user.name" />
+                  <input class="form-control w-50" [(ngModel)]="user.fullName" />
                 </td>
               </tr>
               <tr>
-                <th>Mobile</th>
+                <th>email</th>
                 <td>
-                  <input class="form-control w-50" [(ngModel)]="user.mobile" />
+                  <input class="form-control w-50" [(ngModel)]="user.email" />
                 </td>
               </tr>
               <tr>
-                <th>Role</th>
+                <th>subject</th>
                 <td>
-                  <input class="form-control w-50" [(ngModel)]="user.role" />
+                  <input class="form-control w-50" [(ngModel)]="user.subject" />
                 </td>
               </tr>
               <tr>
+                <tr>
+                  <th>message</th>
+                  <td>
+                    <input class="form-control w-50" [(ngModel)]="user.message" />
+                  </td>
+                </tr>
+                <tr>
                 <td colspan="2">
                   <button
                     class="btn btn-success m-1"
-                    (click)="updateUser(user)"
+                    (click)="updateContact(user)"
                   >
                     Save
                   </button>

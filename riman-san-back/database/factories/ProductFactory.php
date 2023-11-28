@@ -18,11 +18,14 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'img' => $this->faker->image(), // Assuming you have the image method
+            'img' => $this->faker->image(),
             'description' => $this->faker->text(),
             'rating' => $this->faker->randomFloat(2, 1, 5), // Assuming you want a floating-point number between 1 and 5
             'price' => $this->faker->randomNumber(2),
+            'stock' => $this->faker->boolean(),
 
         ];
     }
 }
+
+

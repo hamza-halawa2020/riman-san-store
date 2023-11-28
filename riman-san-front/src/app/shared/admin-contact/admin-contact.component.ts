@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserService } from 'src/app/services/user/user.service';
+import { ContactService } from 'src/app/services/contact/contact.service';
 
 @Component({
   selector: 'app-admin-contact',
@@ -7,50 +7,50 @@ import { UserService } from 'src/app/services/user/user.service';
   styleUrls: ['./admin-contact.component.css'],
 })
 export class AdminContactComponent {
-  users: any = [];
-  selectedUser: any;
-  selectedUserIndex: number | null = null;
+  Contacts: any;
+  selectedContact: any;
+  selectedContactIndex: number | null = null;
   loading: boolean = false;
-  constructor(private userService: UserService) {}
+  constructor(private ContactService: ContactService) {}
   ngOnInit(): void {
-    this.getUser();
+    this.getContact();
   }
 
-  getUser() {
+  getContact() {
     this.loading = true;
-    this.userService.getUsers().subscribe((data) => {
-      this.users = data;
+    this.ContactService.getContacts().subscribe((data) => {
+      this.Contacts =Object.values(data)[0];
       this.loading = false;
     });
   }
-  deleteUser(userId: number): void {
-    this.userService.deleteUser(userId).subscribe(
+  deleteContact(ContactId: number): void {
+    this.ContactService.deleteContacts(ContactId).subscribe(
       () => {
-        this.userService.getUsers().subscribe((data) => {
-          this.users = data;
+        this.ContactService.getContacts().subscribe((data) => {
+          this.Contacts = data;
         });
       },
       (error) => {
-        console.error('Error deleting user:', error);
+        console.error('Error deleting Contact:', error);
       }
     );
   }
-  updateUser(user: any): void {
-    console.log('Updating user:', user);
+  updateContact(Contact: any): void {
+    console.log('Updating Contact:', Contact);
   }
 
-  editUser(user: any): void {
-    const index = this.users.indexOf(user);
-    if (this.selectedUserIndex === index) {
-      this.selectedUserIndex = null;
-      this.selectedUser = null;
+  editContact(Contact: any): void {
+    const index = this.Contacts.indexOf(Contact);
+    if (this.selectedContactIndex === index) {
+      this.selectedContactIndex = null;
+      this.selectedContact = null;
     } else {
-      this.selectedUserIndex = index;
-      this.selectedUser = { ...user };
+      this.selectedContactIndex = index;
+      this.selectedContact = { ...Contact };
     }
   }
 
   cancelEdit(): void {
-    this.selectedUserIndex = null;
+    this.selectedContactIndex = null;
   }
 }

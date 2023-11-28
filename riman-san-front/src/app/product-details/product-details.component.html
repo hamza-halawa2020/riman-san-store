@@ -75,14 +75,11 @@
         <div class="mt-5 reviews">
           <h2 class="mb-3">Reviews</h2>
           <app-feedback [id]="id"></app-feedback>
-          <div
-            class="text-center text-black-50 my-5"
-            *ngIf="!productDetails.reviews?.length"
-          >
-            <h3>{{ productDetails.name }} has no any reviews yet</h3>
-          </div>
+          <app-review></app-review>        
         </div>
-      </div>
     </div>
   </div>
 </div>
+
+
+

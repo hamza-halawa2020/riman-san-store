@@ -19,7 +19,7 @@ export class UsersComponent {
   getUser() {
     this.loading = true;
     this.userService.getUsers().subscribe((data) => {
-      this.users = data;
+      this.users = Object.values(data)[0];
       this.loading = false;
     });
   }
