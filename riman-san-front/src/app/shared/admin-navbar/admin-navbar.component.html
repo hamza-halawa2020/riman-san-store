@@ -3,47 +3,32 @@
     <button
       class="navbar-toggler"
       type="button"
-      data-bs-toggle="collapse"
+      data-bs-toggle="offcanvas"
       data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li>
-          <a class="nav-link" routerLink="users">All Users</a>
-        </li>
-        <li>
-          <a class="nav-link" routerLink="adminorders">All Orders</a>
-        </li>
-        <li>
-          <a class="nav-link" routerLink="adminreviews">All Reviews</a>
-        </li>
-        <li>
-          <a class="nav-link" routerLink="admincontact">All Contacts</a>
-        </li>
-        <!-- <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Dropdown
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" routerLink="#">Action</a></li>
-              <li><a class="dropdown-item" routerLink="#">Another action</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li>
-                <a class="dropdown-item" routerLink="#">Something else here</a>
-              </li>
-            </ul>
-          </li> -->
-      </ul>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="navbarSupportedContent">
+      <div class="offcanvas-header">
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav">
+          <li>
+            <a class="nav-link" routerLink="users">All Users</a>
+          </li>
+          <li>
+            <a class="nav-link" routerLink="adminorders">All Orders</a>
+          </li>
+          <li>
+            <a class="nav-link" routerLink="adminreviews">All Reviews</a>
+          </li>
+          <li>
+            <a class="nav-link" routerLink="admincontact">All Contacts</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>

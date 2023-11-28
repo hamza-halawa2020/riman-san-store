@@ -27,27 +27,34 @@ class ContactConroller extends Controller
             return response()->json(['message' => 'An error occurred while creating the contact'], 500);
         }
     }
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $contact = Contact::findOrFail($id);
+        return new ContactResource($contact);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $contact = Contact::findOrFail($id);
+            $contact->update($request->all());
+
+            return response()->json(['data' => new ContactResource($contact)], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'An error occurred while updating the contact'], 500);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        try {
+            $contact = Contact::findOrFail($id);
+            $contact->delete();
+
+            return response()->json(['message' => 'Contact deleted successfully'], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'An error occurred while deleting the contact'], 500);
+        }
     }
 }

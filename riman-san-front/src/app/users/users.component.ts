@@ -27,7 +27,7 @@ export class UsersComponent {
     this.userService.deleteUser(userId).subscribe(
       () => {
         this.userService.getUsers().subscribe((data) => {
-          this.users = data;
+          this.users = Object.values(data)[0];
         });
       },
       (error) => {

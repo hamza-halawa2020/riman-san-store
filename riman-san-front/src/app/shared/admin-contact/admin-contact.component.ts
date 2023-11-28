@@ -7,10 +7,12 @@ import { ContactService } from 'src/app/services/contact/contact.service';
   styleUrls: ['./admin-contact.component.css'],
 })
 export class AdminContactComponent {
+  updatedContactData: { fullName?: string; email?: string } = {};
   Contacts: any;
   selectedContact: any;
   selectedContactIndex: number | null = null;
   loading: boolean = false;
+  editedContact: any = {};
   constructor(private ContactService: ContactService) {}
   ngOnInit(): void {
     this.getContact();
@@ -23,11 +25,12 @@ export class AdminContactComponent {
       this.loading = false;
     });
   }
-  deleteContact(ContactId: number): void {
-    this.ContactService.deleteContacts(ContactId).subscribe(
+
+  deleteContact(contactId: number): void {
+    this.ContactService.deleteContacts(contactId).subscribe(
       () => {
         this.ContactService.getContacts().subscribe((data) => {
-          this.Contacts = data;
+          this.Contacts = Object.values(data)[0];
         });
       },
       (error) => {
@@ -35,9 +38,19 @@ export class AdminContactComponent {
       }
     );
   }
+  
   updateContact(Contact: any): void {
     console.log('Updating Contact:', Contact);
+    this.editedContact = {};
+    this.selectedContactIndex = null;
   }
+
+
+
+
+
+
+
 
   editContact(Contact: any): void {
     const index = this.Contacts.indexOf(Contact);

@@ -24,9 +24,9 @@
           <td>{{ user.message }}</td>
 
           <td class="align-middle">
-            <a [routerLink]="['/user', user.id]" class="btn btn-primary m-1"
+            <!-- <a [routerLink]="['/user', user.id]" class="btn btn-primary m-1"
               >Show</a
-            >
+            > -->
             <button class="btn btn-warning m-1" (click)="editContact(user)">
               {{ selectedContactIndex === i ? "Cancel" : "Update" }}
             </button>
@@ -61,14 +61,13 @@
                 <tr>
                   <th>message</th>
                   <td>
-                    <input class="form-control w-50" [(ngModel)]="user.message" />
-                  </td>
+                    <textarea class="form-control w-50" [(ngModel)]="user.message"></textarea>                  </td>
                 </tr>
                 <tr>
                 <td colspan="2">
                   <button
                     class="btn btn-success m-1"
-                    (click)="updateContact(user)"
+                    (click)="updateContact(user.id)"
                   >
                     Save
                   </button>
