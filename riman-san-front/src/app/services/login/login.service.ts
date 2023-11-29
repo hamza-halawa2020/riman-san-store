@@ -4,17 +4,15 @@ import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoginService {
   private apiUrl = 'http://127.0.0.1:8000/api';
 
-  constructor(
-    private http: HttpClient
-    ) {}
-    login(userData: any) {
-      return this.http.post(`${this.apiUrl}/login`,userData)
-    }
+  constructor(private http: HttpClient) {}
+  login(userData: any) {
+    return this.http.post(`${this.apiUrl}/login`, userData);
+  }
   // login(email:any,password:any){
   //   return this.http.post(`${this.apiUrl}/login`,{
   //     email:email,
@@ -31,15 +29,15 @@ export class LoginService {
   //   });
   // }
 
-  storeToken(tokenvalue:string){
-localStorage.setItem('token',tokenvalue)
+  storeToken(tokenValue: string) {
+    localStorage.setItem('token', tokenValue);
   }
 
-  getToken(){
-    return localStorage.getItem('token')
+  getToken() {
+    return localStorage.getItem('token');
   }
 
-  isLoggedIn():boolean{
-  return !! localStorage.getItem('token')
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
   }
 }

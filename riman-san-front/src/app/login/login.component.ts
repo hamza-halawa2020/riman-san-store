@@ -13,10 +13,10 @@ export class LoginComponent {
   login: FormGroup;
   formSubmitted: boolean = false;
   showPassword: boolean = false;
-constructor(private auth:LoginService,
-  private toast:NgToastService,
-  private router:Router,
-
+  constructor(
+    private auth: LoginService,
+    private toast: NgToastService,
+    private router: Router
   ) {
     this.login = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -26,23 +26,38 @@ constructor(private auth:LoginService,
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
+
   onSubmit() {
     if (this.login.valid) {
       this.formSubmitted = true;
       this.auth.login(this.login.value).subscribe({
-next:(res) => {
-  this.login.reset();
-        // this.auth.storeToken(res.accessToken);
-      this.toast.success({detail:"SUCCESS",summary:'Your Success Message',position:'topCenter'});
-      this.router.navigate(['/']);
-}, error:(err) =>{
-      this.toast.error({detail:"ERROR",summary:'Your Error Message',sticky:true,position:'topCenter'});
-},
+        next: (res: any) => {
+          this.login.reset();
+          this.auth.storeToken(res.accessToken);
+          this.toast.success({
+            detail: 'SUCCESS',
+            summary: 'Your Success Message',
+            position: 'topCenter',
+          });
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          this.toast.error({
+            detail: 'ERROR',
+            summary: 'Your Error Message',
+            sticky: true,
+            position: 'topCenter',
+          });
+        },
       });
     } else {
       // console.log('Form is invalid. Please fill all the required fields.');
-      this.toast.error({detail:"ERROR",summary:'Your Error Message',sticky:true,position:'topCenter'});
+      this.toast.error({
+        detail: 'ERROR',
+        summary: 'Your Error Message',
+        sticky: true,
+        position: 'topCenter',
+      });
     }
   }
 }
-
