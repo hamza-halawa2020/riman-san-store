@@ -15,6 +15,7 @@ import { OrderNowComponent } from './order-now/order-now.component';
 import { AdminContactComponent } from './shared/admin-contact/admin-contact.component';
 import { AdminOrderComponent } from './shared/admin-order/admin-order.component';
 import { AdminReviewComponent } from './shared/admin-review/admin-review.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -40,14 +41,19 @@ const routes: Routes = [
   {
     path: 'admincontact',
     component: AdminContactComponent,
+    canActivate:[AuthGuard]
   },
   {
     path: 'adminorders',
     component: AdminOrderComponent,
+    canActivate:[AuthGuard]
+
   },
   {
     path: 'adminreviews',
     component: AdminReviewComponent,
+    canActivate:[AuthGuard]
+
   },
   {
     path: 'recovery',
@@ -56,8 +62,12 @@ const routes: Routes = [
   {
     path: 'users',
     component: UsersComponent,
+    canActivate:[AuthGuard]
+
   },
-  { path: 'user/:id', component: UserDetailsComponent },
+  { path: 'user/:id', component: UserDetailsComponent,
+  canActivate:[AuthGuard]
+},
   {
     path: 'products',
     component: ProductsComponent,

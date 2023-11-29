@@ -33,7 +33,10 @@ export class LoginComponent {
       this.auth.login(this.login.value).subscribe({
         next: (res: any) => {
           this.login.reset();
-          this.auth.storeToken(res.accessToken);
+          // console.log(res);
+
+          this.auth.setRole(res.role);
+          this.auth.setToken(res.token);
           this.toast.success({
             detail: 'SUCCESS',
             summary: 'Your Success Message',

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { CartService } from 'src/app/services/cart/cart.service';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +14,7 @@ export class NavbarComponent {
   total: number = 0;
   totalNumber: number = 0;
 
-  constructor(private cartApi: CartService, private authService: AuthService) {}
+  constructor(private cartApi: CartService, private authService: LoginService) {}
 
   ngOnInit(): void {
     this.cartApi.getCart().subscribe((res) => {
@@ -22,13 +22,10 @@ export class NavbarComponent {
     });
   }
 
-  get isLoggedIn(): boolean {
-    return this.authService.isAuthenticated();
+ login() {
+    this.authService.isLoggedIn();
   }
 
-  login() {
-    this.authService.login();
-  }
 
   logout() {
     this.authService.logout();

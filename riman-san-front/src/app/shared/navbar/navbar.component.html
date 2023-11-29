@@ -72,11 +72,6 @@
             >Home</a
           >
         </li>
-        <!-- <li>
-          <a class="nav-link" routerLink="users" routerLinkActive="active"
-            >All Users</a
-          >
-        </li> -->
         <li>
           <a class="nav-link" routerLink="products" routerLinkActive="active"
             >All Products</a
@@ -111,16 +106,15 @@
             class="nav-link"
             routerLink="login"
             routerLinkActive="active"
-            *ngIf="!isLoggedIn"
             >Log In</a
           >
         </li>
         <li class="nav-item">
           <a
             class="nav-link"
+            *ngIf="login()"
             routerLink="register"
             routerLinkActive="active"
-            *ngIf="!isLoggedIn"
             >Register</a
           >
         </li>
@@ -135,8 +129,8 @@
         <li class="nav-item">
           <a
             class="nav-link"
-            *ngIf="isLoggedIn"
-            routerLink="#"
+            *ngIf="login()"
+            routerLink=""
             (click)="logout()"
             >Log Out</a
           >
