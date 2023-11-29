@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -29,3 +30,4 @@ Route::apiResource('users', UserController::class);
 Route::apiResource('contacts', ContactConroller::class);
 Route::apiResource('orders', OrderConroller::class);
 Route::apiResource('reviews', ReviewController::class);
+Route::post('login', [AuthController::class, 'login']);

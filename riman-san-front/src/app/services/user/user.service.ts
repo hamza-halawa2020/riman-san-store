@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -7,7 +8,21 @@ import { Injectable } from '@angular/core';
 export class UserService {
   private apiUrl = 'http://127.0.0.1:8000/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private router:Router) {}
+
+  login(email:any,password:any){
+    return this.http.post(`${this.apiUrl}/login`,{
+      email:email,
+      password:password
+    }).subscribe((res)=>{
+      console.log(res);
+      localStorage.setItem('user',JSON.stringify(res));
+      this.router.navigate(['/']);
+    },(err)=>{
+      console.log(err);
+    });
+  }
+
   getUsers() {
     return this.http.get(`${this.apiUrl}/users`);
   }
