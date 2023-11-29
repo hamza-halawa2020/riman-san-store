@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { UserService } from '../services/user/user.service';
+import { LoginService } from '../services/login/login.service';
+import { NgToastService } from 'ng-angular-popup';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,23 +12,37 @@ import { UserService } from '../services/user/user.service';
 export class LoginComponent {
   login: FormGroup;
   formSubmitted: boolean = false;
+  showPassword: boolean = false;
+constructor(private auth:LoginService,
+  private toast:NgToastService,
+  private router:Router,
 
-  constructor(private auth:UserService) {
+  ) {
     this.login = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
     });
   }
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
   onSubmit() {
     if (this.login.valid) {
-      const email = this.login.value.email;
-      const password = this.login.value.password;
-      this.auth.login(email,password);
       this.formSubmitted = true;
-      console.log(this.login.value);
-      this.login.reset();
+      this.auth.login(this.login.value).subscribe({
+next:(res) => {
+  this.login.reset();
+        // this.auth.storeToken(res.accessToken);
+      this.toast.success({detail:"SUCCESS",summary:'Your Success Message',position:'topCenter'});
+      this.router.navigate(['/']);
+}, error:(err) =>{
+      this.toast.error({detail:"ERROR",summary:'Your Error Message',sticky:true,position:'topCenter'});
+},
+      });
     } else {
-      console.log('Form is invalid. Please fill all the required fields.');
+      // console.log('Form is invalid. Please fill all the required fields.');
+      this.toast.error({detail:"ERROR",summary:'Your Error Message',sticky:true,position:'topCenter'});
     }
   }
 }
+

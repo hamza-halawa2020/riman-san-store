@@ -1,10 +1,10 @@
-<div
+<!-- <div
   class="alert alert-success mt-3 text-center"
   role="alert"
   *ngIf="formSubmitted"
 >
   Data sent successfully!
-</div>
+</div> -->
 <div class="wrapper">
   <div class="logo">
     <img src="../../assets/images/logo.png" alt="" />
@@ -44,11 +44,12 @@
       <span class="fas fa-key"></span>
       <input
         formControlName="password"
-        type="password"
+        [type]="showPassword ? 'text' : 'password'"
         name="password"
         id="pwd"
         placeholder="Enter Your Password"
       />
+      <app-hide-show-pass (click)="togglePasswordVisibility()"></app-hide-show-pass>
     </div>
     <input
       [disabled]="login.invalid"

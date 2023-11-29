@@ -39,6 +39,8 @@ import { AdminNavbarComponent } from './shared/admin-navbar/admin-navbar.compone
 import { AdminContactComponent } from './shared/admin-contact/admin-contact.component';
 import { AdminOrderComponent } from './shared/admin-order/admin-order.component';
 import { AdminReviewComponent } from './shared/admin-review/admin-review.component';
+import { NgToastModule } from 'ng-angular-popup';
+import { HideShowPassComponent } from './shared/hide-show-pass/hide-show-pass.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +77,7 @@ import { AdminReviewComponent } from './shared/admin-review/admin-review.compone
     AdminContactComponent,
     AdminOrderComponent,
     AdminReviewComponent,
+    HideShowPassComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +87,7 @@ import { AdminReviewComponent } from './shared/admin-review/admin-review.compone
     ReactiveFormsModule,
     CommonModule,
     NgbModule,
+    NgToastModule
   ],
   providers: [],
   bootstrap: [AppComponent],
