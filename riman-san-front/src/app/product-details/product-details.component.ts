@@ -20,6 +20,7 @@ export class ProductDetailsComponent {
   constructor(
     private activateRoute: ActivatedRoute,
     private productService: ProductService,
+
     private cartApi: CartService
   ) {}
   ngOnInit(): void {

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { NgToastService } from 'ng-angular-popup';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -6,7 +7,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class CartService {
   private counterCart = new BehaviorSubject<number>(0);
-  constructor() {}
+  constructor(    private toast: NgToastService,
+    ) {}
   private cartDataList: any[] = [];
   public productList: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
@@ -20,7 +22,13 @@ export class CartService {
     );
 
     if (productAlreadyInCart) {
-      alert('Product is already in the cart.');
+      // alert('Product is already in the cart.');
+      this.toast.error({
+        detail: 'ERROR',
+        summary: 'Product is already in the cart.',
+        sticky: true,
+        position: 'topCenter',
+      });
     } else {
       this.cartDataList.push(myProduct);
       this.productList.next([...this.cartDataList]);
