@@ -8,8 +8,8 @@ import { LoginService } from 'src/app/services/login/login.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-  email: string = 'info@rimansan.com';
-  email2: string = 'support@rimansan.com';
+  email: string = 'info@rimansan.net';
+  email2: string = 'support@rimansan.net';
 
   total: number = 0;
   totalNumber: number = 0;
@@ -22,10 +22,9 @@ export class NavbarComponent {
     });
   }
 
- login() {
-    this.authService.isLoggedIn();
+  isLoggedIn(): boolean {
+    return!! this.authService.isLoggedIn();
   }
-
 
   logout() {
     this.authService.logout();

@@ -31,11 +31,12 @@ getRole(){
   isLoggedIn() {
     return this.getRole() && this.getToken();
   }
-
-  // isLoggedIn() {
-  //   return this.getToken();
+  isAdmin(): boolean {
+    return this.getRole() === 'admin';
+  }
+  // getUserRole() {
+  //   return this.getRole() ;
   // }
-
   logout(){
     localStorage.clear();
     this.router.navigate(['']);

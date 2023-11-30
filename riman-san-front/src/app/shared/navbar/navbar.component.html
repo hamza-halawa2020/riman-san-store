@@ -6,7 +6,7 @@
         <i class="fa-regular fa-envelope fa-sm d-none d-lg-block"></i>
         <a
           class="btn btn-link text-light fs-5 text-decoration-none d-none d-lg-block"
-          href="mailto:info@rimansan.com"
+          href="mailto:info@rimansan.net"
         >
           {{ email }}
         </a>
@@ -19,11 +19,16 @@
           {{ email2 }}
         </a>
         <div class="d-none d-lg-block">
-          <i class="p-1 me-2 fab fa-facebook-f fa-xs"></i>
-          <i class="p-1 me-2 fab fa-linkedin-in fa-xs"></i>
-          <i class="p-1 me-2 fab fa-tiktok fa-xs"></i>
-          <i class="p-1 me-2 fab fa-youtube fa-xs"></i>
-          <i class="p-1 me-2 fab fa-instagram fa-xs"></i>
+          <a href="https://www.facebook.com/rimansan.net" target="_blank" >
+          <i class="p-1 me-2 fab fa-facebook-f fa-xs"></i></a>
+          <a href="https://www.linkedin.com/company/riman-san/" target="_blank" >
+          <i class="p-1 me-2 fab fa-linkedin-in fa-xs"></i></a>
+          <a href="https://www.tiktok.com/@rimansan.net" target="_blank" >
+          <i class="p-1 me-2 fab fa-tiktok fa-xs"></i></a>
+          <a href="https://www.youtube.com/@-rimansan" target="_blank" >
+          <i class="p-1 me-2 fab fa-youtube fa-xs"></i></a>
+          <a href="" target="_blank" >
+          <i class="p-1 me-2 fab fa-instagram fa-xs"></i></a>
         </div>
       </div>
     </div>
@@ -101,23 +106,6 @@
             </li>
           </ul>
         </li> -->
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            routerLink="login"
-            routerLinkActive="active"
-            >Log In</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            *ngIf="login()"
-            routerLink="register"
-            routerLinkActive="active"
-            >Register</a
-          >
-        </li>
         <li>
           <a class="nav-link" routerLink="cart" routerLinkActive="active"
             ><i class="fa-solid fa-cart-plus fa-lg"></i>
@@ -126,10 +114,27 @@
             }}</span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="!isLoggedIn()">
           <a
             class="nav-link"
-            *ngIf="login()"
+            routerLink="login"
+            routerLinkActive="active"
+            >Log In</a
+          >
+        </li>
+        <li class="nav-item" *ngIf="!isLoggedIn()">
+          <a
+            class="nav-link"
+
+            routerLink="register"
+            routerLinkActive="active"
+            >Register</a
+          >
+        </li>
+
+        <li class="nav-item" *ngIf="isLoggedIn()">
+          <a
+            class="nav-link"
             routerLink=""
             (click)="logout()"
             >Log Out</a

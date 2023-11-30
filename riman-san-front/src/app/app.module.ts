@@ -41,6 +41,10 @@ import { AdminOrderComponent } from './shared/admin-order/admin-order.component'
 import { AdminReviewComponent } from './shared/admin-review/admin-review.component';
 import { NgToastModule } from 'ng-angular-popup';
 import { HideShowPassComponent } from './shared/hide-show-pass/hide-show-pass.component';
+import { PrivacyPolicyComponent } from './shared/privacy-policy/privacy-policy.component';
+import { TermsOfUseComponent } from './shared/terms-of-use/terms-of-use.component';
+import { FaqsComponent } from './shared/faqs/faqs.component';
+import { WhatsAppComponent } from './shared/whats-app/whats-app.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +82,10 @@ import { HideShowPassComponent } from './shared/hide-show-pass/hide-show-pass.co
     AdminOrderComponent,
     AdminReviewComponent,
     HideShowPassComponent,
+    PrivacyPolicyComponent,
+    TermsOfUseComponent,
+    FaqsComponent,
+    WhatsAppComponent,
   ],
   imports: [
     BrowserModule,

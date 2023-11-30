@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
 
   }
   canActivate():boolean{
-    if(this.auth.isAdmin()){
+    if(this.auth.isLoggedIn()){
       return true
     }else{
       this.toast.error({detail:"ERROR", summary:"Please Login First!"});

@@ -36,13 +36,13 @@
           </div>
           <h3>{{ productDetails.price | price }}</h3>
           <div class="ratings d-flex flex-row align-items-center">
-            <div>
+            <!-- <div>
               <ngb-rating
                 [rate]="rating"
                 [readonly]="true"
                 class="text-warning fs-3"
               ></ngb-rating>
-            </div>
+            </div> -->
           </div>
           <div
             class="list-group-item fw-bold"
@@ -67,7 +67,7 @@
     </div>
   </div>
 </div>
-<div *ngIf="!loading" class="container mb-5">
+<!-- <div *ngIf="!loading" class="container mb-5">
   <div class="container mt-5 mb-5">
     <div class="row mt-5">
       <div class="col mt-4">
@@ -75,11 +75,11 @@
         <div class="mt-5 reviews">
           <h2 class="mb-3">Reviews</h2>
           <app-feedback [id]="id"></app-feedback>
-          <app-review></app-review>        
+          <app-review></app-review>
         </div>
     </div>
   </div>
 </div>
 
-
+ -->
 

@@ -16,6 +16,10 @@ import { AdminContactComponent } from './shared/admin-contact/admin-contact.comp
 import { AdminOrderComponent } from './shared/admin-order/admin-order.component';
 import { AdminReviewComponent } from './shared/admin-review/admin-review.component';
 import { AuthGuard } from './guards/auth.guard';
+import { unauthGuard } from './guards/unauth.guard';
+import { PrivacyPolicyComponent } from './shared/privacy-policy/privacy-policy.component';
+import { TermsOfUseComponent } from './shared/terms-of-use/terms-of-use.component';
+import { FaqsComponent } from './shared/faqs/faqs.component';
 
 const routes: Routes = [
   {
@@ -29,10 +33,12 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [unauthGuard]
   },
   {
     path: 'register',
     component: RegisterComponent,
+    canActivate: [unauthGuard]
   },
   {
     path: 'contact',
@@ -58,6 +64,8 @@ const routes: Routes = [
   {
     path: 'recovery',
     component: ForgetPasswordComponent,
+    canActivate: [unauthGuard]
+
   },
   {
     path: 'users',
@@ -74,6 +82,18 @@ const routes: Routes = [
   },
   { path: 'product/:id', component: ProductDetailsComponent },
   { path: 'cart', component: CartComponent },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicyComponent,
+  },
+  {
+    path: 'terms-conditions',
+    component: TermsOfUseComponent,
+  },
+  {
+    path: 'faqs',
+    component: FaqsComponent,
+  },
 
   {
     path: '404',

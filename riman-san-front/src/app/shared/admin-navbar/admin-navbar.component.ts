@@ -21,4 +21,11 @@ export class AdminNavbarComponent {
       this.total = res.length;
     });
   }
+
+  isLoggedIn(): boolean {
+    return!! this.authService.isLoggedIn();
+  }
+  isAdmin(): boolean {
+    return this.authService.getRole() == 'admin';
+  }
 }
