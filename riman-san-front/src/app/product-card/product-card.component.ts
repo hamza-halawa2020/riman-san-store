@@ -11,7 +11,8 @@ import { CartService } from '../services/cart/cart.service';
 export class ProductCardComponent {
   @Input() products: any;
 
-  x: any = 'http://127.0.0.1:8000/img/';
+   x = 'https://rimansan.net/img/';
+
   rating: any = 0;
   productDetails: any;
   constructor(

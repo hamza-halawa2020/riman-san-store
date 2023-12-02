@@ -18,9 +18,7 @@ export class OrderNowComponent {
       address: new FormControl('', [Validators.required]),
       phone: new FormControl('', [
         Validators.required,
-        // Validators.pattern(
-        //   /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/
-        // ),
+
         Validators.pattern(/^\d+$/), // Allow only digits
         Validators.min(11),
       ]),
@@ -29,7 +27,6 @@ export class OrderNowComponent {
     });
   }
   ngOnInit() {
-    // Subscribe to productData$ to get the product data
     this.userService.productData$.subscribe((data) => {
       this.productData = data;
       // console.log('Product Data in Order Component:', this.productData);

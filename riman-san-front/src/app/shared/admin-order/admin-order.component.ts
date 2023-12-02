@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { OrderService } from 'src/app/services/order/order.service';
+import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
   selector: 'app-admin-order',
@@ -8,11 +9,16 @@ import { OrderService } from 'src/app/services/order/order.service';
 })
 export class AdminOrderComponent {
   users: any = [];
+  products: any = [];
   selectedUser: any;
   selectedUserIndex: number | null = null;
-  constructor(private orderService: OrderService) {}
+  constructor(private orderService: OrderService,
+    private productService : ProductService) {}
   ngOnInit(): void {
     this.getUser();
+    this.productService.getProducts().subscribe((data) => {
+      this.products = Object.values(data)[0];
+    });
   }
 
   getUser() {
@@ -35,6 +41,12 @@ export class AdminOrderComponent {
   updateUser(user: any): void {
     console.log('Updating user:', user);
   }
+
+  getProductName(productId: number): string {
+    const product = this.products.find((p: { id: number; }) => p.id === productId);
+    return product ? product.name : 'Unknown Product';
+  }
+
 
   editUser(user: any): void {
     const index = this.users.indexOf(user);

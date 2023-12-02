@@ -7,7 +7,8 @@ import { NgToastService } from 'ng-angular-popup';
   providedIn: 'root',
 })
 export class LoginService {
-  private apiUrl = 'http://127.0.0.1:8000/api';
+  private apiUrl = 'https://rimansan.net/api';
+
 
   constructor(private http: HttpClient,private router:Router) {}
   login(userData: any) {

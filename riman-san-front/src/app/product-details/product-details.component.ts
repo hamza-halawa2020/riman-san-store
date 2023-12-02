@@ -13,7 +13,8 @@ export class ProductDetailsComponent {
   id: any;
   productDetails: any;
   loading: boolean = false;
-  x: any = 'http://127.0.0.1:8000/img/';
+  x = 'https://rimansan.net/img/';
+
   rating: any;
   mainProductImage: string = '';
   thumbnailImages: string[] = ['1.jpg', '2.jpg', '3.jpg', '4.jpg'];

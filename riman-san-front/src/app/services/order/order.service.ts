@@ -6,7 +6,8 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class OrderService {
-  private apiUrl = 'http://127.0.0.1:8000/api';
+  private apiUrl = 'https://rimansan.net/api';
+
 
   private productDataSubject = new BehaviorSubject<any>(null);
   productData$ = this.productDataSubject.asObservable();
@@ -21,7 +22,7 @@ export class OrderService {
   }
 
   getUsers() {
-    return this.http.get(`${this.apiUrl}/users`);
+    return this.http.get(`${this.apiUrl}/orders`);
   }
   getUserById(userId: number) {
     const url = `${this.apiUrl}/${userId}`;
