@@ -17,7 +17,7 @@ class ContactConroller extends Controller
         return ContactResource::collection($contacts);
     }
 
- 
+
     public function store(StoreContactRequest $request)
     {
         try {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserService } from 'src/app/services/user/user.service';
+import { OrderService } from 'src/app/services/order/order.service';
 
 @Component({
   selector: 'app-admin-order',
@@ -8,25 +8,22 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class AdminOrderComponent {
   users: any = [];
-  selectedUser: any; // Track the user being edited
-  selectedUserIndex: number | null = null; // Add this line
-  loading: boolean = false;
-  constructor(private userService: UserService) {}
+  selectedUser: any;
+  selectedUserIndex: number | null = null;
+  constructor(private orderService: OrderService) {}
   ngOnInit(): void {
     this.getUser();
   }
 
   getUser() {
-    this.loading = true;
-    this.userService.getUsers().subscribe((data) => {
-      this.users = data;
-      this.loading = false;
+    this.orderService.getUsers().subscribe((data) => {
+      this.users = Object.values(data)[0];
     });
   }
   deleteUser(userId: number): void {
-    this.userService.deleteUser(userId).subscribe(
+    this.orderService.deleteUser(userId).subscribe(
       () => {
-        this.userService.getUsers().subscribe((data) => {
+        this.orderService.getUsers().subscribe((data) => {
           this.users = data;
         });
       },

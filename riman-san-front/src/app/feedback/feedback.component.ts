@@ -16,7 +16,6 @@ export class FeedbackComponent {
     this.sendReview = new FormGroup({
       stars: new FormControl('', [Validators.required]),
       title: new FormControl('', [Validators.required]),
-
       comment: new FormControl('', [Validators.required]),
     });
   }

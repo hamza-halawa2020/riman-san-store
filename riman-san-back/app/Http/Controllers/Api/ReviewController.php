@@ -25,27 +25,33 @@ class ReviewController extends Controller
             return response()->json(['message' => 'An error occurred while creating the review'], 500);
         }
     }
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $review = Review::findOrFail($id);
+        return new ReviewResource($review);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $review = Review::findOrFail($id);
+            $review->update($request->all());
+            return response()->json(['data' => new ReviewResource($review)], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'An error occurred while updating the Review'], 500);
+
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        try {
+            $review = Review::findOrFail($id);
+            $review->delete();
+            return response()->json(['data' => 'Review deleted successfully'], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'An error occurred while deleting the Review'], 500);
+        }
     }
 }

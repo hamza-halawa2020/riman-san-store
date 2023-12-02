@@ -25,21 +25,12 @@ export class ReviewService {
     const url = `${this.apiUrl}/reviews/${reviewId}`;
     return this.http.delete(url);
   }
+
+  updateReview(reviewId: any, updatedReviewData: any) {
+    console.log('review ID:', reviewId);
+    console.log('Updated review Data:', updatedReviewData);
+
+    const url = `${this.apiUrl}/reviews/${reviewId}`;
+    return this.http.put(url, updatedReviewData);
+  }
 }
-
-// export class UserService {
-//   private apiUrl = 'http://127.0.0.1:8000/api';
-
-//   constructor(private http: HttpClient) {}
-//   getUsers() {
-//     return this.http.get(`${this.apiUrl}/users`);
-//   }
-//   getUserById(userId: number) {
-//     const url = `${this.apiUrl}/${userId}`;
-//     return this.http.get(url);
-//   }
-//   deleteUser(userId: number) {
-//     const url = `${this.apiUrl}/${userId}`;
-//     return this.http.delete(url);
-//   }
-// }

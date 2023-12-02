@@ -19,4 +19,16 @@ export class OrderService {
   order(order: any) {
     return this.http.post(`${this.apiUrl}/orders`, order);
   }
+
+  getUsers() {
+    return this.http.get(`${this.apiUrl}/users`);
+  }
+  getUserById(userId: number) {
+    const url = `${this.apiUrl}/${userId}`;
+    return this.http.get(url);
+  }
+  deleteUser(userId: number) {
+    const url = `${this.apiUrl}/${userId}`;
+    return this.http.delete(url);
+  }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgToastService } from 'ng-angular-popup';
 import { ContactService } from 'src/app/services/contact/contact.service';
 
 @Component({
@@ -13,7 +14,10 @@ export class AdminContactComponent {
   selectedContactIndex: number | null = null;
   loading: boolean = false;
   editedContact: any = {};
-  constructor(private ContactService: ContactService) {}
+  constructor(
+    private ContactService: ContactService,
+    private toast: NgToastService
+  ) {}
   ngOnInit(): void {
     this.getContact();
   }
@@ -21,7 +25,7 @@ export class AdminContactComponent {
   getContact() {
     this.loading = true;
     this.ContactService.getContacts().subscribe((data) => {
-      this.Contacts =Object.values(data)[0];
+      this.Contacts = Object.values(data)[0];
       this.loading = false;
     });
   }
@@ -31,26 +35,35 @@ export class AdminContactComponent {
       () => {
         this.ContactService.getContacts().subscribe((data) => {
           this.Contacts = Object.values(data)[0];
+          this.toast.success({
+            detail: 'SUCCESS',
+            summary: 'Your Success Message',
+            // position: 'topCenter',
+          });
         });
       },
       (error) => {
-        console.error('Error deleting Contact:', error);
+        this.toast.error({
+          detail: 'ERROR',
+          summary: 'Your Error Message',
+          sticky: true,
+          position: 'topCenter',
+        });
+        // console.error('Error deleting Contact:', error);
       }
     );
   }
-  
+
   updateContact(Contact: any): void {
-    console.log('Updating Contact:', Contact);
+    // console.log('Updating Contact:', Contact);
     this.editedContact = {};
     this.selectedContactIndex = null;
+    this.toast.success({
+      detail: 'SUCCESS',
+      summary: 'Your Success Message',
+      // position: 'topCenter',
+    });
   }
-
-
-
-
-
-
-
 
   editContact(Contact: any): void {
     const index = this.Contacts.indexOf(Contact);

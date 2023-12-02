@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { ReviewService } from 'src/app/services/review/review.service';
 
 @Component({
@@ -13,18 +15,53 @@ export class AdminReviewComponent {
   selectedReview: any;
   selectedReviewIndex: number | null = null;
   loading: boolean = false;
-  constructor(private reviewService: ReviewService) {}
+  sendReview: FormGroup;
+
+  constructor(
+    private reviewService: ReviewService,
+    private toast: NgToastService
+  ) {
+    this.sendReview = new FormGroup({
+      stars: new FormControl(''),
+      title: new FormControl(''),
+      comment: new FormControl(''),
+      status: new FormControl(''),
+    });
+  }
+
   ngOnInit(): void {
     this.getReviews();
   }
 
+  updateReview(review: any): void {
+    if (this.sendReview.valid) {
+      const reviewID = review.id;
+      const reviewData = this.sendReview.value;
+      console.log(reviewData);
+
+      this.reviewService.updateReview(reviewID, reviewData).subscribe(
+        (response) => {
+          console.log(this.sendReview.value);
+          console.log('Updating review:', review);
+          this.toast.success({
+            detail: 'SUCCESS',
+            summary: 'Your Success Message',
+            // position: 'topCenter',
+          });
+        },
+        (error) => {
+          console.error('Registration failed:', error);
+        }
+      );
+    } else {
+      console.log('Form is invalid. Please fill all the required fields.');
+    }
+  }
+
   getReviews() {
-    this.loading = true;
     this.reviewService.getReviews().subscribe((data) => {
       this.reviews = Object.values(data)[0];
       console.log(this.reviews);
-
-      this.loading = false;
     });
   }
 
@@ -32,16 +69,24 @@ export class AdminReviewComponent {
     this.reviewService.deleteReview(reviewId).subscribe(
       () => {
         this.reviewService.getReviews().subscribe((data) => {
-          this.reviews = data;
+          this.reviews = Object.values(data)[0];
+          this.toast.success({
+            detail: 'SUCCESS',
+            summary: 'Your Success Message',
+            // position: 'topCenter',
+          });
         });
       },
       (error) => {
-        console.error('Error deleting review:', error);
+        this.toast.error({
+          detail: 'ERROR',
+          summary: 'Your Error Message',
+          sticky: true,
+          position: 'topCenter',
+        });
+        // console.error('Error deleting review:', error);
       }
     );
-  }
-  updateReview(review: any): void {
-    console.log('Updating review:', review);
   }
 
   editReview(review: any): void {

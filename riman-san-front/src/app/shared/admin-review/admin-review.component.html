@@ -8,10 +8,9 @@
         <th scope="col">ID</th>
         <th scope="col">stars</th>
         <th scope="col">title</th>
-        
+
         <th scope="col">comment</th>
         <th scope="col">status</th>
-
       </tr>
     </thead>
     <tbody>
@@ -41,55 +40,69 @@
         <tr *ngIf="selectedReviewIndex === i">
           <td colspan="5">
             <h2>Edit review</h2>
-            <table class="table table-striped text-center">
-              <tr>
-                <th>Name</th>
-                <td>
-                  <input class="form-control w-50" [(ngModel)]="review.name" />
-                </td>
-              </tr>
-              <tr>
-                <th>stars</th>
-                <td>
-                  <input class="form-control w-50" [(ngModel)]="review.stars" />
-                </td>
-              </tr>
-              <tr>
-                <th>title</th>
-                <td>
-                  <input class="form-control w-50" [(ngModel)]="review.title" />
-                </td>
-              </tr>
-              <tr>
-                <th>comment</th>
-                <td>
-                  <textarea class="form-control w-50" [(ngModel)]="review.comment"></textarea>        
-                </td>
-              </tr>
-              <tr>
-                <th>status</th>
-                <td>
-                  <input
-                    class="form-control w-50"
-                    [(ngModel)]="review.status"
-                  />
 
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2">
-                  <button
-                    class="btn btn-success m-1"
-                    (click)="updateReview(review)"
-                  >
-                    Save
-                  </button>
-                  <button class="btn btn-danger" (click)="cancelEdit()">
-                    Cancel
-                  </button>
-                </td>
-              </tr>
-            </table>
+            <form [formGroup]="sendReview" (ngSubmit)="updateReview(review)">
+              <table class="table table-striped text-center">
+                <tr>
+                  <th>title</th>
+                  <td>
+                    <input
+                      formControlName="title"
+                      class="form-control w-50"
+                      [(ngModel)]="review.title"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <th>stars</th>
+                  <td>
+                    <input
+                      formControlName="stars"
+                      class="form-control w-50"
+                      [(ngModel)]="review.stars"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <th>comment</th>
+                  <td>
+                    <textarea
+                      formControlName="comment"
+                      class="form-control w-50"
+                      [(ngModel)]="review.comment"
+                    ></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <th>status</th>
+                  <td>
+                    <input
+                      formControlName="status"
+                      class="form-control w-50"
+                      [(ngModel)]="review.status"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <input
+                      type="submit"
+                      value="Save"
+                      class="btn btn-success m-1"
+                    />
+                    <!-- <button
+                      class="btn btn-success m-1"
+                      (click)="updateReview(review)"
+                    >
+                      Save
+                    </button> -->
+                    <button class="btn btn-danger" (click)="cancelEdit()">
+                      Cancel
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </form>
           </td>
         </tr>
       </ng-container>
