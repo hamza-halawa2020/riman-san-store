@@ -7,16 +7,16 @@ import { ProductService } from '../services/product/product.service';
   styleUrls: ['./homepage.component.css'],
 })
 export class HomepageComponent {
-  products: any = [];
+  // products: any = [];
 
   constructor(private productsService: ProductService) {}
   ngOnInit(): void {
-    this.getProducts();
+    // this.getProducts();
   }
-  getProducts() {
-    this.productsService.getProducts().subscribe((data) => {
-      // this.products = data;
-      this.products = Object.values(data)[0];
-    });
-  }
+  // getProducts() {
+  //   this.productsService.getProducts().subscribe((data) => {
+  //     // this.products = data;
+  //     this.products = Object.values(data)[0];
+  //   });
+  // }
 }
