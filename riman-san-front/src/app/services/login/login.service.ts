@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  private apiUrl = 'https://rimansan.net/api';
+  // private apiUrl = 'https://rimansan.net/api';
+  private apiUrl = environment.backEndUrl;
 
 
   constructor(private http: HttpClient,private router:Router) {}
