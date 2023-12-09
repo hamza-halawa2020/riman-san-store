@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { CartService } from '../services/cart/cart.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-card',
@@ -11,7 +12,7 @@ import { CartService } from '../services/cart/cart.service';
 export class ProductCardComponent {
   @Input() products: any;
 
-   x = 'https://rimansan.net/img/';
+  x = environment.imgUrl;
 
   rating: any = 0;
   productDetails: any;
