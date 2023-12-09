@@ -7,13 +7,26 @@ use Illuminate\Http\Request;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
+use Gate;
 
 class OrderConroller extends Controller
 {
+    function __construct()
+    {
+        $this->middleware("auth:sanctum");
+    }
     public function index()
     {
-        $orders = Order::all();
-        return OrderResource::collection($orders);
+        try {
+            if (Gate::allows("is-admin")) {
+                $orders = Order::all();
+                return OrderResource::collection($orders);
+            } else {
+                return response()->json(['message' => 'not allow to show orders.'], 403);
+            }
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'An error occurred while showing orders.'], 500);
+        }
     }
 
     public function store(StoreOrderRequest $request)

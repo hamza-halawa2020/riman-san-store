@@ -9,11 +9,20 @@ use App\Http\Resources\ProductResource;
 
 class ProductController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware("auth:sanctum")->except(["index", "show"]);
+    }
 
     public function index()
     {
-        $products = Product::all();
-        return ProductResource::collection($products);
+        try {
+
+            $products = Product::all();
+            return ProductResource::collection($products);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'An error occurred while showing products.'], 500);
+        }
     }
 
 
@@ -24,8 +33,12 @@ class ProductController extends Controller
 
     public function show(string $id)
     {
-        $product = Product::findOrFail($id);
-        return new ProductResource($product);
+        try {
+            $product = Product::findOrFail($id);
+            return new ProductResource($product);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'An error occurred while showing reviews.'], 500);
+        }
     }
 
     public function update(Request $request, string $id)

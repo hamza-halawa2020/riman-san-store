@@ -7,13 +7,26 @@ use App\Http\Requests\StoreReviewRequest;
 use App\Http\Resources\ReviewResource;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Gate;
 
 class ReviewController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware("auth:sanctum");
+    }
     public function index()
     {
-        $reviews = Review::all();
-        return ReviewResource::collection($reviews);
+        try {
+            if (Gate::allows("is-admin")) {
+                $reviews = Review::all();
+                return ReviewResource::collection($reviews);
+            } else {
+                return response()->json(['message' => 'not allow to show reviews.'], 403);
+            }
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'An error occurred while showing reviews.'], 500);
+        }
     }
 
     public function store(StoreReviewRequest $request)
@@ -27,29 +40,44 @@ class ReviewController extends Controller
     }
     public function show(string $id)
     {
-        $review = Review::findOrFail($id);
-        return new ReviewResource($review);
+        try {
+            if (Gate::allows("is-admin")) {
+                $review = Review::findOrFail($id);
+                return new ReviewResource($review);
+            } else {
+                return response()->json(['message' => 'not allow to show review.'], 403);
+            }
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'An error occurred while showing review.'], 500);
+        }
     }
 
 
     public function update(Request $request, string $id)
     {
         try {
-            $review = Review::findOrFail($id);
-            $review->update($request->all());
-            return response()->json(['data' => new ReviewResource($review)], 200);
+            if (Gate::allows("is-admin")) {
+                $review = Review::findOrFail($id);
+                $review->update($request->all());
+                return response()->json(['data' => new ReviewResource($review)], 200);
+            } else {
+                return response()->json(['message' => 'not allow to edit review.'], 403);
+            }
         } catch (\Throwable $th) {
             return response()->json(['message' => 'An error occurred while updating the Review'], 500);
-
         }
     }
 
     public function destroy(string $id)
     {
         try {
-            $review = Review::findOrFail($id);
-            $review->delete();
-            return response()->json(['data' => 'Review deleted successfully'], 200);
+            if (Gate::allows("is-admin")) {
+                $review = Review::findOrFail($id);
+                $review->delete();
+                return response()->json(['data' => 'Review deleted successfully'], 200);
+            } else {
+                return response()->json(['message' => 'not allow to delete review.'], 403);
+            }
         } catch (\Throwable $th) {
             return response()->json(['message' => 'An error occurred while deleting the Review'], 500);
         }
