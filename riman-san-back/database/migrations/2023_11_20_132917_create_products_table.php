@@ -19,6 +19,10 @@ return new class extends Migration {
             $table->boolean('stock')->default(true);
             $table->integer('rating');
             $table->integer('price');
+            $table->unsignedBigInteger('category_id');
+            // $table->foreignId('category_id')->references('id')->on('category');
+            $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+
 
 
 
