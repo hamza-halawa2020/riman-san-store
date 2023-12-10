@@ -8,6 +8,7 @@ import { ProductService } from '../services/product/product.service';
 })
 export class ProductsComponent {
   products: any = [];
+  categories: any = [];
   selectedProducts: any;
   selectedProductsIndex: number | null = null;
   loading: boolean = false;
@@ -15,12 +16,19 @@ export class ProductsComponent {
   constructor(private productsService: ProductService) {}
   ngOnInit(): void {
     this.getProducts();
+    this.getAllCate();
   }
   getProducts() {
     this.loading = true;
     this.productsService.getProducts().subscribe((data) => {
       this.products = Object.values(data)[0];
       this.loading = false;
+    });
+  }
+  getAllCate() {
+    this.productsService.getCategory().subscribe((data) => {
+      this.categories = Object.values(data)[0];
+      console.log(this.categories);
     });
   }
 

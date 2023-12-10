@@ -10,7 +10,6 @@ export class ProductService {
   // private apiUrl = 'https://rimansan.net/api';
   private apiUrl = environment.backEndUrl;
 
-
   constructor(private http: HttpClient) {}
 
   review(review: any) {
@@ -27,5 +26,9 @@ export class ProductService {
   deleteProduct(productId: number) {
     const url = `${this.apiUrl}/products/${productId}`;
     return this.http.delete(url);
+  }
+
+  getCategory() {
+    return this.http.get(`${this.apiUrl}/categories`);
   }
 }
