@@ -25,6 +25,14 @@ class ProductController extends Controller
         }
     }
 
+    public function indexByCategory($category)
+    {
+        $products = Product::whereHas('category', function ($query) use ($category) {
+            $query->where('name', $category);
+        })->get();
+        return response()->json($products);
+    }
+
 
     public function store(Request $request)
     {
@@ -37,7 +45,7 @@ class ProductController extends Controller
             $product = Product::findOrFail($id);
             return new ProductResource($product);
         } catch (\Throwable $th) {
-            return response()->json(['message' => 'An error occurred while showing reviews.'], 500);
+            return response()->json(['message' => 'An error occurred while showing product.'], 500);
         }
     }
 

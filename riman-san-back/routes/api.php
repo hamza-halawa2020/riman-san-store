@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -26,10 +27,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::apiResource('products', ProductController::class);
-Route::apiResource('categories', ProductController::class);
-
+Route::apiResource('categories', CategoryController::class);
+Route::get('/products/category/{category}', [ProductController::class, 'indexByCategory']);
 Route::apiResource('users', UserController::class);
 Route::apiResource('contacts', ContactConroller::class);
 Route::apiResource('orders', OrderConroller::class);
 Route::apiResource('reviews', ReviewController::class);
-Route::post('login', [AuthController::class, 'login']);
+// Route::post('login', [AuthController::class, 'login']);

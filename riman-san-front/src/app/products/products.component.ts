@@ -28,9 +28,24 @@ export class ProductsComponent {
   getAllCate() {
     this.productsService.getCategory().subscribe((data) => {
       this.categories = Object.values(data)[0];
-      console.log(this.categories);
+      // console.log(this.categories);
     });
   }
+
+  filterCategory(event: any) {
+    let value = event.target.value;
+    this.productsService.getCategoryById(value).subscribe((data) => {
+      this.products = Object.values(data)[0];
+      // console.log(this.products);
+    });
+  }
+  // getCategoryByID(keyWord: number) {
+  //   this.productsService.getCategoryById(keyWord).subscribe((data) => {
+  //     // console.log((this.products = Object.values(data)));
+  //     // console.log((this.products = data));
+  //     // this.products = Object.values(data)[0];
+  //   });
+  // }
 
   //   deleteProduct(productId: number): void {
   //     this.productsService.deleteProduct(productId).subscribe(

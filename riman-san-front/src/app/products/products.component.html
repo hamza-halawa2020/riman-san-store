@@ -6,10 +6,10 @@
     <h2 class="text-center display-5 mb-4">Our Products</h2>
     <div class="w-25">
       <label for="">categories :</label>
-      <select class="form-control">
+      <select class="form-control" (change)="filterCategory($event)">
         <option value="all" selected>All</option>
-        <option value="{{ option }}" *ngFor="let option of categories">
-          {{ option }}
+        <option value="{{ option.id }}" *ngFor="let option of categories">
+          {{ option.name }}
         </option>
       </select>
     </div>
