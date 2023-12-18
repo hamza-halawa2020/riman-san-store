@@ -9,10 +9,10 @@ use App\Http\Resources\ProductResource;
 
 class ProductController extends Controller
 {
-    function __construct()
-    {
-        $this->middleware("auth:sanctum")->except(["index", "show"]);
-    }
+    // function __construct()
+    // {
+    //     $this->middleware("auth:sanctum")->except(["index", "show"]);
+    // }
 
     public function index()
     {
@@ -28,10 +28,20 @@ class ProductController extends Controller
     public function indexByCategory($category)
     {
         $products = Product::whereHas('category', function ($query) use ($category) {
-            $query->where('name', $category);
+            $query->where('id', $category);
         })->get();
         return response()->json($products);
     }
+    // public function indexByCategory()
+    // {
+    //     $categoryName = 'Category 1'; // Replace 'Category 1' with the actual name of category 1
+    //     $products = Product::whereHas('category', function ($query) use ($categoryName) {
+    //         $query->where('name', $categoryName);
+    //     })->get();
+
+    //     return response()->json($products);
+    // }
+
 
 
     public function store(Request $request)

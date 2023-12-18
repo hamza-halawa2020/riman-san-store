@@ -16,15 +16,14 @@ class CategoryController extends Controller
     public function index()
     {
         try {
-            $categories = Category::withCount(['products' => function ($query) {
-                $query->withFilters();
-            }])->get();
+            $categories = Category::all();
             return CategoryResource::collection($categories);
 
         } catch (\Throwable $th) {
             return response()->json(['message' => 'An error occurred while showing categories.'], 500);
         }
     }
+
     /**
      * Store a newly created resource in storage.
      */

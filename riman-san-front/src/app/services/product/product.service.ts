@@ -33,7 +33,7 @@ export class ProductService {
   }
 
   getCategoryById(categoryId: number) {
-    const url = `${this.apiUrl}/categories/${categoryId}`;
+    const url = `${this.apiUrl}/product/category/${categoryId}`;
     return this.http.get(url);
   }
 }

@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            // $table->bigInteger('category_id')->unsigned();
             $table->timestamps();
             $table->string('name');
             $table->string('description');
@@ -19,7 +20,9 @@ return new class extends Migration {
             $table->boolean('stock')->default(true);
             $table->integer('rating');
             $table->integer('price');
-            $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
+            // $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+
 
 
         });
