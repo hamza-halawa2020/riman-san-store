@@ -6,50 +6,46 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class CartService {
-  private counterCart = new BehaviorSubject<number>(0);
-  constructor(    private toast: NgToastService,
-    ) {}
+  constructor(private toast: NgToastService) {}
   private cartDataList: any[] = [];
-  public productList: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
   getCart() {
-    return this.productList.asObservable();
-  }
-
-  addProductToCart(myProduct: any): void {
-    const productAlreadyInCart = this.cartDataList.some(
-      (product: any) => product.id === myProduct.id
-    );
-
-    if (productAlreadyInCart) {
-      // alert('Product is already in the cart.');
-      this.toast.error({
-        detail: 'ERROR',
-        summary: 'Product is already in the cart.',
-        sticky: true,
-        position: 'topCenter',
-      });
-    } else {
-      this.cartDataList.push(myProduct);
-      this.productList.next([...this.cartDataList]);
+    if ('cart' in localStorage) {
+      const storedCart = localStorage.getItem('cart');
+      if (storedCart) {
+        this.cartDataList = JSON.parse(storedCart);
+        console.log(this.cartDataList);
+      }
     }
   }
 
-  removeDate(myProduct: any) {
-    this.cartDataList.map((a: any, index: any) => {
-      if (myProduct.id === a.id) {
-        this.cartDataList.splice(index, 1);
+  addProductToCart(myProduct: any): void {
+    if ('cart' in localStorage) {
+      const storedCart = localStorage.getItem('cart');
+      if (storedCart) {
+        this.cartDataList = JSON.parse(storedCart);
       }
-      this.productList.next(this.cartDataList);
-    });
+      const productAlreadyInCart = this.cartDataList.some(
+        (product) => product.id === myProduct.id
+      );
+      if (productAlreadyInCart) {
+        this.toast.error({
+          detail: 'ERROR',
+          summary: 'Product is already in the cart.',
+          sticky: true,
+          position: 'topCenter',
+        });
+      } else {
+        this.cartDataList.push(myProduct);
+        localStorage.setItem('cart', JSON.stringify(this.cartDataList));
+      }
+    } else {
+      this.cartDataList.push(myProduct);
+      localStorage.setItem('cart', JSON.stringify(this.cartDataList));
+    }
   }
 
-  removeAllDate() {
-    this.cartDataList = [];
-    this.productList.next(this.cartDataList);
-  }
-
-  getcounterCart() {
-    return this.counterCart.asObservable();
-  }
+  // getcounterCart() {
+  //   return this.counterCart.asObservable();
+  // }
 }

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CartService } from 'src/app/services/cart/cart.service';
 import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
@@ -8,22 +7,12 @@ import { LoginService } from 'src/app/services/login/login.service';
   styleUrls: ['./admin-navbar.component.css'],
 })
 export class AdminNavbarComponent {
-  email: string = 'info@rimansan.com';
-  email2: string = 'support@rimansan.com';
+  constructor(private authService: LoginService) {}
 
-  total: number = 0;
-  totalNumber: number = 0;
-
-  constructor(private cartApi: CartService, private authService: LoginService) {}
-
-  ngOnInit(): void {
-    this.cartApi.getCart().subscribe((res) => {
-      this.total = res.length;
-    });
-  }
+  ngOnInit() {}
 
   isLoggedIn(): boolean {
-    return!! this.authService.isLoggedIn();
+    return !!this.authService.isLoggedIn();
   }
   isAdmin(): boolean {
     return this.authService.getRole() == 'admin';

@@ -26,14 +26,14 @@
       <div class="col-md-6">
         <div class="p-3 right-side">
           <div class="d-flex justify-content-between align-items-center">
-            <h3>{{ productDetails.name }}</h3>
+            <h3>{{ productDetails?.name }}</h3>
           </div>
           <div class="mt-2 pr-3 content">
             <p>
-              {{ productDetails.description }}
+              {{ productDetails?.description }}
             </p>
           </div>
-          <h3>{{ productDetails.price | price }}</h3>
+          <h3>{{ productDetails?.price | price }}</h3>
           <div class="ratings d-flex flex-row align-items-center">
             <!-- <div>
               <ngb-rating
@@ -46,16 +46,17 @@
           <div
             class="list-group-item fw-bold"
             [ngClass]="{
-              'text-success': productDetails.stock,
-              'text-danger': !productDetails.stock
+              'text-success': productDetails?.stock,
+              'text-danger': !productDetails?.stock
             }"
           >
-            {{ productDetails.stock | stock }}
+            {{ productDetails?.stock | stock }}
           </div>
+
           <div class="buttons d-flex flex-row mt-2 gap-3">
             <button
               class="btn btn-outline-dark"
-              [class.disabled]="!productDetails.stock"
+              [class.disabled]="!productDetails?.stock"
               (click)="addProdutToCart(productDetails)"
             >
               Add to Cart
@@ -66,19 +67,3 @@
     </div>
   </div>
 </div>
-<!-- <div *ngIf="!loading" class="container mb-5">
-  <div class="container mt-5 mb-5">
-    <div class="row mt-5">
-      <div class="col mt-4">
-        <a name="contentTop"></a>
-        <div class="mt-5 reviews">
-          <h2 class="mb-3">Reviews</h2>
-          <app-feedback [id]="id"></app-feedback>
-          <app-review></app-review>
-        </div>
-    </div>
-  </div>
-</div>
-
- -->
-

@@ -44,8 +44,11 @@
             type="number"
             class="rounded"
             [(ngModel)]="item.quantity"
+            placeholder="Enter Your Quantity"
+            value="1"
             (input)="updateTotal(item.price, item.quantity)"
             min="1"
+            (change)="changeData()"
           />
         </td>
         <td>{{ calculateTotal(item) }}</td>
@@ -79,12 +82,11 @@
         </tr>
       </tbody>
     </table>
-
-    <div class="col">
-      <a routerLink="/order" class="btn btn-success w-100" (click)="makeOrder()"
-        >Make Order Now</a
-      >
-    </div>
+    <div>Add Your Data To Complete Your Order</div>
+  </div>
+  <app-order-now></app-order-now>
+  <div class="col">
+    <a class="btn btn-success w-100" (click)="makeOrder()">Make Order Now</a>
   </div>
 </div>
 

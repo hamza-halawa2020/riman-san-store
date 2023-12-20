@@ -11,25 +11,25 @@ import { OrderService } from '../services/order/order.service';
 export class CartComponent {
   allProduct: any;
   card: any = [];
-  totalPaice: any;
+  totalPaice: any[] = [];
   x = 'http://127.0.0.1:8000/img/';
 
   Shipping_expenses = 50;
 
-  constructor(
-    private cartApi: CartService,
-    private sharedService: OrderService
-  ) {}
+  constructor(private sharedService: OrderService) {}
 
   ngOnInit(): void {
     this.getCartProducts();
   }
 
   getCartProducts() {
-    this.cartApi.getCart().subscribe((data) => {
-      this.card = data;
-      this.allProduct = this.cartApi.getcounterCart();
-    });
+    if ('cart' in localStorage) {
+      const storedCart = localStorage.getItem('cart');
+      if (storedCart) {
+        this.card = JSON.parse(storedCart);
+        // console.log(this.card);
+      }
+    }
   }
 
   calculateTotal(item: any) {
@@ -45,8 +45,10 @@ export class CartComponent {
   updateTotal(price: number, quantity: number) {
     if (quantity !== undefined && quantity >= 0) {
       const total = price * quantity;
-      // console.log('Total:', total);
     }
+  }
+  changeData() {
+    localStorage.setItem('cart', JSON.stringify(this.card));
   }
 
   calculateTotalAllProduct() {
@@ -61,12 +63,14 @@ export class CartComponent {
     return total;
   }
 
-  removeProduct(item: any) {
-    this.cartApi.removeDate(item);
+  removeProduct(index: any) {
+    this.card.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(this.card));
   }
 
   removeAllProduct() {
-    this.cartApi.removeAllDate();
+    this.card = [];
+    localStorage.setItem('cart', JSON.stringify(this.card));
   }
 
   //   makeOrder() {
@@ -79,12 +83,26 @@ export class CartComponent {
   //   }
   // }
 
+  // makeOrder() {
+  //   const orderData = {
+  //     products: this.card,
+  //     total: this.calculateTotalAllProduct() + this.Shipping_expenses,
+  //     shippingExpenses: this.Shipping_expenses,
+  //   };
+  //   this.sharedService.setProductData(orderData);
+  // }
   makeOrder() {
-    const orderData = {
-      products: this.card,
-      total: this.calculateTotalAllProduct() + this.Shipping_expenses,
-      shippingExpenses: this.Shipping_expenses,
+    let products = this.card.map((item: any) => {
+      return {
+        productId: item.id,
+        quantity: item.quantity,
+        price: item.updateTotal,
+      };
+    });
+    let model = {
+      date: new Date(),
+      products: products,
     };
-    this.sharedService.setProductData(orderData);
+    console.log('mode', model);
   }
 }

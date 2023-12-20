@@ -14,16 +14,19 @@ export class NavbarComponent {
   total: number = 0;
   totalNumber: number = 0;
 
-  constructor(private cartApi: CartService, private authService: LoginService) {}
+  constructor(
+    private cartApi: CartService,
+    private authService: LoginService
+  ) {}
 
-  ngOnInit(): void {
-    this.cartApi.getCart().subscribe((res) => {
-      this.total = res.length;
-    });
+  ngOnInit() {
+    // this.cartApi.getCart().subscribe((res) => {
+    //   this.total = res.length;
+    // });
   }
 
   isLoggedIn(): boolean {
-    return!! this.authService.isLoggedIn();
+    return !!this.authService.isLoggedIn();
   }
 
   logout() {

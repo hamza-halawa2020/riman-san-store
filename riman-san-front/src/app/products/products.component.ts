@@ -12,7 +12,6 @@ export class ProductsComponent {
   selectedProducts: any;
   selectedProductsIndex: number | null = null;
   loading: boolean = false;
-
   constructor(private productsService: ProductService) {}
   ngOnInit(): void {
     this.getProducts();
