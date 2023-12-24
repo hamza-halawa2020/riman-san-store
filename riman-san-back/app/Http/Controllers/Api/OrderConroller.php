@@ -18,21 +18,38 @@ class OrderConroller extends Controller
     public function index()
     {
         try {
-            if (Gate::allows("is-admin")) {
-                $orders = Order::all();
-                return OrderResource::collection($orders);
-            } else {
-                return response()->json(['message' => 'not allow to show orders.'], 403);
-            }
+            // if (Gate::allows("is-admin")) {
+            $orders = Order::all();
+            return OrderResource::collection($orders);
+            // } else {
+            // return response()->json(['message' => 'not allow to show orders.'], 403);
+            // }
         } catch (\Throwable $th) {
             return response()->json(['message' => 'An error occurred while showing orders.'], 500);
         }
     }
 
+
+    // public function store(Request $request)
+    // {
+    //     $orderData = $request->all(); // Assuming the request contains the order data
+
+    //     // Save order data to the database
+    //     $order = Order::create($orderData);
+
+    //     // You can also save the products associated with the order
+    //     $order->products()->createMany($orderData['products']);
+
+    //     return response()->json(['message' => 'Order stored successfully', 'order' => $order]);
+    // }
+
+
     public function store(StoreOrderRequest $request)
     {
         try {
-            $order = Order::create($request->all());
+            $orderData = $request->all();
+            $order = Order::create($orderData);
+            $order->products()->createMany($orderData['products']);
             return response()->json(['data' => new OrderResource($order)], 200);
         } catch (\Throwable $th) {
             return response()->json(['message' => 'An error occurred while creating the order'], 500);

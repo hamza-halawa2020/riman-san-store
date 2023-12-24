@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 export class CartService {
   constructor(private toast: NgToastService) {}
   private cartDataList: any[] = [];
+  private counterCart = new BehaviorSubject<number>(0);
 
   getCart() {
     if ('cart' in localStorage) {
@@ -38,6 +39,11 @@ export class CartService {
       } else {
         this.cartDataList.push(myProduct);
         localStorage.setItem('cart', JSON.stringify(this.cartDataList));
+        this.toast.success({
+          detail: 'SUCCESS',
+          summary: 'Your Success Message',
+          position: 'topCenter',
+        });
       }
     } else {
       this.cartDataList.push(myProduct);
@@ -45,7 +51,7 @@ export class CartService {
     }
   }
 
-  // getcounterCart() {
-  //   return this.counterCart.asObservable();
-  // }
+  getcounterCart() {
+    return this.counterCart.asObservable();
+  }
 }

@@ -20,9 +20,9 @@ export class NavbarComponent {
   ) {}
 
   ngOnInit() {
-    // this.cartApi.getCart().subscribe((res) => {
-    //   this.total = res.length;
-    // });
+    this.cartApi.getcounterCart().subscribe((res: any) => {
+      this.total = res.length;
+    });
   }
 
   isLoggedIn(): boolean {

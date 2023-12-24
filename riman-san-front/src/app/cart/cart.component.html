@@ -91,9 +91,112 @@
       <div class="text-center text-danger h5">
         Add Your Data To Complete Your Order
       </div>
+      <div class="container">
+        <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="mt-4">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name:</label>
+            <div
+              class="text-danger"
+              *ngIf="
+                orderForm.controls['name'].touched &&
+                orderForm.controls['name'].invalid
+              "
+            >
+              <div *ngIf="orderForm.controls['name'].hasError('required')">
+                Name is required
+              </div>
+            </div>
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              formControlName="name"
+              required
+            />
+          </div>
 
-      <app-order-now (click)="makeOrder()"></app-order-now>
-      <!-- <a class="btn btn-success w-100" (click)="makeOrder()">Make Order Now</a> -->
+          <div class="mb-3">
+            <label for="phone" class="form-label">Phone:</label>
+            <div
+              class="text-danger"
+              *ngIf="
+                orderForm.controls['phone'].touched &&
+                orderForm.controls['phone'].invalid
+              "
+            >
+              <div *ngIf="orderForm.controls['phone'].hasError('required')">
+                phone is required
+              </div>
+            </div>
+            <input
+              type="text"
+              id="phone"
+              class="form-control"
+              formControlName="phone"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="address" class="form-label">Address:</label>
+            <div
+              class="text-danger"
+              *ngIf="
+                orderForm.controls['address'].touched &&
+                orderForm.controls['address'].invalid
+              "
+            >
+              <div *ngIf="orderForm.controls['address'].hasError('required')">
+                address is required
+              </div>
+            </div>
+            <input
+              type="text"
+              id="address"
+              class="form-control"
+              formControlName="address"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="city" class="form-label">City:</label>
+            <div
+              class="text-danger"
+              *ngIf="
+                orderForm.controls['city'].touched &&
+                orderForm.controls['city'].invalid
+              "
+            >
+              <div *ngIf="orderForm.controls['city'].hasError('required')">
+                city is required
+              </div>
+            </div>
+            <input
+              type="text"
+              id="city"
+              class="form-control"
+              formControlName="city"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="notes" class="form-label">Notes:</label>
+            <textarea
+              id="notes"
+              class="form-control"
+              formControlName="notes"
+            ></textarea>
+          </div>
+          <input
+            [disabled]="orderForm.invalid"
+            type="submit"
+            value="Submit Order"
+            class="btn btn-light"
+          />
+        </form>
+      </div>
     </div>
   </div>
 </div>
