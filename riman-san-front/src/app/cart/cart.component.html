@@ -8,85 +8,93 @@
       clear your cart
     </div>
   </div>
-  <div class="h3 mt-5 mb-3 text-danger text-center">
-    From your class, put the appropriate amount for you
-  </div>
-  <table class="table table-bordered text-center">
-    <thead>
-      <tr>
-        <th>N</th>
-        <th>Image</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Total</th>
-        <th>Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="let item of card; let i = index"
-        style="vertical-align: middle"
-      >
-        <td>{{ i + 1 }}</td>
-        <td>
-          <img
-            [src]="x + item.img"
-            alt="Product Image"
-            class="rounded border"
-            style="height: 45px"
-          />
-        </td>
-        <td>{{ item.name }}</td>
-        <td>{{ item.price }}</td>
-        <td>
-          <input
-            type="number"
-            class="rounded"
-            [(ngModel)]="item.quantity"
-            placeholder="Enter Your Quantity"
-            value="1"
-            (input)="updateTotal(item.price, item.quantity)"
-            min="1"
-            (change)="changeData()"
-          />
-        </td>
-        <td>{{ calculateTotal(item) }}</td>
-        <td>
-          <button class="btn" (click)="removeProduct(item)">
-            <i class="fa-solid fa-trash fa-xl"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="row">
+    <div class="col-6">
+      <div class="h3 mt-5 mb-3 text-danger text-center">
+        From your class, put the appropriate amount for you
+      </div>
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr>
+            <th>N</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let item of card; let i = index"
+            style="vertical-align: middle"
+          >
+            <td>{{ i + 1 }}</td>
+            <td>
+              <img
+                [src]="x + item.img"
+                alt="Product Image"
+                class="rounded border"
+                style="height: 45px"
+              />
+            </td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.price }}</td>
+            <td>
+              <input
+                type="number"
+                class="rounded"
+                [(ngModel)]="item.quantity"
+                placeholder="Enter Your Quantity"
+                (input)="updateTotal(item.price, item.quantity)"
+                min="1"
+                (change)="changeData()"
+              />
+            </td>
+            <td>{{ calculateTotal(item) }}</td>
+            <td>
+              <button class="btn" (click)="removeProduct(item)">
+                <i class="fa-solid fa-trash fa-xl"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-  <div class="row mt-5 text-center">
-    <table class="table table-bordered text-center">
-      <thead>
-        <tr>
-          <th>Total</th>
-          <th></th>
-          <th>Shipping Expenses</th>
-          <th></th>
-          <th>Total after Shipping Expenses</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{ calculateTotalAllProduct() | price }}</td>
-          <td>+</td>
-          <td>{{ Shipping_expenses | price }}</td>
-          <td>=</td>
-          <td>{{ calculateTotalAllProduct() + Shipping_expenses | price }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <div>Add Your Data To Complete Your Order</div>
-  </div>
-  <app-order-now></app-order-now>
-  <div class="col">
-    <a class="btn btn-success w-100" (click)="makeOrder()">Make Order Now</a>
+      <div class="row mt-5 text-center">
+        <table class="table table-bordered text-center">
+          <thead>
+            <tr>
+              <th>Total</th>
+              <th></th>
+              <th>Shipping Expenses</th>
+              <th></th>
+              <th>Total after Shipping Expenses</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ calculateTotalAllProduct() | price }}</td>
+              <td>+</td>
+              <td>{{ Shipping_expenses | price }}</td>
+              <td>=</td>
+              <td>
+                {{ calculateTotalAllProduct() + Shipping_expenses | price }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="text-center text-danger h5">
+        Add Your Data To Complete Your Order
+      </div>
+
+      <app-order-now (click)="makeOrder()"></app-order-now>
+      <!-- <a class="btn btn-success w-100" (click)="makeOrder()">Make Order Now</a> -->
+    </div>
   </div>
 </div>
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CartService } from '../services/cart/cart.service';
 import { Router } from '@angular/router';
 import { OrderService } from '../services/order/order.service';
+import { Product } from '../product';
 
 @Component({
   selector: 'app-cart',
@@ -10,7 +11,7 @@ import { OrderService } from '../services/order/order.service';
 })
 export class CartComponent {
   allProduct: any;
-  card: any = [];
+  card: any[] = [];
   totalPaice: any[] = [];
   x = 'http://127.0.0.1:8000/img/';
 
@@ -44,7 +45,7 @@ export class CartComponent {
 
   updateTotal(price: number, quantity: number) {
     if (quantity !== undefined && quantity >= 0) {
-      const total = price * quantity;
+      const total = price! * quantity;
     }
   }
   changeData() {
@@ -92,16 +93,20 @@ export class CartComponent {
   //   this.sharedService.setProductData(orderData);
   // }
   makeOrder() {
-    let products = this.card.map((item: any) => {
+    let products = this.card.map((item) => {
       return {
         productId: item.id,
         quantity: item.quantity,
-        price: item.updateTotal,
+        price: item.price,
+        sum: item.price * item.quantity,
       };
     });
     let model = {
       date: new Date(),
       products: products,
+      all_prod: this.calculateTotalAllProduct(),
+      Shipping_expenses: this.Shipping_expenses,
+      sum: this.calculateTotalAllProduct() + this.Shipping_expenses,
     };
     console.log('mode', model);
   }
