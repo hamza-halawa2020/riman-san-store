@@ -99,24 +99,27 @@ export class CartComponent {
       // const orderData = this.orderForm.value;
       let products = this.card.map((item) => {
         return {
-          productId: item.id,
+          product_id: item.id,
           quantity: item.quantity,
           price: item.price,
           sum: item.price * item.quantity,
         };
       });
       let model = {
-        date: new Date(),
+        // date: new Date(),
         products: products,
         all_prod: this.calculateTotalAllProduct(),
         Shipping_expenses: this.Shipping_expenses,
         sum: this.calculateTotalAllProduct() + this.Shipping_expenses,
-        // form_data: this.orderForm.value,
-        name: this.orderForm.value.name,
-        address: this.orderForm.value.address,
-        phone: this.orderForm.value.phone,
-        city: this.orderForm.value.city,
-        notes: this.orderForm.value.notes,
+        form_data: this.orderForm.value,
+        // quantity: this.card.quantity,
+        // total: '5',
+        // name: this.orderForm.value.name,
+        // address: this.orderForm.value.address,
+        // phone: this.orderForm.value.phone,
+        // city: this.orderForm.value.city,
+        // notes: this.orderForm.value.notes,
+        // product_id: 1,
       };
       console.log('model', model);
 

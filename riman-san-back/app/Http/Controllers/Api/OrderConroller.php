@@ -46,14 +46,14 @@ class OrderConroller extends Controller
 
     public function store(StoreOrderRequest $request)
     {
-        try {
-            $orderData = $request->all();
-            $order = Order::create($orderData);
-            $order->products()->createMany($orderData['products']);
-            return response()->json(['data' => new OrderResource($order)], 200);
-        } catch (\Throwable $th) {
-            return response()->json(['message' => 'An error occurred while creating the order'], 500);
-        }
+        // try {
+        $orderData = $request->all();
+        $order = Order::create($orderData);
+        // $order->products()->createMany($orderData['products']);
+        return response()->json(['data' => new OrderResource($order)], 200);
+        // } catch (\Throwable $th) {
+        //     return response()->json(['message' => 'An error occurred while creating the order'], 500);
+        // }
     }
 
     public function show(string $id)
