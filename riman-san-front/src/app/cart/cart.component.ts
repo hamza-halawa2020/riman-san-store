@@ -31,8 +31,8 @@ export class CartComponent {
       phone: new FormControl('', [
         Validators.required,
 
-        Validators.pattern(/^\d+$/), // Allow only digits
-        Validators.min(11),
+        // Validators.pattern(/^\d+$/), // Allow only digits
+        // Validators.min(11),
       ]),
       city: new FormControl('', [Validators.required]),
       notes: new FormControl(''),

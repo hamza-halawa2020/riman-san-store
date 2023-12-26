@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Http\Resources\ProductResource;
+use Exception;
+use App\Http\Requests\StoreProductRequest;
+use Gate;
+use App\Http\Requests\UpdateProductRequest;
+
 
 class ProductController extends Controller
 {
@@ -17,11 +22,10 @@ class ProductController extends Controller
     public function index()
     {
         try {
-
-            $products = Product::all();
+            $products = Product::paginate(10);
             return ProductResource::collection($products);
-        } catch (\Throwable $th) {
-            return response()->json(['message' => 'An error occurred while showing products.'], 500);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
         }
     }
 
@@ -32,20 +36,26 @@ class ProductController extends Controller
         })->get();
         return response()->json($products);
     }
-    // public function indexByCategory()
-    // {
-    //     $categoryName = 'Category 1'; // Replace 'Category 1' with the actual name of category 1
-    //     $products = Product::whereHas('category', function ($query) use ($categoryName) {
-    //         $query->where('name', $categoryName);
-    //     })->get();
 
-    //     return response()->json($products);
-    // }
-
-
-
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
+        try {
+            $this->validate($request, [
+                'name' => 'required|string',
+                'description' => 'required|string',
+                'img' => 'required',
+                'price' => 'required',
+                'category_id' => 'required',
+            ]);
+            if (Gate::allows("is-admin")) {
+                $product = Product::create($request->all());
+                return response()->json(['data' => new ProductResource($product)], 200);
+            } else {
+                return response()->json(['message' => 'not allow to update product.'], 403);
+            }
+        } catch (Exception $e) {
+            return response()->json($e, 500);
+        }
 
     }
 
@@ -54,18 +64,45 @@ class ProductController extends Controller
         try {
             $product = Product::findOrFail($id);
             return new ProductResource($product);
-        } catch (\Throwable $th) {
-            return response()->json(['message' => 'An error occurred while showing product.'], 500);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
         }
     }
 
-    public function update(Request $request, string $id)
+    public function update(UpdateProductRequest $request, string $id)
     {
-
+        try {
+            $this->validate($request, [
+                'name' => 'required|string',
+                'description' => 'required|string',
+                'img' => 'required',
+                'price' => 'required',
+                'category_id' => 'required',
+            ]);
+            if (Gate::allows("is-admin")) {
+                $product = Product::findOrFail($id);
+                $product->update($request->all());
+                return response()->json(['data' => new ProductResource($product)], 200);
+            } else {
+                return response()->json(['message' => 'not allow to update product.'], 403);
+            }
+        } catch (Exception $e) {
+            return response()->json($e, 500);
+        }
     }
 
     public function destroy(string $id)
     {
-
+        try {
+            if (Gate::allows("is-admin")) {
+                $product = Product::findOrFail($id);
+                $product->delete();
+                return response()->json(['data' => 'Category deleted successfully'], 200);
+            } else {
+                return response()->json(['message' => 'not allow to delete product.'], 403);
+            }
+        } catch (Exception $e) {
+            return response()->json($e, 500);
+        }
     }
 }

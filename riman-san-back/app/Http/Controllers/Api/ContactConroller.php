@@ -8,6 +8,8 @@ use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use App\Http\Requests\StoreContactRequest;
 use Gate;
+use Exception;
+
 
 class ContactConroller extends Controller
 {
@@ -20,22 +22,29 @@ class ContactConroller extends Controller
     {
         try {
             if (Gate::allows("is-admin")) {
-                $contacts = Contact::all();
+                $contacts = Contact::paginate(10);
+
                 return ContactResource::collection($contacts);
             } else {
                 return response()->json(['message' => 'not allow to show contacts.'], 403);
             }
-        } catch (\Throwable $th) {
-            return response()->json(['message' => 'An error occurred while showing contacts.'], 500);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
         }
     }
     public function store(StoreContactRequest $request)
     {
         try {
+            $this->validate($request, [
+                'fullName' => 'required|string',
+                'email' => 'required|email',
+                'subject' => 'required',
+                'message' => 'required',
+            ]);
             $contact = Contact::create($request->all());
             return response()->json(['data' => new ContactResource($contact)], 200);
-        } catch (\Throwable $th) {
-            return response()->json(['message' => 'An error occurred while creating the contact'], 500);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
         }
     }
     public function show(string $id)
@@ -47,8 +56,8 @@ class ContactConroller extends Controller
             } else {
                 return response()->json(['message' => 'not allow to show contacts.'], 403);
             }
-        } catch (\Throwable $th) {
-            return response()->json(['message' => 'An error occurred while showing contacts.'], 500);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
         }
     }
 
@@ -56,6 +65,12 @@ class ContactConroller extends Controller
     public function update(Request $request, string $id)
     {
         try {
+            $this->validate($request, [
+                'fullName' => 'required|string',
+                'email' => 'required|email',
+                'subject' => 'required',
+                'message' => 'required',
+            ]);
             if (Gate::allows("is-admin")) {
                 $contact = Contact::findOrFail($id);
                 $contact->update($request->all());
@@ -63,8 +78,8 @@ class ContactConroller extends Controller
             } else {
                 return response()->json(['message' => 'not allow to update contacts.'], 403);
             }
-        } catch (\Throwable $th) {
-            return response()->json(['message' => 'An error occurred while updating the contact'], 500);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
         }
     }
 
@@ -78,8 +93,8 @@ class ContactConroller extends Controller
             } else {
                 return response()->json(['message' => 'not allow to show contacts.'], 403);
             }
-        } catch (\Throwable $th) {
-            return response()->json(['message' => 'An error occurred while deleting the contact'], 500);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
         }
     }
 }

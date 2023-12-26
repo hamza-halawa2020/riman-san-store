@@ -32,6 +32,9 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
+        // $validator = validator::make($request->all(), [
+
+        // ]);
         try {
             $user = User::create($request->all());
             return response()->json(['data' => new UserResource($user)], 200);
