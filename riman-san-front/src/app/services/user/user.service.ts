@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -13,7 +13,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUsers() {
-    return this.http.get(`${this.apiUrl}/users`);
+   return this.http.get(`${this.apiUrl}/users`);
   }
   getUserById(userId: number) {
     const url = `${this.apiUrl}/${userId}`;

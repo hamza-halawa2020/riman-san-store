@@ -9,7 +9,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { UsersComponent } from './users/users.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
@@ -45,6 +45,7 @@ import { PrivacyPolicyComponent } from './shared/privacy-policy/privacy-policy.c
 import { TermsOfUseComponent } from './shared/terms-of-use/terms-of-use.component';
 import { FaqsComponent } from './shared/faqs/faqs.component';
 import { WhatsAppComponent } from './shared/whats-app/whats-app.component';
+import { TokenAuthInterceptor } from './interceptor/token-auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,13 @@ import { WhatsAppComponent } from './shared/whats-app/whats-app.component';
     NgbModule,
     NgToastModule
   ],
-  providers: [],
+  providers: [
+    {
+    provide: HTTP_INTERCEPTORS,
+    useClass:TokenAuthInterceptor,
+    multi: true
+  }
+],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
     if(this.auth.isAdmin()){
       return true
     }else{
-      this.toast.error({detail:"ERROR", summary:"Please Login First!"});
+      this.toast.error({detail:"ERROR", summary:"403"});
       this.router.navigate(['/'])
       return false;
     }

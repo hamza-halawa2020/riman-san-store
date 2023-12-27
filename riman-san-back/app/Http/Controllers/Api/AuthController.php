@@ -26,10 +26,10 @@ class AuthController extends Controller
 //         $user = Auth::user();
 //         $token = $user->createToken($user->name);
 //         return response([
-//             'id'=> $user->id,
-//             'name' => $user->name,
-//             'email' => $user->email,
-//             'role' => $user->role,
+            // 'id'=> $user->id,
+            // 'name' => $user->name,
+            // 'email' => $user->email,
+            // 'role' => $user->role,
 //             'token' => $token->plainTextToken
 
 //         ], 200);
@@ -60,10 +60,10 @@ public function login(Request $request)
     // generate new token
     $token = $user->createToken($user->name);
     return response([
-        'id'=> $user->id,
-        'name' => $user->name,
-        'email' => $user->email,
-        'role' => $user->role,
+        // 'id'=> $user->id,
+        // 'name' => $user->name,
+        // 'email' => $user->email,
+        // 'role' => $user->role,
         'token' => $token->plainTextToken
 
     ], 200);

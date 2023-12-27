@@ -17,6 +17,10 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
+    function __construct()
+    {
+        $this->middleware("auth:sanctum")->except(['index','show']);
+    }
 
     public function index()
     {
@@ -42,7 +46,7 @@ class CategoryController extends Controller
             $category = Category::create($request->all());
             return response()->json(['data' => new CategoryResource($category)], 200);
             } else {
-                return response()->json(['message' => 'not allow to update $ategory.'], 403);
+                return response()->json(['message' => 'not allow to Store category.'], 403);
             }
         } catch (Exception $e) {
             return response()->json($e, 500);
@@ -80,7 +84,7 @@ class CategoryController extends Controller
             $category->update($request->all());
             return response()->json(['data' => new CategoryResource($category)], 200);
             } else {
-                return response()->json(['message' => 'not allow to update $ategory.'], 403);
+                return response()->json(['message' => 'not allow to update category.'], 403);
             }
         } catch (Exception $e) {
             return response()->json($e, 500);

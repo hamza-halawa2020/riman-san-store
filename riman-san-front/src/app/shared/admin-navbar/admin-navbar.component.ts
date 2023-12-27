@@ -11,10 +11,10 @@ export class AdminNavbarComponent {
 
   ngOnInit() {}
 
-  isLoggedIn(): boolean {
-    return !!this.authService.isLoggedIn();
+  isLoggedIn() {
+    return this.authService.isLoggedIn();
   }
-  isAdmin(): boolean {
-    return this.authService.getRole() == 'admin';
+  isAdmin() {
+    return this.authService.getToken();
   }
 }

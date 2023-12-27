@@ -14,10 +14,10 @@ use Exception;
 
 class ContactController extends Controller
 {
-    // function __construct()
-    // {
-    //     $this->middleware("auth:sanctum");
-    // }
+    function __construct()
+    {
+        $this->middleware("auth:sanctum")->except('store');
+    }
 
     public function index()
     {

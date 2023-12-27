@@ -32,11 +32,12 @@ export class LoginComponent {
       this.formSubmitted = true;
       this.auth.login(this.login.value).subscribe({
         next: (res: any) => {
+          localStorage.setItem('token', res.token);
           this.login.reset();
           // console.log(res);
 
-          this.auth.setRole(res.role);
-          this.auth.setToken(res.token);
+          // this.auth.setRole(res.role);
+          // this.auth.setToken(res.token);
           this.toast.success({
             detail: 'SUCCESS',
             summary: 'Your Success Message',
