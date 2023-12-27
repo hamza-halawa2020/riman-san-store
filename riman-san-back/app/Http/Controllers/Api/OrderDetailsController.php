@@ -4,13 +4,21 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Resources\OrderResource;
-use App\Models\Order;
-use App\Http\Requests\StoreOrderRequest;
+
+
+use App\Http\Resources\OrderDetailsResource;
+use App\Models\Order_details;
+use App\Http\Requests\StoreOrderDetailsRequest;
 use Gate;
 use Exception;
 
-class OrderController extends Controller
+
+
+
+
+
+
+class OrderDetailsController extends Controller
 {
     function __construct()
     {
@@ -20,8 +28,8 @@ class OrderController extends Controller
     {
         try {
             if (Gate::allows("is-admin")) {
-            $orders = Order::all();
-            return OrderResource::collection($orders);
+            $orders = Order_details::all();
+            return OrderDetailsResource::collection($orders);
             } else {
             return response()->json(['message' => 'not allow to show orders.'], 403);
             }
@@ -30,31 +38,28 @@ class OrderController extends Controller
         }
     }
 
-
-    public function store(StoreOrderRequest $request)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
     {
-        try {
-        $orderData = $request->all();
-        $order = Order::create($orderData);
-        return response()->json(['data' => new OrderResource($order)], 200);
-        } catch (Exception $e) {
-        return response()->json($e, 500);
-    }
+        //
     }
 
+    /**
+     * Display the specified resource.
+     */
     public function show(string $id)
     {
-        try {
-            $product = Order::findOrFail($id);
-            return new OrderResource($product);
-        } catch (Exception $e) {
-            return response()->json($e, 500);
-        }
+        //
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, string $id)
     {
-        
+        //
     }
 
     /**

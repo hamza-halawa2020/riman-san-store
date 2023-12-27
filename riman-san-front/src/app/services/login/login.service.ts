@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { environment } from 'src/environments/environment';
-import * as jwt from 'jsonwebtoken';
 @Injectable({
   providedIn: 'root',
 })
@@ -48,23 +47,7 @@ export class LoginService {
     return this.getToken();
   }
 
-  // isAdmin() {
-  //   const token = this.getToken();
 
-  //   if (token) {
-  //     try {
-  //       const decodedToken: any = jwt.verify(token, 'your-secret-key');
-        
-  //       // Assuming your token has a 'role' field
-  //       return decodedToken.role === 'admin';
-  //     } catch (error) {
-  //       console.error('Error decoding token:', error);
-  //       return false; // Token is invalid or expired
-  //     }
-  //   }
-
-  //   return false; // Token not found
-  // }
 
 
 

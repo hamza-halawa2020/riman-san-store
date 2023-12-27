@@ -18,8 +18,6 @@ return new class extends Migration {
             $table->string('phone');
             $table->string('city');
             $table->string('notes')->nullable();
-            $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
         });
 
     }

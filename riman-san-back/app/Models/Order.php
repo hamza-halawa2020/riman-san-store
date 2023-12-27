@@ -14,12 +14,11 @@ class Order extends Model
         'phone',
         'city',
         'notes',
-        'product_id',
 
     ];
-
-    public function products()
+    public function Order_details()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Order_details::class);
     }
+    
 }
