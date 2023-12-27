@@ -38,12 +38,12 @@ class CategoryController extends Controller
             $this->validate($request, [
                 'name' => 'required|unique:categories,name'
             ]);
-            // if (Gate::allows("is-admin")) {
+            if (Gate::allows("is-admin")) {
             $category = Category::create($request->all());
             return response()->json(['data' => new CategoryResource($category)], 200);
-            // } else {
-            //     return response()->json(['message' => 'not allow to update $ategory.'], 403);
-            // }
+            } else {
+                return response()->json(['message' => 'not allow to update $ategory.'], 403);
+            }
         } catch (Exception $e) {
             return response()->json($e, 500);
         }
@@ -75,13 +75,13 @@ class CategoryController extends Controller
             $this->validate($request, [
                 'name' => 'required|unique:categories,name'
             ]);
-            // if (Gate::allows("is-admin")) {
+            if (Gate::allows("is-admin")) {
             $category = Category::findOrFail($id);
             $category->update($request->all());
             return response()->json(['data' => new CategoryResource($category)], 200);
-            // } else {
-            //     return response()->json(['message' => 'not allow to update $ategory.'], 403);
-            // }
+            } else {
+                return response()->json(['message' => 'not allow to update $ategory.'], 403);
+            }
         } catch (Exception $e) {
             return response()->json($e, 500);
         }

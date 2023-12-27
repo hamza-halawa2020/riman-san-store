@@ -7,11 +7,12 @@ use Illuminate\Http\Request;
 use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use App\Http\Requests\StoreContactRequest;
+use App\Http\Requests\UpdateContactRequest;
 use Gate;
 use Exception;
 
 
-class ContactConroller extends Controller
+class ContactController extends Controller
 {
     // function __construct()
     // {
@@ -62,7 +63,7 @@ class ContactConroller extends Controller
     }
 
 
-    public function update(Request $request, string $id)
+    public function update(UpdateContactRequest $request, string $id)
     {
         try {
             $this->validate($request, [

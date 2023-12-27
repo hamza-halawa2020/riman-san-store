@@ -7,8 +7,8 @@ use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\Api\ContactConroller;
-use App\Http\Controllers\Api\OrderConroller;
+use App\Http\Controllers\Api\ContactController;
+use App\Http\Controllers\Api\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +30,7 @@ Route::apiResource('products', ProductController::class);
 Route::apiResource('categories', CategoryController::class);
 Route::get('/product/category/{id}', [ProductController::class, 'indexByCategory']);
 Route::apiResource('users', UserController::class);
-Route::apiResource('contacts', ContactConroller::class);
-Route::apiResource('orders', OrderConroller::class);
+Route::apiResource('contacts', ContactController::class);
+Route::apiResource('orders', OrderController::class);
 Route::apiResource('reviews', ReviewController::class);
 Route::post('login', [AuthController::class, 'login']);

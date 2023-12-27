@@ -9,7 +9,7 @@ use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use Gate;
 
-class OrderConroller extends Controller
+class OrderController extends Controller
 {
     // function __construct()
     // {

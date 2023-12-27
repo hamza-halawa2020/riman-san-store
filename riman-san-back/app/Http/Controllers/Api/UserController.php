@@ -8,13 +8,15 @@ use Gate;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use Exception;
 
 class UserController extends Controller
 {
-    // function __construct()
-    // {
-    //     $this->middleware("auth:sanctum");
-    // }
+    function __construct()
+    {
+        $this->middleware("auth:sanctum")->except('store');
+    }
 
     public function index()
     {
@@ -25,21 +27,25 @@ class UserController extends Controller
             } else {
                 return response()->json(['message' => 'not allow to show users.'], 403);
             }
-        } catch (\Throwable $th) {
-            return response()->json(['message' => 'An error occurred while showing users.'], 500);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
         }
     }
 
     public function store(StoreUserRequest $request)
     {
-        // $validator = validator::make($request->all(), [
 
-        // ]);
         try {
+            $this->validate($request, [
+                'name' => 'required|string',
+                'email' => 'required|email|unique:users',
+                'password' => 'required'
+            ]);
+      
             $user = User::create($request->all());
             return response()->json(['data' => new UserResource($user)], 200);
-        } catch (\Throwable $th) {
-            return response()->json(['message' => 'An error occurred while creating the user'], 500);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
         }
     }
 
@@ -52,13 +58,18 @@ class UserController extends Controller
             } else {
                 return response()->json(['message' => 'not allow to show user.'], 403);
             }
-        } catch (\Throwable $th) {
-            return response()->json(['message' => 'An error occurred while showing user.'], 500);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
         }
     }
-    public function update(Request $request, string $id)
+    public function update(UpdateUserRequest $request, string $id)
     {
         try {
+            $this->validate($request, [
+                'name' => 'required|string',
+                'email' => 'required|email|unique:users',
+                'password' => 'required'
+            ]);
             if (Gate::allows("is-admin")) {
                 $user = User::findOrFail($id);
                 $user->update($request->all());
@@ -66,9 +77,8 @@ class UserController extends Controller
             } else {
                 return response()->json(['message' => 'not allow to update user.'], 403);
             }
-        } catch (\Throwable $th) {
-            return response()->json(['message' => 'An error occurred while updating the user'], 500);
-
+        } catch (Exception $e) {
+            return response()->json($e, 500);
         }
     }
 
@@ -82,8 +92,8 @@ class UserController extends Controller
             } else {
                 return response()->json(['message' => 'not allow to delete user.'], 403);
             }
-        } catch (\Throwable $th) {
-            return response()->json(['message' => 'An error occurred while deleting the user'], 500);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
         }
     }
 }
