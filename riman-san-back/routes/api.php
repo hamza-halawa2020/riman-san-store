@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\OrderDetailsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,5 +33,6 @@ Route::get('/product/category/{id}', [ProductController::class, 'indexByCategory
 Route::apiResource('users', UserController::class);
 Route::apiResource('contacts', ContactController::class);
 Route::apiResource('orders', OrderController::class);
+Route::apiResource('orderdetails', OrderDetailsController::class);
 Route::apiResource('reviews', ReviewController::class);
 Route::post('login', [AuthController::class, 'login']);

@@ -45,8 +45,8 @@ class OrderController extends Controller
     public function show(string $id)
     {
         try {
-            $product = Order::findOrFail($id);
-            return new OrderResource($product);
+            $order = Order::findOrFail($id);
+            return new OrderResource($order);
         } catch (Exception $e) {
             return response()->json($e, 500);
         }

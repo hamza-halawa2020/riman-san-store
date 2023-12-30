@@ -97,35 +97,62 @@ export class CartComponent {
   onSubmit() {
     if (this.orderForm.valid) {
       // const orderData = this.orderForm.value;
-      let products = this.card.map((item) => {
-        return {
-          product_id: item.id,
-          quantity: item.quantity,
-          price: item.price,
-          sum: item.price * item.quantity,
-        };
-      });
-      let model = {
-        // date: new Date(),
-        products: products,
-        all_prod: this.calculateTotalAllProduct(),
-        Shipping_expenses: this.Shipping_expenses,
-        sum: this.calculateTotalAllProduct() + this.Shipping_expenses,
-        form_data: this.orderForm.value,
-        // quantity: this.card.quantity,
-        // total: '5',
-        // name: this.orderForm.value.name,
-        // address: this.orderForm.value.address,
-        // phone: this.orderForm.value.phone,
-        // city: this.orderForm.value.city,
-        // notes: this.orderForm.value.notes,
-        // product_id: 1,
-      };
-      console.log('model', model);
+      // let orderDetails = this.card.map((item) => {
+      //   return {
+      //     product_id: item.id,
+      //     quantity: item.quantity,
+      //     // order_id: order_id,
+      //     // sum: item.price * item.quantity,
+      //   };
+      // });
+      // let orderData = {
+      //   // date: new Date(),
+      //   products: orderDetails,
+      //   all_prod: this.calculateTotalAllProduct(),
+      //   Shipping_expenses: this.Shipping_expenses,
+      //   sum: this.calculateTotalAllProduct() + this.Shipping_expenses,
+      //   form_data: this.orderForm.value,
+      //   // quantity: this.card.quantity,
+      //   // total: '5',
+      //   // name: this.orderForm.value.name,
+      //   // address: this.orderForm.value.address,
+      //   // phone: this.orderForm.value.phone,
+      //   // city: this.orderForm.value.city,
+      //   // notes: this.orderForm.value.notes,
+      //   // product_id: 1,
+      // };
 
-      this.orderService.order(model).subscribe(
+      let orderData = {
+          name: this.orderForm.value.name,
+        address: this.orderForm.value.address,
+        phone: this.orderForm.value.phone,
+        city: this.orderForm.value.city,
+        notes: this.orderForm.value.notes,
+        };
+
+       let orderDetails = this.card.map((item) => {
+          return {
+            product_id: item.id,
+            order_id: 17,
+            quantity: item.quantity,
+          };
+        });
+
+
+      // let orderDetails = {
+      //   // this.getCartProducts(),
+      //   product_id: orderData,
+      //   order_id: 2,
+      //   quantity: 15,
+
+      // };
+      
+      console.log('orderData', orderData);
+      console.log('orderDetails', orderDetails);
+
+      this.orderService.setOrder(orderData).subscribe(
         (res) => {
-          console.log('model', model);
+          console.log('orderData', orderData);
           this.toast.success({
             detail: 'SUCCESS',
             summary: 'Your Success Message',
@@ -133,6 +160,27 @@ export class CartComponent {
           });
           this.orderForm.reset();
           this.removeAllProduct();
+        },
+        (error) => {
+          console.error('failed:', error);
+          this.toast.error({
+            detail: 'ERROR',
+            summary: 'Your Error Message',
+            sticky: true,
+            position: 'topCenter',
+          });
+        }
+      );
+      this.orderService.setOrderDetails(orderDetails).subscribe(
+        (res) => {
+          console.log('orderData', orderDetails);
+          this.toast.success({
+            detail: 'SUCCESS',
+            summary: 'Your Success Message',
+            position: 'topCenter',
+          });
+          // this.orderForm.reset();
+          // this.removeAllProduct();
         },
         (error) => {
           console.error('failed:', error);

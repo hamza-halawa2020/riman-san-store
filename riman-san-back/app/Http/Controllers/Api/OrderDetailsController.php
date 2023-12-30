@@ -41,18 +41,35 @@ class OrderDetailsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+  
+
+    public function store(StoreOrderDetailsRequest $request)
     {
-        //
+        // try {
+        $orderData = $request->all();
+        $order = Order_details::create($orderData);
+        return response()->json(['data' => new OrderDetailsResource($order)], 200);
+        // } catch (Exception $e) {
+        // return response()->json($e, 500);
+    // }
     }
+
 
     /**
      * Display the specified resource.
      */
+
     public function show(string $id)
     {
-        //
+        try {
+            $order = Order_details::findOrFail($id);
+            return new OrderDetailsResource($order);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
+        }
     }
+
+
 
     /**
      * Update the specified resource in storage.

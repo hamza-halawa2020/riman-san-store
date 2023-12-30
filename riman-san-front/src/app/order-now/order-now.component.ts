@@ -27,15 +27,15 @@ export class OrderNowComponent {
     });
   }
   ngOnInit() {
-    this.userService.productData$.subscribe((data) => {
-      this.productData = data;
-      // console.log('Product Data in Order Component:', this.productData);
-    });
+    // this.userService.productData$.subscribe((data) => {
+    //   this.productData = data;
+    //   // console.log('Product Data in Order Component:', this.productData);
+    // });
   }
   onSubmit() {
     if (this.orderForm.valid) {
       const orderData = this.orderForm.value;
-      this.userService.order(orderData).subscribe(
+      this.userService.setOrder(orderData).subscribe(
         (response) => {
           this.formSubmitted = true;
           console.log(
@@ -50,6 +50,7 @@ export class OrderNowComponent {
           console.error('Registration failed:', error);
         }
       );
+      
     } else {
       console.log('Form is invalid. Please fill all the required fields.');
     }
