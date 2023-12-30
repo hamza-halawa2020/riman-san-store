@@ -16,7 +16,7 @@ class ProductController extends Controller
 {
     function __construct()
     {
-        $this->middleware("auth:sanctum")->except(["index", "show","indexByCategory"]);
+        $this->middleware("auth:sanctum")->except(["index", "show", "indexByCategory"]);
     }
 
     public function index()
@@ -32,10 +32,12 @@ class ProductController extends Controller
     public function indexByCategory($category)
     {
         try {
-        $products = Product::whereHas('category', function ($query) use ($category) {
-            $query->where('id', $category);
-        })->get();
-        return response()->json($products);
+            $products = Product::whereHas('category', function ($query) use ($category) {
+                $query->where('id', $category);
+            })->get();
+            // return response()->json($products);
+            return new ProductResource($products);
+
         } catch (Exception $e) {
             return response()->json($e, 500);
         }
@@ -52,8 +54,8 @@ class ProductController extends Controller
                 'category_id' => 'required',
             ]);
             // if (Gate::allows("is-admin")) {
-                $product = Product::create($request->all());
-                return response()->json(['data' => new ProductResource($product)], 200);
+            $product = Product::create($request->all());
+            return response()->json(['data' => new ProductResource($product)], 200);
             // } else {
             //     return response()->json(['message' => 'not allow to update product.'], 403);
             // }
@@ -84,9 +86,9 @@ class ProductController extends Controller
                 'category_id' => 'required',
             ]);
             // if (Gate::allows("is-admin")) {
-                $product = Product::findOrFail($id);
-                $product->update($request->all());
-                return response()->json(['data' => new ProductResource($product)], 200);
+            $product = Product::findOrFail($id);
+            $product->update($request->all());
+            return response()->json(['data' => new ProductResource($product)], 200);
             // } else {
             //     return response()->json(['message' => 'not allow to update product.'], 403);
             // }
@@ -99,9 +101,9 @@ class ProductController extends Controller
     {
         try {
             // if (Gate::allows("is-admin")) {
-                $product = Product::findOrFail($id);
-                $product->delete();
-                return response()->json(['data' => 'Category deleted successfully'], 200);
+            $product = Product::findOrFail($id);
+            $product->delete();
+            return response()->json(['data' => 'Category deleted successfully'], 200);
             // } else {
             //     return response()->json(['message' => 'not allow to delete product.'], 403);
             // }

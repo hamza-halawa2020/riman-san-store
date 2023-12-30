@@ -42,7 +42,7 @@ export class ProductsComponent {
 
   getProductCategoryByID(keyWord: number) {
     this.productsService.getCategoryById(keyWord).subscribe((data) => {
-      this.products = data;
+      this.products = Object.values(data)[0];
       // console.log(data);
     });
   }

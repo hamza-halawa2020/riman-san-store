@@ -20,10 +20,10 @@ class OrderController extends Controller
     {
         try {
             if (Gate::allows("is-admin")) {
-            $orders = Order::all();
-            return OrderResource::collection($orders);
+                $orders = Order::all();
+                return OrderResource::collection($orders);
             } else {
-            return response()->json(['message' => 'not allow to show orders.'], 403);
+                return response()->json(['message' => 'not allow to show orders.'], 403);
             }
         } catch (Exception $e) {
             return response()->json($e, 500);
@@ -31,15 +31,32 @@ class OrderController extends Controller
     }
 
 
+    public function getOrderById($orderId)
+    {
+        try {
+            $order = Order::with('Order_details.product')->find($orderId);
+
+            if (!$order) {
+                return response()->json(['message' => 'Order not found.'], 404);
+            }
+
+            return response()->json($order);
+        } catch (Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+
+
+
     public function store(StoreOrderRequest $request)
     {
         try {
-        $orderData = $request->all();
-        $order = Order::create($orderData);
-        return response()->json(['data' => new OrderResource($order)], 200);
+            $orderData = $request->all();
+            $order = Order::create($orderData);
+            return response()->json(['data' => new OrderResource($order)], 200);
         } catch (Exception $e) {
-        return response()->json($e, 500);
-    }
+            return response()->json($e, 500);
+        }
     }
 
     public function show(string $id)
@@ -54,7 +71,7 @@ class OrderController extends Controller
 
     public function update(Request $request, string $id)
     {
-        
+
     }
 
     /**

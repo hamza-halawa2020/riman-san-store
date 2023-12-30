@@ -28,10 +28,10 @@ class OrderDetailsController extends Controller
     {
         try {
             if (Gate::allows("is-admin")) {
-            $orders = Order_details::all();
-            return OrderDetailsResource::collection($orders);
+                $orders = Order_details::all();
+                return OrderDetailsResource::collection($orders);
             } else {
-            return response()->json(['message' => 'not allow to show orders.'], 403);
+                return response()->json(['message' => 'not allow to show orders.'], 403);
             }
         } catch (Exception $e) {
             return response()->json($e, 500);
@@ -41,7 +41,21 @@ class OrderDetailsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-  
+    public function indexByOrderId($ord)
+    {
+
+        try {
+            $orders = Order_details::whereHas('order', function ($query) use ($ord) {
+                $query->where('id', $ord);
+            })->get();
+            // return response()->json($orders);
+            return new OrderDetailsResource($orders);
+
+        } catch (Exception $e) {
+            return response()->json($e, 500);
+        }
+    }
+
 
     public function store(StoreOrderDetailsRequest $request)
     {
@@ -51,7 +65,7 @@ class OrderDetailsController extends Controller
         return response()->json(['data' => new OrderDetailsResource($order)], 200);
         // } catch (Exception $e) {
         // return response()->json($e, 500);
-    // }
+        // }
     }
 
 

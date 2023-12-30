@@ -34,5 +34,8 @@ Route::apiResource('users', UserController::class);
 Route::apiResource('contacts', ContactController::class);
 Route::apiResource('orders', OrderController::class);
 Route::apiResource('orderdetails', OrderDetailsController::class);
+Route::get('/order/details/{id}', [OrderDetailsController::class, 'indexByOrderId']);
+Route::get('/order/{id}', [OrderController::class, 'getOrderById']);
+
 Route::apiResource('reviews', ReviewController::class);
 Route::post('login', [AuthController::class, 'login']);

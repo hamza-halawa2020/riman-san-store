@@ -15,13 +15,13 @@ class Order_details extends Model
         'quantity',
     ];
 
-    public function products()
+    public function product()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsTo(Product::class);
     }
-    public function orders()
+    public function order()
     {
         return $this->belongsTo(Order::class);
     }
-    
+
 }

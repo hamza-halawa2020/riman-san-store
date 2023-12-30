@@ -6,12 +6,12 @@
 
         <th scope="col">ID</th>
         <th scope="col">date</th>
-        <th scope="col">order id </th>
+        <th scope="col">order id</th>
         <th scope="col">order name</th>
         <th scope="col">phone</th>
         <th scope="col">city</th>
         <th scope="col">notes</th>
-        <th scope="col"></th>
+        <th scope="col">the order is :</th>
         <th scope="col">product id</th>
         <th scope="col">product name</th>
         <th scope="col">price</th>
@@ -20,101 +20,63 @@
       </tr>
     </thead>
     <tbody>
-      <ng-container
-       *ngFor="let orderDetails of orderDetails;
-        let i = index;
-
-        ">
+      <ng-container *ngFor="let orderDetails of orderData; let i = index">
         <tr class="align-middle">
-          <th scope="row">{{ i+1}}</th>
+          <th scope="row">{{ i + 1 }}</th>
 
           <td>{{ orderDetails.id }}</td>
-          <td>{{ orderDetails.created_at }}</td>
+          <td>{{ orderDetails.created_at || "no date" }}</td>
 
-          <td>{{ orderDetails.order_id }}</td>
-          <td>{{ getOrderName(orderDetails.order_id) }}</td>
-          <td>{{ getOrderPhone(orderDetails.order_id) }}</td>
-          <td>{{ getOrderCity(orderDetails.order_id) }}</td>
-          <td>{{ getOrderNote(orderDetails.order_id) }}</td>
-          <td>------</td>
-
-          <td>{{ orderDetails.product_id }}</td>
-          <td>{{ getProductName(orderDetails.product_id) }}</td>
-          <td>{{ getProductPrice(orderDetails.product_id) }}</td>
-          <td>{{ orderDetails.quantity }}</td>
-          <td>{{ orderDetails.quantity}} * {{getProductPrice(orderDetails.product_id) }}</td>
-
-          <!-- <td>{{ getOrderName(order.order_id) }}</td> -->
-          <!-- <td>{{ order.product_id }}</td> -->
-
-          <!-- <td>{{ getProductName(order.product_id) }}</td> -->
-
-          <td class="align-middle">
-
-            <!-- <a [routerLink]="['/user', user.id]" class="btn btn-primary m-1"
-              >Show</a
-            > -->
-            <!-- <button class="btn btn-warning m-1" (click)="editUser(user)">
-              {{ selectedUserIndex === i ? "Cancel" : "Update" }}
-            </button> -->
-            <!-- <button (click)="deleteUser(user.id)" class="btn btn-danger m-1">
-              Delete
-            </button> -->
-          <!-- </td>
-        </tr>
-        <tr *ngIf="selectedUserIndex === i">
-          <td colspan="5">
-            <h2>Edit User</h2>
-            <table class="table table-striped text-center">
-              <tr>
-                <th>Name</th>
-                <td>
-                  <input class="form-control w-50" [(ngModel)]="orderDetails.name" />
-                </td>
-              </tr>
-              <tr>
-                <th>Mobile</th>
-                <td>
-                  <input class="form-control w-50" [(ngModel)]="orderDetails.mobile" />
-                </td>
-              </tr>
-              <tr>
-                <th>Role</th>
-                <td>
-                  <input class="form-control w-50" [(ngModel)]="orderDetails.role" />
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2"> -->
-                  <!-- <button
-                    class="btn btn-success m-1"
-                    (click)="updateUser(user)"
-                  >
-                    Save
-                  </button> -->
-                  <!-- <button class="btn btn-danger" (click)="cancelEdit()">
-                    Cancel
-                  </button>
-                </td>
-              </tr>
-            </table>
+          <td>{{ orderDetails.id }}</td>
+          <td>{{ orderDetails.name }}</td>
+          <td>{{ orderDetails.phone }}</td>
+          <td>{{ orderDetails.city }}</td>
+          <td>{{ orderDetails.notes }}</td>
+          <td>
+            <button>{{ getOrderDetails(orderDetails.id) }}</button>
           </td>
-        </tr> -->
+
+          <!-- <td>{{ getProductPrice(orderDetails.product_id) }}</td> -->
+        </tr>
       </ng-container>
     </tbody>
   </table>
 </div>
 
+<button
+  type="button"
+  class="btn btn-danger"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+  *ngFor="let order of orderData"
+  (click)="getOrderDetails(order.id)"
+>
+  show
 
-<!-- Your existing HTML code -->
-<tbody>
-  <ng-container *ngFor="let orderDetail of orderDetails; let i = index;">
-    <tr class="align-middle">
-      <!-- ... Other columns ... -->
-      <td>{{ getProductName(orderDetail.product_id) }}</td>
-      <td>{{ getProductPrice(orderDetail.product_id) }}</td>
-      <td>{{ orderDetail.quantity }}</td>
-      <!-- <td>{{ orderDetail.quantity * getProductPrice(orderDetail.product_id) }}</td> -->
-    </tr>
-  </ng-container>
-</tbody>
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body"></div>
+        <div class="modal-footer">
+          hamza
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </button>
+          <button type="button" class="btn btn-danger">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+</button>
