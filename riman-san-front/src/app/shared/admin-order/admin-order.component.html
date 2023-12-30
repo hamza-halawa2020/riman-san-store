@@ -23,17 +23,16 @@
       <ng-container *ngFor="let orderDetails of orderData; let i = index">
         <tr class="align-middle">
           <th scope="row">{{ i + 1 }}</th>
-
           <td>{{ orderDetails.id }}</td>
-          <td>{{ orderDetails.created_at || "no date" }}</td>
 
+          <td>{{ orderDetails.created_at || "no date" }}</td>
           <td>{{ orderDetails.id }}</td>
           <td>{{ orderDetails.name }}</td>
           <td>{{ orderDetails.phone }}</td>
           <td>{{ orderDetails.city }}</td>
           <td>{{ orderDetails.notes }}</td>
           <td>
-            <button>{{ getOrderDetails(orderDetails.id) }}</button>
+            <button>show{{ getOrderDetails(orderDetails.id) }}</button>
           </td>
 
           <!-- <td>{{ getProductPrice(orderDetails.product_id) }}</td> -->
@@ -43,7 +42,7 @@
   </table>
 </div>
 
-<button
+<!-- <button
   type="button"
   class="btn btn-danger"
   data-bs-toggle="modal"
@@ -51,10 +50,10 @@
   *ngFor="let order of orderData"
   (click)="getOrderDetails(order.id)"
 >
-  show
+  show -->
 
-  <!-- Modal -->
-  <div
+<!-- Modal -->
+<!-- <div
     class="modal fade"
     id="exampleModal"
     tabindex="-1"
@@ -77,6 +76,6 @@
         </div>
       </div>
     </div>
-  </div>
-  <!-- Modal -->
-</button>
+  </div> -->
+<!-- Modal -->
+<!-- </button> -->

@@ -31,15 +31,11 @@ export class OrderService {
   getOrders() {
     return this.http.get(`${this.apiUrl}/orders`);
   }
-  getOrderDetails() {
-    return this.http.get(`${this.apiUrl}/orderdetails`);
-  }
-
-  getByOrderId(orderId: number) {
-    return this.http.get(`${this.apiUrl}/order/${orderId}`);
-  }
-
-  // getOrderById(orderId: number): Observable<any> {
-  //   return this.http.get<any>(`${this.apiUrl}/orders/${orderId}`);
+  // getOrderDetails() {
+  //   return this.http.get(`${this.apiUrl}/orderdetails`);
   // }
+
+  getOrderById(orderId: number) {
+    return this.http.get(`${this.apiUrl}/orders/${orderId}`);
+  }
 }

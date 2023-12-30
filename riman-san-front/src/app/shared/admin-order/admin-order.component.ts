@@ -77,33 +77,29 @@ export class AdminOrderComponent {
   // orders: any;
   // orderDetails: any;
   // orderId: any;
-  orderData: any;
+  orderData: any = [];
 
   constructor(
     private route: ActivatedRoute,
     private orderService: OrderService,
     private productService: ProductService
   ) {}
-  // ngOnInit(): void {
-  //   // this.getOrderDetails();
-  //   // this.getProduct();
-  // }
 
   ngOnInit(): void {
     this.getOrder();
   }
 
   getOrderDetails(order: number) {
-    this.orderService.getByOrderId(order).subscribe(
+    this.orderService.getOrderById(order).subscribe(
       (data) => {
         this.orderData = Object.values(data)[0];
+
         console.log(this.orderData);
       },
       (error) => {
         console.error(error);
       }
     );
-    // });
   }
 
   // getOrderDetails() {

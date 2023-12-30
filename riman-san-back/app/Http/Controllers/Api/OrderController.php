@@ -12,39 +12,40 @@ use Exception;
 
 class OrderController extends Controller
 {
-    function __construct()
-    {
-        $this->middleware("auth:sanctum")->except(['store']);
-    }
+    // function __construct()
+    // {
+    //     $this->middleware("auth:sanctum")->except(['store']);
+    // }
     public function index()
     {
         try {
-            if (Gate::allows("is-admin")) {
-                $orders = Order::all();
-                return OrderResource::collection($orders);
-            } else {
-                return response()->json(['message' => 'not allow to show orders.'], 403);
-            }
+            // if (Gate::allows("is-admin")) {
+            $orders = Order::with('Order_details.product')->get();
+
+            return OrderResource::collection($orders);
+            // } else {
+            //     return response()->json(['message' => 'not allow to show orders.'], 403);
+            // }
         } catch (Exception $e) {
             return response()->json($e, 500);
         }
     }
 
 
-    public function getOrderById($orderId)
-    {
-        try {
-            $order = Order::with('Order_details.product')->find($orderId);
+    // public function getOrderById($orderId)
+    // {
+    //     try {
+    //         $order = Order::with('Order_details.product')->find($orderId);
 
-            if (!$order) {
-                return response()->json(['message' => 'Order not found.'], 404);
-            }
+    //         if (!$order) {
+    //             return response()->json(['message' => 'Order not found.'], 404);
+    //         }
 
-            return response()->json($order);
-        } catch (Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 500);
-        }
-    }
+    //         return response()->json($order);
+    //     } catch (Exception $e) {
+    //         return response()->json(['message' => $e->getMessage()], 500);
+    //     }
+    // }
 
 
 
@@ -59,15 +60,17 @@ class OrderController extends Controller
         }
     }
 
-    public function show(string $id)
+
+    public function show($orderId)
     {
         try {
-            $order = Order::findOrFail($id);
+            $order = Order::with('Order_details.product')->findOrFail($orderId);
             return new OrderResource($order);
         } catch (Exception $e) {
             return response()->json($e, 500);
         }
     }
+
 
     public function update(Request $request, string $id)
     {
