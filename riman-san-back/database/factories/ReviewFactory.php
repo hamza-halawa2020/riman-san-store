@@ -21,7 +21,7 @@ class ReviewFactory extends Factory
             'stars' => $this->faker->numberBetween(1, 5),
             
             'title' => $this->faker->sentence,
-            'comment' => $this->faker->paragraph,
+            'comment' => $this->faker->text,
             'product_id'=> Product::inRandomOrder()->first()->id,
             'status'=>$this->faker->randomElement(['pending', 'confirmed', 'declined']),
         ];

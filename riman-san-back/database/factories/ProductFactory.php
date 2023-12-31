@@ -1,13 +1,11 @@
 <?php
 
 namespace Database\Factories;
-use App\Models\Category;
 
+use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
- */
 class ProductFactory extends Factory
 {
     /**
@@ -17,19 +15,16 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
+        $category = Category::factory()->create();
+
         return [
             'name' => $this->faker->name(),
             'img' => $this->faker->image(),
             'description' => $this->faker->text(),
-            'rating' => $this->faker->randomFloat(2, 1, 5), 
+            'rating' => $this->faker->randomFloat(2, 1, 5),
             'price' => $this->faker->randomNumber(2),
             'stock' => $this->faker->boolean(),
-            // 'category_id' => $this->faker->randomNumber()
-            'category_id' => $this->faker->numberBetween(1, 2)
-            // 'category_id'=> Category::inRandomOrder()->first()->id,
-
+            'category_id' => $category->id,
         ];
     }
 }
-
-

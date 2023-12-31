@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->timestamps();
             $table->string('title');
-            $table->string('comment');
+            $table->text('comment');
             $table->enum('stars', ['1', '2', '3', '4', '5']);
             $table->enum('status', ['pending', 'confirmed', 'declined'])->default('pending');
             $table->foreignId('product_id')->constrained()->onUpdate('cascade')->onDelete('cascade');

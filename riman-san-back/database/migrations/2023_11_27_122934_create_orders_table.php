@@ -18,6 +18,8 @@ return new class extends Migration {
             $table->string('phone');
             $table->string('city');
             $table->string('notes')->nullable();
+            $table->enum('status', ['Pending', 'Canceled', 'Delivered'])->default('Pending');
+
         });
 
     }
