@@ -1,9 +1,45 @@
+<div class="container" *ngIf="loading">
+  <app-loading></app-loading>
+</div>
 <div class="container mt-3 mb-3">
   <div *ngFor="let order of orderData; let i = index" class="card mb-3">
     <div class="card-header">
-      <h5 class="mb-0">
-        Order ID: {{ order.id }} | Date: {{ order.created_at | date }}
-      </h5>
+<div class="row">
+  <h5 class="col mb-0">
+    Order ID: {{ order.id }} | Date: {{ order.created_at | date }}
+  </h5>
+
+  <button type="button" class="col btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Delete
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+              </div>
+              <div class="modal-footer"
+              >
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger"
+                (click)="deleteOrder(order.id )"
+                >Delete</button>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- Modal -->
+    </button>
+</div>
+
+
+
+
+
+
+
+
     </div>
     <div class="card-body">
       <div class="row">

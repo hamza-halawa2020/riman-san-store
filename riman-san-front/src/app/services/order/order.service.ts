@@ -22,20 +22,20 @@ export class OrderService {
     return this.http.post(`${this.apiUrl}/orders`, order);
   }
 
-  setOrderDetails(orderDetails: any) {
-    return this.http.post(`${this.apiUrl}/orderdetails`, orderDetails);
-  }
-  // setOrderDetails(orderDetails: any): Observable<any> {
-  //   return this.http.post<any>(`${this.apiUrl}/orderdetails`, orderDetails);
-  // }
+
+
   getOrders() {
     return this.http.get(`${this.apiUrl}/orders`);
   }
-  // getOrderDetails() {
-  //   return this.http.get(`${this.apiUrl}/orderdetails`);
-  // }
 
   getOrderById(orderId: number) {
     return this.http.get(`${this.apiUrl}/orders/${orderId}`);
   }
+
+  deleteOrder(orderId: number) {
+    const url = `${this.apiUrl}/orders/${orderId}`;
+    return this.http.delete(url);
+  }
+
+
 }

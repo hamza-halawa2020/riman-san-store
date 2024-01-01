@@ -59,13 +59,13 @@ class OrderDetailsController extends Controller
 
     public function store(StoreOrderDetailsRequest $request)
     {
-        // try {
+        try {
         $orderData = $request->all();
         $order = Order_details::create($orderData);
         return response()->json(['data' => new OrderDetailsResource($order)], 200);
-        // } catch (Exception $e) {
-        // return response()->json($e, 500);
-        // }
+        } catch (Exception $e) {
+        return response()->json($e, 500);
+        }
     }
 
 

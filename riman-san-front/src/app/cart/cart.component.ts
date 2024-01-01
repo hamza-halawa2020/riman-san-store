@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { CartService } from '../services/cart/cart.service';
-import { Router } from '@angular/router';
 import { OrderService } from '../services/order/order.service';
-import { Product } from '../product';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 
@@ -12,14 +9,12 @@ import { NgToastService } from 'ng-angular-popup';
   styleUrls: ['./cart.component.css'],
 })
 export class CartComponent {
-  allProduct: any;
   card: any[] = [];
-  totalPaice: any[] = [];
   orderForm: FormGroup;
   formSubmitted: boolean = false;
   x = 'http://127.0.0.1:8000/img/';
-
   Shipping_expenses = 50;
+
 
   constructor(
     private orderService: OrderService,
@@ -30,7 +25,6 @@ export class CartComponent {
       address: new FormControl('', [Validators.required]),
       phone: new FormControl('', [
         Validators.required,
-
         // Validators.pattern(/^\d+$/), // Allow only digits
         // Validators.min(11),
       ]),
@@ -48,7 +42,6 @@ export class CartComponent {
       const storedCart = localStorage.getItem('cart');
       if (storedCart) {
         this.card = JSON.parse(storedCart);
-        // console.log(this.card);
       }
     }
   }
@@ -94,112 +87,53 @@ export class CartComponent {
     localStorage.setItem('cart', JSON.stringify(this.card));
   }
 
-  onSubmit() {
-    if (this.orderForm.valid) {
-      // const orderData = this.orderForm.value;
-      // let orderDetails = this.card.map((item) => {
-      //   return {
-      //     product_id: item.id,
-      //     quantity: item.quantity,
-      //     // order_id: order_id,
-      //     // sum: item.price * item.quantity,
-      //   };
-      // });
-      // let orderData = {
-      //   // date: new Date(),
-      //   products: orderDetails,
-      //   all_prod: this.calculateTotalAllProduct(),
-      //   Shipping_expenses: this.Shipping_expenses,
-      //   sum: this.calculateTotalAllProduct() + this.Shipping_expenses,
-      //   form_data: this.orderForm.value,
-      //   // quantity: this.card.quantity,
-      //   // total: '5',
-      //   // name: this.orderForm.value.name,
-      //   // address: this.orderForm.value.address,
-      //   // phone: this.orderForm.value.phone,
-      //   // city: this.orderForm.value.city,
-      //   // notes: this.orderForm.value.notes,
-      //   // product_id: 1,
-      // };
 
-      let orderData = {
-          name: this.orderForm.value.name,
-        address: this.orderForm.value.address,
-        phone: this.orderForm.value.phone,
-        city: this.orderForm.value.city,
-        notes: this.orderForm.value.notes,
-        };
+onSubmit() {
+  if (this.orderForm.valid) {
+    const orderDetails = this.card.map((item) => {
+      return {
+        product_id: item.id,
+        quantity: item.quantity || 1,
+      };
+    });
 
-       let orderDetails = this.card.map((item) => {
-          return {
-            product_id: item.id,
-            order_id: 17,
-            quantity: item.quantity,
-          };
+    const orderData = {
+      name: this.orderForm.value.name,
+      address: this.orderForm.value.address,
+      phone: this.orderForm.value.phone,
+      city: this.orderForm.value.city,
+      notes: this.orderForm.value.notes,
+      order_details: orderDetails,
+    };
+
+
+    this.orderService.setOrder(orderData).subscribe(
+      (res) => {
+        this.toast.success({
+          detail: 'SUCCESS',
+          summary: 'Your Success Message',
+          position: 'topCenter',
         });
-
-
-      // let orderDetails = {
-      //   // this.getCartProducts(),
-      //   product_id: orderData,
-      //   order_id: 2,
-      //   quantity: 15,
-
-      // };
-      
-      console.log('orderData', orderData);
-      console.log('orderDetails', orderDetails);
-
-      this.orderService.setOrder(orderData).subscribe(
-        (res) => {
-          console.log('orderData', orderData);
-          this.toast.success({
-            detail: 'SUCCESS',
-            summary: 'Your Success Message',
-            position: 'topCenter',
-          });
-          this.orderForm.reset();
-          this.removeAllProduct();
-        },
-        (error) => {
-          console.error('failed:', error);
-          this.toast.error({
-            detail: 'ERROR',
-            summary: 'Your Error Message',
-            sticky: true,
-            position: 'topCenter',
-          });
-        }
-      );
-      this.orderService.setOrderDetails(orderDetails).subscribe(
-        (res) => {
-          console.log('orderData', orderDetails);
-          this.toast.success({
-            detail: 'SUCCESS',
-            summary: 'Your Success Message',
-            position: 'topCenter',
-          });
-          // this.orderForm.reset();
-          // this.removeAllProduct();
-        },
-        (error) => {
-          console.error('failed:', error);
-          this.toast.error({
-            detail: 'ERROR',
-            summary: 'Your Error Message',
-            sticky: true,
-            position: 'topCenter',
-          });
-        }
-      );
-    } else {
-      // console.log('Form is invalid. Please fill all the required fields.');
-      this.toast.error({
-        detail: 'ERROR',
-        summary: 'Your Error Message',
-        sticky: true,
-        position: 'topCenter',
-      });
-    }
+        this.orderForm.reset();
+        this.removeAllProduct();
+      },
+      (error) => {
+        console.error('Order Failed:', error);
+        this.toast.error({
+          detail: 'ERROR',
+          summary: 'Your Error Message',
+          sticky: true,
+          position: 'topCenter',
+        });
+      }
+    );
+  } else {
+    this.toast.error({
+      detail: 'ERROR',
+      summary: 'Form is invalid. Please fill all the required fields.',
+      sticky: true,
+      position: 'topCenter',
+    });
   }
+}
 }

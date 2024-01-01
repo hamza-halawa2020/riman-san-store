@@ -25,7 +25,7 @@ class CategoryController extends Controller
     public function index()
     {
         try {
-            $categories = Category::paginate(10);
+            $categories = Category::paginate(5);
             return CategoryResource::collection($categories);
 
         } catch (Exception $e) {

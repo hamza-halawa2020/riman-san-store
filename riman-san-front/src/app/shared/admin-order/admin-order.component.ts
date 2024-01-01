@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgToastService } from 'ng-angular-popup';
 import { OrderService } from 'src/app/services/order/order.service';
 
 @Component({
@@ -9,9 +10,12 @@ import { OrderService } from 'src/app/services/order/order.service';
 export class AdminOrderComponent {
 
   orderData: any = [];
+  loading: boolean = false;
 
   constructor(
     private orderService: OrderService,
+    private toast: NgToastService
+
   ) {}
 
   ngOnInit(): void {
@@ -19,6 +23,8 @@ export class AdminOrderComponent {
   }
 
   getOrder() {
+    this.loading = true;
+
     this.orderService.getOrders().subscribe((data) => {
       this.orderData = Object.values(data)[0];
       this.orderData.forEach((order:any) => {
@@ -27,7 +33,33 @@ export class AdminOrderComponent {
           0
         );
       });
+      this.loading = false;
     });
   }
+
+  deleteOrder(orderId: number): void {
+    this.orderService.deleteOrder(orderId).subscribe(
+      () => {
+        this.orderService.getOrders().subscribe((data) => {
+          this.orderData = Object.values(data)[0];
+          this.toast.success({
+            detail: 'SUCCESS',
+            summary: 'Your Success Message',
+            // position: 'topCenter',
+          });
+        });
+      },
+      (error) => {
+        this.toast.error({
+          detail: 'ERROR',
+          summary: 'Your Error Message',
+          sticky: true,
+          position: 'topCenter',
+        });
+      }
+    );
+  }
+
+
   }
 

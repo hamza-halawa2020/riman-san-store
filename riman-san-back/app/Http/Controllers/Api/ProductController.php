@@ -53,12 +53,12 @@ class ProductController extends Controller
                 'price' => 'required',
                 'category_id' => 'required',
             ]);
-            // if (Gate::allows("is-admin")) {
+            if (Gate::allows("is-admin")) {
             $product = Product::create($request->all());
             return response()->json(['data' => new ProductResource($product)], 200);
-            // } else {
-            //     return response()->json(['message' => 'not allow to update product.'], 403);
-            // }
+            } else {
+                return response()->json(['message' => 'not allow to update product.'], 403);
+            }
         } catch (Exception $e) {
             return response()->json($e, 500);
         }
@@ -85,13 +85,13 @@ class ProductController extends Controller
                 'price' => 'required',
                 'category_id' => 'required',
             ]);
-            // if (Gate::allows("is-admin")) {
+            if (Gate::allows("is-admin")) {
             $product = Product::findOrFail($id);
             $product->update($request->all());
             return response()->json(['data' => new ProductResource($product)], 200);
-            // } else {
-            //     return response()->json(['message' => 'not allow to update product.'], 403);
-            // }
+            } else {
+                return response()->json(['message' => 'not allow to update product.'], 403);
+            }
         } catch (Exception $e) {
             return response()->json($e, 500);
         }
@@ -100,13 +100,13 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         try {
-            // if (Gate::allows("is-admin")) {
+            if (Gate::allows("is-admin")) {
             $product = Product::findOrFail($id);
             $product->delete();
             return response()->json(['data' => 'Category deleted successfully'], 200);
-            // } else {
-            //     return response()->json(['message' => 'not allow to delete product.'], 403);
-            // }
+            } else {
+                return response()->json(['message' => 'not allow to delete product.'], 403);
+            }
         } catch (Exception $e) {
             return response()->json($e, 500);
         }
