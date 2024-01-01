@@ -46,6 +46,7 @@ import { TermsOfUseComponent } from './shared/terms-of-use/terms-of-use.componen
 import { FaqsComponent } from './shared/faqs/faqs.component';
 import { WhatsAppComponent } from './shared/whats-app/whats-app.component';
 import { TokenAuthInterceptor } from './interceptor/token-auth.interceptor';
+import { AddProductComponent } from './shared/add-product/add-product.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { TokenAuthInterceptor } from './interceptor/token-auth.interceptor';
     TermsOfUseComponent,
     FaqsComponent,
     WhatsAppComponent,
+    AddProductComponent,
   ],
   imports: [
     BrowserModule,

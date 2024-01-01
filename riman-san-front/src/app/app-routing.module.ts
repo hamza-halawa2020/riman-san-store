@@ -20,6 +20,7 @@ import { unauthGuard } from './guards/unauth.guard';
 import { PrivacyPolicyComponent } from './shared/privacy-policy/privacy-policy.component';
 import { TermsOfUseComponent } from './shared/terms-of-use/terms-of-use.component';
 import { FaqsComponent } from './shared/faqs/faqs.component';
+import { AddProductComponent } from './shared/add-product/add-product.component';
 
 const routes: Routes = [
   {
@@ -48,6 +49,10 @@ const routes: Routes = [
     path: 'admincontact',
     component: AdminContactComponent,
     canActivate:[AuthGuard]
+  },
+  {
+    path: 'add',
+    component: AddProductComponent,
   },
   {
     path: 'adminorders',

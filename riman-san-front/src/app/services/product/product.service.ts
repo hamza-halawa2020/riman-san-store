@@ -19,6 +19,13 @@ export class ProductService {
   getProducts(): Observable<any> {
     return this.http.get(`${this.apiUrl}/products`);
   }
+
+  AddProduct(product:any){
+    return this.http.post(`${this.apiUrl}/products`, product);
+  }
+
+
+
   getProductById(productId: number) {
     const url = `${this.apiUrl}/products/${productId}`;
     return this.http.get(url);
@@ -31,7 +38,10 @@ export class ProductService {
   getCategory() {
     return this.http.get(`${this.apiUrl}/categories`);
   }
-
+  CategoryById(categoryId: number) {
+    const url = `${this.apiUrl}/categories/${categoryId}`;
+    return this.http.get(url);
+  }
   getCategoryById(categoryId: number) {
     const url = `${this.apiUrl}/product/category/${categoryId}`;
     return this.http.get(url);

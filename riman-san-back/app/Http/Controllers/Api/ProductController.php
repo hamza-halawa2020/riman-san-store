@@ -28,6 +28,7 @@ class ProductController extends Controller
             return response()->json($e, 500);
         }
     }
+    
 
     public function indexByCategory($category)
     {
@@ -43,27 +44,67 @@ class ProductController extends Controller
         }
     }
 
+    // public function store(StoreProductRequest $request)
+    // {
+    //     try {
+    //         $this->validate($request, [
+    //             'name' => 'required|string|unique:products',
+    //             'description' => 'required|string',
+    //             'img' => 'required',
+    //             'price' => 'required',
+    //             'category_id' => 'required',
+    //         ]);
+    //         if (Gate::allows("is-admin")) {
+    //         $product = Product::create($request->all());
+    //         return response()->json(['data' => new ProductResource($product)], 200);
+    //         } else {
+    //             return response()->json(['message' => 'not allow to update product.'], 403);
+    //         }
+    //     } catch (Exception $e) {
+    //         return response()->json($e, 500);
+    //     }
+
+    // }
+
+
+
     public function store(StoreProductRequest $request)
     {
         try {
-            $this->validate($request, [
-                'name' => 'required|string|unique:products',
-                'description' => 'required|string',
-                'img' => 'required',
-                'price' => 'required',
-                'category_id' => 'required',
-            ]);
             if (Gate::allows("is-admin")) {
-            $product = Product::create($request->all());
-            return response()->json(['data' => new ProductResource($product)], 200);
-            } else {
-                return response()->json(['message' => 'not allow to update product.'], 403);
-            }
-        } catch (Exception $e) {
-            return response()->json($e, 500);
+            $data = $request->all();
+            $productName = $request->name;
+            $path = 'img/products/';
+            $productFolder = public_path($path . $productName);   
+            if (!is_dir($productFolder)) {
+            mkdir($productFolder, 0755, true);
+        } 
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');   
+            $filename = $productName . time() . '.' . $file->getClientOriginalExtension();    
+            $file->move($productFolder, $filename);   
+            $data['image'] = $filename;
+        } else {
+            $data['image'] = null;
         }
-
+        Product::create($data);
+        return response()->json(['data' => new ProductResource($data)], 200);
+    } else {
+        return response()->json(['message' => 'not allow to update product.'], 403);
     }
+        } catch (Exception $e) {
+            return response()->json(['message' => 'An error occurred while creating the product'], 500);
+        }
+    }
+    
+
+
+
+
+
+
+
+
 
     public function show(string $id)
     {
