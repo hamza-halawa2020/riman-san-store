@@ -29,7 +29,10 @@ export class AddProductComponent {
         category: new FormControl('', [
           Validators.required,
         ]),
-        image: new FormControl('', [
+        price: new FormControl('', [
+          Validators.required,
+        ]),
+        img: new FormControl('', [
         Validators.required,
         // Validators.minLength(5),
         // Validators.maxLength(16),
@@ -65,8 +68,6 @@ export class AddProductComponent {
   getCategoryByID(keyWord: number) {
     this.products.CategoryById(keyWord).subscribe((data) => {
       this.categories = Object.values(data)[0];
-      // this.categories = data;
-
       console.log(this.categories);
     });
   }
@@ -87,7 +88,8 @@ export class AddProductComponent {
       formData.append('name', productData.name);
       formData.append('description', productData.description);
       formData.append('category', productData.category);
-      formData.append('image', this.imageFile);
+      formData.append('price', productData.price);
+      formData.append('img', this.imageFile);
   // console.log();
   
       this.products.AddProduct(formData).subscribe(

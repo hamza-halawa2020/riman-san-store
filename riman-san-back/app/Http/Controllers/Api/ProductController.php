@@ -70,7 +70,7 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
-        try {
+        // try {
             if (Gate::allows("is-admin")) {
             $data = $request->all();
             $productName = $request->name;
@@ -79,22 +79,22 @@ class ProductController extends Controller
             if (!is_dir($productFolder)) {
             mkdir($productFolder, 0755, true);
         } 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');   
+        if ($request->hasFile('img')) {
+            $file = $request->file('img');   
             $filename = $productName . time() . '.' . $file->getClientOriginalExtension();    
             $file->move($productFolder, $filename);   
-            $data['image'] = $filename;
+            $data['img'] = $filename;
         } else {
-            $data['image'] = null;
+            $data['img'] = null;
         }
         Product::create($data);
         return response()->json(['data' => new ProductResource($data)], 200);
     } else {
         return response()->json(['message' => 'not allow to update product.'], 403);
     }
-        } catch (Exception $e) {
-            return response()->json(['message' => 'An error occurred while creating the product'], 500);
-        }
+        // } catch (Exception $e) {
+        //     return response()->json(['message' => 'An error occurred while creating the product'], 500);
+        // }
     }
     
 

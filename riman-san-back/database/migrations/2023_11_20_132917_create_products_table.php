@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('description');
             $table->string('img');
             $table->boolean('stock')->default(true);
-            $table->integer('rating');
+            $table->integer('rating')->default(5);
             $table->integer('price');
             $table->foreignId('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
             // $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
