@@ -50,6 +50,7 @@ class ProductController extends Controller
             if (Gate::allows("is-admin")) {
             $data = $request->all();
             $categoryId = $request->input('category_id');
+            
             $imgName = $request->name;
             $path = 'img/products/';
             $productFolder = public_path($path . $imgName);   
@@ -64,6 +65,9 @@ class ProductController extends Controller
         } else {
             $data['img'] = null;
         }
+
+
+
         $data['category_id'] = $categoryId;
 
         Product::create($data);
