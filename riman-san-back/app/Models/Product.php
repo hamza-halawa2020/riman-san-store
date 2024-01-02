@@ -13,7 +13,7 @@ class Product extends Model
         'description',
         'img',
         'price',
-        // 'category_id',
+        'category_id',
     ];
 
     public function reviews()

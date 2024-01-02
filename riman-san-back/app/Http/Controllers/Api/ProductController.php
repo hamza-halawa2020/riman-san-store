@@ -44,67 +44,38 @@ class ProductController extends Controller
         }
     }
 
-    // public function store(StoreProductRequest $request)
-    // {
-    //     try {
-    //         $this->validate($request, [
-    //             'name' => 'required|string|unique:products',
-    //             'description' => 'required|string',
-    //             'img' => 'required',
-    //             'price' => 'required',
-    //             'category_id' => 'required',
-    //         ]);
-    //         if (Gate::allows("is-admin")) {
-    //         $product = Product::create($request->all());
-    //         return response()->json(['data' => new ProductResource($product)], 200);
-    //         } else {
-    //             return response()->json(['message' => 'not allow to update product.'], 403);
-    //         }
-    //     } catch (Exception $e) {
-    //         return response()->json($e, 500);
-    //     }
-
-    // }
-
-
-
     public function store(StoreProductRequest $request)
     {
-        // try {
+        try {
             if (Gate::allows("is-admin")) {
             $data = $request->all();
-            $productName = $request->name;
+            $categoryId = $request->input('category_id');
+            $imgName = $request->name;
             $path = 'img/products/';
-            $productFolder = public_path($path . $productName);   
+            $productFolder = public_path($path . $imgName);   
             if (!is_dir($productFolder)) {
             mkdir($productFolder, 0755, true);
         } 
         if ($request->hasFile('img')) {
             $file = $request->file('img');   
-            $filename = $productName . time() . '.' . $file->getClientOriginalExtension();    
+            $filename = $imgName . time() . '.' . $file->getClientOriginalExtension();    
             $file->move($productFolder, $filename);   
             $data['img'] = $filename;
         } else {
             $data['img'] = null;
         }
+        $data['category_id'] = $categoryId;
+
         Product::create($data);
         return response()->json(['data' => new ProductResource($data)], 200);
     } else {
         return response()->json(['message' => 'not allow to update product.'], 403);
     }
-        // } catch (Exception $e) {
-        //     return response()->json(['message' => 'An error occurred while creating the product'], 500);
-        // }
+} catch (Exception $e) {
+    return response()->json($e, 500);
+}
     }
     
-
-
-
-
-
-
-
-
 
     public function show(string $id)
     {

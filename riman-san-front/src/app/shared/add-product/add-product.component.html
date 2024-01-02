@@ -74,12 +74,13 @@
             Product price is required
           </div>
         </div>
-        <textarea
+        <input
           formControlName="price"
           type="text"
           class="form-control"
           id="price"
-        ></textarea>
+          placeholder="price L.E"
+        />
       </div>
   
 
@@ -88,8 +89,15 @@
         <label for="category" class="form-label"
           >category</label
         >
+        <div
+          class="text-danger"
+          *ngIf="add.controls['category'].touched && add.controls['category'].invalid"
+        >
+          <div *ngIf="add.controls['category'].hasError('required')">
+            Product category is required
+          </div>
+        </div>
         <select
-            (change)="filterCategory($event)"
           class="form-control"
           id="category"
           formControlName="category"
@@ -100,16 +108,11 @@
 
           <option value="{{ category.id }}" *ngFor="let category of categories">
             {{ category.name }}
+
           </option>  
+
           </select>    
-        <div
-          class="text-danger"
-          *ngIf="add.controls['category'].touched && add.controls['category'].invalid"
-        >
-          <div *ngIf="add.controls['category'].hasError('required')">
-            Product category is required
-          </div>
-        </div>
+        
       </div>
 
 

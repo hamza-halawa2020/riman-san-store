@@ -34,30 +34,14 @@ export class AddProductComponent {
         ]),
         img: new FormControl('', [
         Validators.required,
-        // Validators.minLength(5),
-        // Validators.maxLength(16),
       ]),
     });
   }
-  
-
-
 
   ngOnInit(): void {
     this.getCategories() ;
   }
 
-
-
-  filterCategory(event: any) {
-    const value = event.target.value;
-    if (value === 'all') {
-      this.getCategories();
-    } else {
-      this.getCategoryByID(value);
-    }
-  }
-  
   getCategories() {
     this.products.getCategory().subscribe((data) => {
       this.categories = Object.values(data)[0];
@@ -65,37 +49,40 @@ export class AddProductComponent {
     });
   }
   
-  getCategoryByID(keyWord: number) {
-    this.products.CategoryById(keyWord).subscribe((data) => {
-      this.categories = Object.values(data)[0];
-      console.log(this.categories);
-    });
-  }
+  // changeCategory(id:any){
+  //   console.log(id.value);    
+  // }
+
+
+  // changeCategory(id: any) {
+  //   const categoryId = parseInt(id.value, 10);
+  //   console.log(categoryId);
+  
+  //   // If you want to update the form control value, you can do this:
+  //   // this.add.get('category').setValue(categoryId);
+  // }
   
 
   saveImageToDataBase(event: any) {
     this.imageFile = event.target.files[0];
     // console.log(this.imageFile)
   }
-  
-
-  
-  
+    
   onSubmit() {
     if (this.add.valid) {
-      const productData = this.add.value;
-      const formData = new FormData();
+      
+        const productData = this.add.value;
+        const formData = new FormData();
       formData.append('name', productData.name);
       formData.append('description', productData.description);
-      formData.append('category', productData.category);
+      formData.append('category_id', productData.category);      
       formData.append('price', productData.price);
       formData.append('img', this.imageFile);
-  // console.log();
+    console.log(formData);
   
       this.products.AddProduct(formData).subscribe(
         (response: any) => {
           this.formSubmitted = true;
-          // console.log(this.sendMessage.value);
           this.add.reset();
         },
         (error: any) => {
