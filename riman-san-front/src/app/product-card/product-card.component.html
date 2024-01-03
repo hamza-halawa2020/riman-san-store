@@ -1,52 +1,3 @@
-<!-- <div class="card mb-4 rounded-4 shadow">
-  <div style="height: 250px">
-    <a [routerLink]="['/product', products.id]">
-      <img
-        [src]="x + products.img"
-        class="card-img-top rounded-4 w-100 h-100"
-        [alt]="products.name"
-        style="object-fit: cover"
-      />
-    </a>
-  </div>
-  <div class="card-body mt-5 mb-5">
-    <h5
-      class="card-title fw-bold fs-4 bg-primary text-white p-1 pt-2 text-center rounded-5 mb-4"
-      [style.line-height]="'1'"
-      [style.margin-top]="'-35px'"
-    >
-      {{ products.name }}
-      {{ products.id }}
-    </h5>
-    <div class="row align-items-center">
-      <div class="col-7">
-        <p class="card-text fs-5 fw-medium">
-          <i class="fas fa-money-check-alt text-red me-3"></i>
-          {{ products.price | currency }}
-        </p>
-      </div>
-      <div class="col-5 text-end">
-        <ngb-rating
-          [rate]="rating"
-          [readonly]="true"
-          class="text-warning fs-3"
-        ></ngb-rating>
-      </div>
-    </div>
-    <p class="card-text mt-3">
-      {{ products.description | truncate : 10 }}
-    </p>
-
-    <div class="" style="margin-bottom: -60px">
-      <a [routerLink]="['/product', products.id]" class="btn btn-primary w-50">
-        Read More
-      </a>
-      <a class="m-4 btn btn-success w-25" (click)="addProdutToCart(products)"
-        ><i class="fa-solid fa-cart-plus fa-lg"></i>
-      </a>
-    </div>
-  </div>
-</div> -->
 
 <div class="container d-flex justify-content-center mt-5">
   <div class="row">
@@ -57,41 +8,21 @@
       <div class="product-img">
         <a [routerLink]="['/product', products.id]">
           <img
-            [src]="x + products.img"
+            [src]="x + products.name +'/'+ products.img"
             class="card-img-top rounded-4"
             [alt]="products.name"
             style="object-fit: cover"
           />
         </a>
-
-        <span class="oldspan">
-          <!-- <div>
-            <ngb-rating
-              [rate]="rating"
-              [readonly]="true"
-              class="text-warning fs-3"
-            ></ngb-rating>
-          </div> -->
-        </span>
         <span class="newspan">
           <i class="fas fa-money-check-alt 2xl me-3"></i
           >{{ products.price | price }}</span
         >
         <div class="product-action">
           <div class="product-action-style">
-            <!-- <a href="1">
-              <i class="fa fa-plus"></i>
-            </a>
-            <a href="2">
-              <i class="fa fa-heart"></i>
-            </a> -->
-            <!-- <a href="3">
-              <i class="fa fa-shopping-cart"></i>
-            </a> -->
-
             <a
               class="btn"
-              (click)="addProdutToCart(products)"
+              (click)="addProductToCart(products)"
               [class.disabled]="!products.stock"
               ><i class="fa-solid fa-cart-plus fa-lg"></i>
             </a>

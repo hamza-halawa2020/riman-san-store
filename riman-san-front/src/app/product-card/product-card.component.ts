@@ -12,23 +12,19 @@ import { environment } from 'src/environments/environment';
 export class ProductCardComponent {
   @Input() products: any;
 
-  x = environment.imgUrl;
+  x = `${environment.imgUrl}/products/`;
 
   rating: any = 0;
   productDetails: any;
   constructor(
-    private ratingConfig: NgbRatingConfig,
-    private router: Router,
     private cartApi: CartService
   ) {
-    this.ratingConfig.max = 5;
   }
 
   ngOnInit() {
-    this.rating = Math.ceil(this.products?.rating?.avg) ?? 0;
-    this.rating = this.products.rating;
+
   }
-  addProdutToCart(item: any) {
+  addProductToCart(item: any) {
     this.cartApi.addProductToCart(item);
   }
 }

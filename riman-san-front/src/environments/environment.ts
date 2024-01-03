@@ -4,5 +4,5 @@
 // };
 export const environment = {
   backEndUrl: 'http://127.0.0.1:8000/api',
-  imgUrl: 'https://backend.rimansan.net/public/img/',
+  imgUrl: 'http://127.0.0.1:8000/public/img',
 };
