@@ -51,15 +51,15 @@ class ProductController extends Controller
             $data = $request->all();
             $categoryId = $request->input('category_id');
             
-            $imgName = $request->name;
+            // $imgName = $request->name;
             $path = 'img/products/';
-            $productFolder = public_path($path . $imgName);   
+            $productFolder = public_path($path);   
             if (!is_dir($productFolder)) {
             mkdir($productFolder, 0755, true);
         } 
         if ($request->hasFile('img')) {
             $file = $request->file('img');   
-            $filename = $imgName . time() . '.' . $file->getClientOriginalExtension();    
+            $filename = time() . '.' . $file->getClientOriginalExtension();    
             $file->move($productFolder, $filename);   
             $data['img'] = $filename;
         } else {

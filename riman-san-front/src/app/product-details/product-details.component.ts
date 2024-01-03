@@ -10,11 +10,11 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./product-details.component.css'],
 })
 export class ProductDetailsComponent {
-  product: any;
+  // product: any;
   id: any;
   productDetails: any;
   loading: boolean = false;
-  x = environment.imgUrl;
+  imgUrl = `${environment.imgUrl}/products/`;
 
   rating: any;
   mainProductImage: string = '';
@@ -34,8 +34,14 @@ export class ProductDetailsComponent {
       this.id = +params['id'];
       this.productService.getProductById(this.id).subscribe((data) => {
         this.productDetails = Object.values(data)[0];
-        this.mainProductImage = `${this.x}${this.id}/${this.productDetails.img}`;
+        // console.log(this.productDetails);
+
+        this.productService.CategoryById(this.productDetails.category_id).subscribe((categoryData) => {
+          this.productDetails.category_name = Object.values(categoryData)[0];
+          // console.log(this.productDetails.category_name);
+        this.mainProductImage = `${this.imgUrl}/${this.productDetails.img}`;
         this.loading = false;
+      });
       });
     });
   }
@@ -45,6 +51,8 @@ export class ProductDetailsComponent {
   }
 
   changeImage(image: string): void {
-    this.mainProductImage = `${this.x}${this.id}/${image}`;
+    this.mainProductImage = `${this.imgUrl}/${image}`;
   }
 }
+
+
