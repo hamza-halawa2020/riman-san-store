@@ -36,14 +36,14 @@ export class ProductDetailsComponent {
         this.productDetails = Object.values(data)[0];
         // console.log(this.productDetails);
 
-        this.productService.CategoryById(this.productDetails.category_id).subscribe((categoryData) => {
-          this.productDetails.category_name = Object.values(categoryData)[0];
+        // this.productService.CategoryById(this.productDetails.category_id).subscribe((categoryData) => {
+        //   this.productDetails.category_name = Object.values(categoryData)[0];
           // console.log(this.productDetails.category_name);
         this.mainProductImage = `${this.imgUrl}/${this.productDetails.img}`;
         this.loading = false;
       });
       });
-    });
+    // });
   }
 
   addProductToCart(item: any) {

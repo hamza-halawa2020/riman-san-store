@@ -85,7 +85,7 @@ const routes: Routes = [
     path: 'products',
     component: ProductsComponent,
   },
-  { path: 'product/:id', component: ProductDetailsComponent },
+  { path: 'products/:id', component: ProductDetailsComponent },
   { path: 'cart', component: CartComponent },
   {
     path: 'privacy-policy',
