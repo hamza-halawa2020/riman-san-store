@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Subscriber } from 'rxjs';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { LoginService } from 'src/app/services/login/login.service';
 
@@ -13,6 +14,7 @@ export class NavbarComponent {
 
   total: number = 0;
   totalNumber: number = 0;
+  card: any;
 
   constructor(
     private cartApi: CartService,
@@ -20,10 +22,18 @@ export class NavbarComponent {
   ) {}
 
   ngOnInit() {
-    this.cartApi.getcounterCart().subscribe((res: any) => {
-      this.total = res.length;
-    });
+    this.updateCartTotal();
   }
+  updateCartTotal() {
+    this.cartApi.getcounterCart().subscribe((res: any) => {
+      const storedCart = localStorage.getItem('cart');
+      if (storedCart) {
+        this.total = JSON.parse(storedCart).length;
+      console.log('total', this.total);
+    }
+   } );
+  }
+
 
   isLoggedIn(): boolean {
     return !!this.authService.isLoggedIn();
@@ -33,3 +43,9 @@ export class NavbarComponent {
     this.authService.logout();
   }
 }
+// updateCartTotal() {
+//   this.cartApi.getCart(); 
+//   this.cartApi.getcounterCart().subscribe((res: any) => {
+//     this.total = res.reduce((acc: number, item: any) => acc + item.quantity, 0);
+//   });
+// }

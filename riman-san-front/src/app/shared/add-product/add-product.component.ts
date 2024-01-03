@@ -45,23 +45,11 @@ export class AddProductComponent {
   getCategories() {
     this.products.getCategory().subscribe((data) => {
       this.categories = Object.values(data)[0];
-      console.log(this.categories);
+      // console.log(this.categories);
     });
   }
   
-  // changeCategory(id:any){
-  //   console.log(id.value);    
-  // }
 
-
-  // changeCategory(id: any) {
-  //   const categoryId = parseInt(id.value, 10);
-  //   console.log(categoryId);
-  
-  //   // If you want to update the form control value, you can do this:
-  //   // this.add.get('category').setValue(categoryId);
-  // }
-  
 
   saveImageToDataBase(event: any) {
     this.imageFile = event.target.files[0];

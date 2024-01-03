@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { OrderService } from '../services/order/order.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
+import { CartService } from '../services/cart/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -15,9 +16,10 @@ export class CartComponent {
   x = 'http://127.0.0.1:8000/img/';
   Shipping_expenses = 50;
 
-
   constructor(
     private orderService: OrderService,
+    private catService: CartService,
+
     private toast: NgToastService
   ) {
     this.orderForm = new FormGroup({
@@ -37,11 +39,19 @@ export class CartComponent {
     this.getCartProducts();
   }
 
+
   getCartProducts() {
     if ('cart' in localStorage) {
       const storedCart = localStorage.getItem('cart');
       if (storedCart) {
         this.card = JSON.parse(storedCart);
+  
+        // Set default quantity to 1 for each product
+        this.card.forEach(item => {
+          if (!item.quantity || item.quantity < 1) {
+            item.quantity = 1;
+          }
+        });
       }
     }
   }
@@ -88,6 +98,14 @@ export class CartComponent {
   }
 
 
+
+
+
+
+
+
+
+
 onSubmit() {
   if (this.orderForm.valid) {
     const orderDetails = this.card.map((item) => {
@@ -118,7 +136,7 @@ onSubmit() {
         this.removeAllProduct();
       },
       (error) => {
-        console.error('Order Failed:', error);
+        // console.error('Order Failed:', error);
         this.toast.error({
           detail: 'ERROR',
           summary: 'Your Error Message',

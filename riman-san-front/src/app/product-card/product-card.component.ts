@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class ProductCardComponent {
   @Input() products: any;
 
-  x = `${environment.imgUrl}/products/`;
+  imgUrl = `${environment.imgUrl}/products/`;
 
   rating: any = 0;
   productDetails: any;

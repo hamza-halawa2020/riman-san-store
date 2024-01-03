@@ -40,7 +40,7 @@ export class ProductDetailsComponent {
     });
   }
 
-  addProdutToCart(item: any) {
+  addProductToCart(item: any) {
     this.cartApi.addProductToCart(item);
   }
 
