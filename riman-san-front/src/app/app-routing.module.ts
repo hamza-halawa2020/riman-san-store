@@ -21,6 +21,7 @@ import { PrivacyPolicyComponent } from './shared/privacy-policy/privacy-policy.c
 import { TermsOfUseComponent } from './shared/terms-of-use/terms-of-use.component';
 import { FaqsComponent } from './shared/faqs/faqs.component';
 import { AddProductComponent } from './shared/add-product/add-product.component';
+import { AdminNavbarComponent } from './shared/admin-navbar/admin-navbar.component';
 
 const routes: Routes = [
   {
@@ -48,11 +49,14 @@ const routes: Routes = [
   {
     path: 'admincontact',
     component: AdminContactComponent,
-    canActivate:[AuthGuard]
+    canActivate:[AuthGuard],
+    // data: { role: 'admin' } 
   },
   {
     path: 'add',
     component: AddProductComponent,
+    canActivate:[AuthGuard]
+
   },
   {
     path: 'adminorders',

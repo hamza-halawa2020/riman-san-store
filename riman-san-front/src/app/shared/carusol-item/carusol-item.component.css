@@ -1,4 +1,4 @@
-.carousel-caption {
+/* .carousel-caption {
   top: 0;
   left: 0;
   right: 0;
@@ -11,7 +11,7 @@
     rgba(2, 36, 91, 0) 100%
   );
   z-index: 1;
-}
+} */
 
 .carousel-control-prev,
 .carousel-control-next {

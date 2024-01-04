@@ -1,11 +1,15 @@
+*{
+  color: #fff;
+}
+
 footer {
-    background: linear-gradient(to right, #c7c7c7e0, #cdcacae0),
-      url(/assets/images/logo.png) center center no-repeat;
-    background-size: cover;
+    background-color: #212529;
+      /* url(/assets/images/logo.png) center center no-repeat; */
+    /* background-size: cover; */
   }
   a{
     text-decoration: none;
-    color: black;
+    color: rgb(255, 255, 255);
   }
 
 
@@ -14,10 +18,9 @@ footer {
     margin-bottom: 5px;
     padding: 0;
     text-align: left;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     font-weight: normal;
     text-transform: capitalize;
-    transition: 0.3s;
   }
   
   .footer .btn.btn-link::before {
@@ -29,7 +32,14 @@ footer {
   }
   
   .footer .btn.btn-link:hover {
-    color: var(--light);
     letter-spacing: 1px;
     box-shadow: none;
+    transition: 0.3s;
+
+  }
+  .head:hover {
+    letter-spacing: 1px;
+    box-shadow: none;
+    transition: 0.3s;
+
   }

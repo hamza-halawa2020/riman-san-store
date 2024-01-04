@@ -7,7 +7,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ContactService {
-  // private apiUrl = 'https://rimansan.net/api';
   private apiUrl = environment.backEndUrl;
 
   constructor(private http: HttpClient) {}

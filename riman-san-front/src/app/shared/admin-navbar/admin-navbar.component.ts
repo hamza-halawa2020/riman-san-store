@@ -15,6 +15,6 @@ export class AdminNavbarComponent {
     return this.authService.isLoggedIn();
   }
   isAdmin() {
-    return this.authService.getToken();
+    return this.authService.isAdmin();
   }
 }

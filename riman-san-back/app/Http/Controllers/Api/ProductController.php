@@ -22,6 +22,7 @@ class ProductController extends Controller
     public function index()
     {
         try {
+            
             $products = Product::paginate(10);
             return ProductResource::collection($products);
         } catch (Exception $e) {
