@@ -43,3 +43,7 @@ footer {
     transition: 0.3s;
 
   }
+  .logo:hover{
+    transition: 0.3s;
+    transform: scale(1.1);
+  }

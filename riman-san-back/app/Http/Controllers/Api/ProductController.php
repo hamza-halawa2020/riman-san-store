@@ -23,7 +23,7 @@ class ProductController extends Controller
     {
         try {
             
-            $products = Product::paginate(10);
+            $products = Product::all();
             return ProductResource::collection($products);
         } catch (Exception $e) {
             return response()->json($e, 500);

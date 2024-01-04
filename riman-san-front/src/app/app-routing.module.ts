@@ -21,7 +21,10 @@ import { PrivacyPolicyComponent } from './shared/privacy-policy/privacy-policy.c
 import { TermsOfUseComponent } from './shared/terms-of-use/terms-of-use.component';
 import { FaqsComponent } from './shared/faqs/faqs.component';
 import { AddProductComponent } from './shared/add-product/add-product.component';
-import { AdminNavbarComponent } from './shared/admin-navbar/admin-navbar.component';
+
+import {register} from 'swiper/element/bundle';
+
+register();
 
 const routes: Routes = [
   {

@@ -1,19 +1,33 @@
-
-<swiper-container class="mb-5">
+<swiper-container class="mb-3 mt-3 text-center bg-dark p-3">
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide"
           *ngFor="let products of product"
         >
           <swiper-slide>
+            
             <a [routerLink]="['/products',products.id]">
-              <img src="{{imgUrl}}{{products.img}}" alt="">
+              <img src="{{imgUrl}}/{{products.img}}" alt=""  height="350px">
             </a>
+
+            <div class="">
+              <div class="text-white">{{ products.price | price }}</div>
+
+              <div
+                class="btn btn-outline-warning"
+                [class.disabled]="!products?.stock"
+                (click)="addProductToCart(products)"
+              >
+                Add to Cart
+            </div>
+
+            </div>
           </swiper-slide>
+          
         </div>
       </div>
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
     </div>
-  </swiper-container>
+</swiper-container>
       
