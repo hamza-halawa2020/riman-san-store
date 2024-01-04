@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
 
   }
   canActivate():boolean{
-    if(this.auth.isAdmin() === 'admin'){
+    if(this.auth.isAdmin()){
       return true
     }else{
       this.toast.error({detail:"ERROR", summary:"403"});
