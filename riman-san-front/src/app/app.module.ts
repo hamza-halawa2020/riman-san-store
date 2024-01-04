@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA,NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -47,6 +47,7 @@ import { FaqsComponent } from './shared/faqs/faqs.component';
 import { WhatsAppComponent } from './shared/whats-app/whats-app.component';
 import { TokenAuthInterceptor } from './interceptor/token-auth.interceptor';
 import { AddProductComponent } from './shared/add-product/add-product.component';
+import { SliderComponent } from './shared/slider/slider.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { AddProductComponent } from './shared/add-product/add-product.component'
     FaqsComponent,
     WhatsAppComponent,
     AddProductComponent,
+    SliderComponent,
   ],
   imports: [
     BrowserModule,
@@ -100,6 +102,8 @@ import { AddProductComponent } from './shared/add-product/add-product.component'
     NgbModule,
     NgToastModule
   ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+
   providers: [
     {
     provide: HTTP_INTERCEPTORS,
