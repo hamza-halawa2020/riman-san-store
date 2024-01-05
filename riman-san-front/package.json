@@ -25,6 +25,7 @@
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
     "ng-angular-popup": "^0.5.2",
+    "ngx-cookie-service": "^17.0.1",
     "rxjs": "~7.8.0",
     "slick-carousel": "^1.8.1",
     "stream-browserify": "^3.0.0",

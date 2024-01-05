@@ -6,15 +6,16 @@ import Swiper from 'swiper';
 @Component({
   selector: 'app-slider',
   templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.css']
+  styleUrls: ['./slider.component.css'],
 })
 export class SliderComponent implements AfterViewInit {
-product:any=[];
-imgUrl = `${environment.imgUrl}/products/`;
+  product: any = [];
+  imgUrl = `${environment.imgUrl}/products/`;
 
-constructor(private productService:ProductService,
-  private cartApi: CartService
-  ){}
+  constructor(
+    private productService: ProductService,
+    private cartApi: CartService
+  ) {}
 
   ngAfterViewInit() {
     const swiper = new Swiper('.swiper-container', {
@@ -24,27 +25,24 @@ constructor(private productService:ProductService,
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
-        
       },
       autoplay: {
         delay: 2000,
-            },
+      },
     });
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.allProducts();
   }
-  
-  allProducts(){
-    this.productService.getProducts().subscribe((data)=>{
+
+  allProducts() {
+    this.productService.getProducts().subscribe((data) => {
       this.product = Object.values(data)[0];
       // console.log(this.product);
-      
     });
   }
-      addProductToCart(item: any) {
+  addProductToCart(item: any) {
     this.cartApi.addProductToCart(item);
-  
-}
+  }
 }

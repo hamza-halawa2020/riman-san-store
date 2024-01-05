@@ -3,6 +3,7 @@ import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { LoginService } from '../services/login/login.service';
 import { NgToastService } from 'ng-angular-popup';
 import { Router } from '@angular/router';
+import { TokenAuthInterceptor } from '../interceptor/token-auth.interceptor';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,9 @@ export class LoginComponent {
       this.formSubmitted = true;
       this.auth.login(this.login.value).subscribe({
         next: (res: any) => {
-          localStorage.setItem('token', res.token);
+          TokenAuthInterceptor.accessToken = res.token;
+          // localStorage.setItem('token', res.token);
+          this.auth.setTokenInCookie(res.token);
           this.login.reset();
           // console.log(res);
 
