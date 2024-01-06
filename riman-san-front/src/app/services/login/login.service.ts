@@ -1,34 +1,43 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { CookieService } from 'ngx-cookie-service';
+import { TokenAuthInterceptor } from 'src/app/interceptor/token-auth.interceptor';
 import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  // private apiUrl = 'https://rimansan.net/api';
   private apiUrl = environment.backEndUrl;
-
+  private httpOptions = { headers: new HttpHeaders({ 'Content-Type':'application/json','Access-Control-Allow-Origins':'*'})};
   constructor(
     private http: HttpClient,
     private router: Router,
     private cookieService: CookieService
   ) {}
   login(userData: any) {
-    return this.http.post(`${this.apiUrl}/login`, userData, {
-      withCredentials: false,
-    });
+    return this.http.post(`${this.apiUrl}/login`, userData, 
+    // this.httpOptions,
+    {
+      withCredentials: true,
+    }
+    );
   }
+  
+
+
+
+
+  
 
   setTokenInCookie(token: string) {
-    // Set the token in a cookie with a specific name (e.g., 'auth_token')
     this.cookieService.set('auth_token', token);
   }
   getTokenFromCookie(): string {
-    // Get the token from the cookie
     return this.cookieService.get('auth_token');
+    
   }
 
   // setRole(tokenValue:string){
@@ -55,12 +64,16 @@ export class LoginService {
 
   isLoggedIn() {
     // return this.getToken();
-    return this.getTokenFromCookie();
+    return TokenAuthInterceptor.accessToken;
+
+    // return this.getTokenFromCookie();
   }
 
   isAdmin() {
     // return this.getToken();
-    return this.getTokenFromCookie();
+    // return this.getTokenFromCookie();
+    return TokenAuthInterceptor.accessToken;
+
   }
 
   // getUserRole() {

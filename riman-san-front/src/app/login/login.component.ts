@@ -33,7 +33,10 @@ export class LoginComponent {
       this.formSubmitted = true;
       this.auth.login(this.login.value).subscribe({
         next: (res: any) => {
-          TokenAuthInterceptor.accessToken = res.token;
+          const took = TokenAuthInterceptor.accessToken = res.token;
+
+          console.log(took);
+          
           // localStorage.setItem('token', res.token);
           this.auth.setTokenInCookie(res.token);
           this.login.reset();

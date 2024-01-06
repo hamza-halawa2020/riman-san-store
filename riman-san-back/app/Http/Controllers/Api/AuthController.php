@@ -43,8 +43,11 @@ class AuthController extends Controller
 //this function when the user login the old token delete from database and the new saved 
 
 public function login(Request $request)
+
 {
+
     try{
+
     $this->validate($request, [
         "email" => "required|email",
         "password" => "required",
@@ -55,9 +58,7 @@ public function login(Request $request)
         return response(['message' => 'invalid login'], 401);
     }
     $user = Auth::user();
-    // revoke previous tokens of the user
     $user->tokens()->delete();
-    // generate new token
     $token = $user->createToken($user->name);
     return response([
         // 'id'=> $user->id,

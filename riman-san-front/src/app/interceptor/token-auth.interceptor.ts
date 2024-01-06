@@ -16,7 +16,6 @@ export class TokenAuthInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    // console.log('the request from token',request);
     const newRequest = request.clone({
       // headers: request.headers.append(
       //   'Authorization',
