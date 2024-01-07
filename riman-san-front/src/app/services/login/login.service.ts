@@ -21,7 +21,7 @@ export class LoginService {
     return this.http.post(`${this.apiUrl}/login`, userData, 
     // this.httpOptions,
     {
-      withCredentials: true,
+      withCredentials: false,
     }
     );
   }

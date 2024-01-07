@@ -8,9 +8,11 @@ use App\Models\Product;
 use App\Http\Resources\ProductResource;
 use Exception;
 use App\Http\Requests\StoreProductRequest;
-use Gate;
+use Illuminate\Support\Facades\Gate;
+// use Gate;
 use App\Http\Requests\UpdateProductRequest;
-
+// use Intervention\Image\Facades\Image;
+use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
@@ -47,7 +49,7 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
-        try {
+        // try {
             if (Gate::allows("is-admin")) {
             $data = $request->all();
             $categoryId = $request->input('category_id');
@@ -60,8 +62,9 @@ class ProductController extends Controller
         } 
         if ($request->hasFile('img')) {
             $file = $request->file('img');   
-            $filename = time() . '.' . $file->getClientOriginalExtension();    
-            $file->move($productFolder, $filename);   
+            $filename = time() . '.' . $file->getClientOriginalExtension();   
+            $image = $file->resize(800, 600); 
+            $image->move($productFolder, $filename);   
             $data['img'] = $filename;
         } else {
             $data['img'] = null;
@@ -76,9 +79,9 @@ class ProductController extends Controller
     } else {
         return response()->json(['message' => 'not allow to update product.'], 403);
     }
-} catch (Exception $e) {
-    return response()->json($e, 500);
-}
+// } catch (Exception $e) {
+//     return response()->json($e, 500);
+// }
     }
     
 
