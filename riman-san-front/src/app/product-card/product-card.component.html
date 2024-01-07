@@ -4,15 +4,14 @@
     <p class="card-text mt-3 h5">
       {{ products.name }}
     </p>
-    <div class="product-wrapper text-center">
+    <div class="product-wrapper text-center card" style="height: 600px;">
       <div class="product-img">
         <a [routerLink]="['/products', products.id]">
           <img
             [src]="imgUrl  +'/'+ products.img"
-            class="card-img-top rounded-4"
+            class="card-img rounded-4"
             [alt]="products.name"
             style="object-fit: cover"
-            height="250px"
           />
         </a>
         <span class="newspan">
