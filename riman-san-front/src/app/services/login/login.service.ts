@@ -64,15 +64,15 @@ export class LoginService {
 
   isLoggedIn() {
     // return this.getToken();
-    return TokenAuthInterceptor.accessToken;
+    // return TokenAuthInterceptor.accessToken;
 
-    // return this.getTokenFromCookie();
+    return this.getTokenFromCookie();
   }
 
   isAdmin() {
     // return this.getToken();
-    // return this.getTokenFromCookie();
-    return TokenAuthInterceptor.accessToken;
+    return this.getTokenFromCookie();
+    // return TokenAuthInterceptor.accessToken;
 
   }
 

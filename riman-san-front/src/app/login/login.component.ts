@@ -35,7 +35,7 @@ export class LoginComponent {
         next: (res: any) => {
           const took = TokenAuthInterceptor.accessToken = res.token;
 
-          console.log(took);
+          // console.log(took);
           
           // localStorage.setItem('token', res.token);
           this.auth.setTokenInCookie(res.token);
