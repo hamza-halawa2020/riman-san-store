@@ -1,11 +1,5 @@
-<!-- <div
-  class="alert alert-success mt-3 text-center"
-  role="alert"
-  *ngIf="formSubmitted"
->
-  Data sent successfully!
-</div> -->
-<div class="register-wrapper">
+
+<div class="register-wrapper mt-5">
   <div class="logo">
     <img src="../../assets/images/logo.png" alt="" />
   </div>
@@ -23,7 +17,7 @@
       </div>
     </div>
     <div class="form-field d-flex align-items-center">
-      <span class="far fa-user"></span>
+      <span class="fa fa-user"></span>
       <input
         formControlName="name"
         type="text"
@@ -33,27 +27,30 @@
         required
       />
     </div>
-    <div
-      class="text-danger"
-      *ngIf="
-        register.controls['email'].touched && register.controls['email'].invalid
-      "
-    >
-      <div *ngIf="register.controls['email'].hasError('required')">
-        Email is required
+    <div class="text-danger" 
+    *ngIf="register.controls['phone'].touched && register.controls['phone'].invalid">
+      <div 
+      *ngIf="register.controls['phone'].hasError('required')">
+        Phone is required
+      </div>
+      <div 
+      *ngIf="register.controls['phone'].hasError('pattern')">
+        Invalid phone number format. Please enter a valid Egyptian phone number.
       </div>
     </div>
+    
     <div class="form-field d-flex align-items-center">
-      <span class="far fa-envelope"></span>
+      <span class="fa fa-phone"></span>
       <input
-        formControlName="email"
-        type="email"
-        name="email"
-        id="email"
-        placeholder="Enter Your Email"
+        formControlName="phone"
+        type="text"
+        name="phone"
+        id="phone"
+        placeholder="Enter Your Phone Number"
         required
       />
     </div>
+    
     <div
       class="text-danger"
       *ngIf="
@@ -66,7 +63,7 @@
       </div>
     </div>
     <div class="form-field d-flex align-items-center">
-      <span class="fas fa-key"></span>
+      <span class="fa fa-key"></span>
       <input
         formControlName="password"
         [type]="showPassword ? 'text' : 'password'"

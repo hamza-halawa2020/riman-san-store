@@ -12,8 +12,11 @@ export class ForgetPasswordComponent {
 
   constructor() {
     this.forget = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-    });
+      phone: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^(010|011|012|015)\\d{8}$'),
+      ]),
+        });
   }
   onSubmit() {
     if (this.forget.valid) {

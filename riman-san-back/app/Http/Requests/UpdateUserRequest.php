@@ -23,8 +23,10 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'email' => 'required|email|unique:users',
+            'phone' => ['required', 'regex:/^(010|011|012|015)\d{8}$/'],            
             'password' => 'required',
+            'role' => 'required',
+
         ];
     }
 }

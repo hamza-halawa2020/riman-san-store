@@ -49,24 +49,19 @@ public function login(Request $request)
     try{
 
     $this->validate($request, [
-        "email" => "required|email",
+        'phone' => ['required', 'regex:/^(010|011|012|015)\d{8}$/'],
         "password" => "required",
     ]);
 
-    $login = $request->only("email", "password");
+    $login = $request->only("phone", "password");
     if (!Auth::attempt($login)) {
         return response(['message' => 'invalid login'], 401);
     }
     $user = Auth::user();
     $user->tokens()->delete();
-    $token = $user->createToken($user->name);
+    $token = $user->createToken($user->phone);
     return response([
-        // 'id'=> $user->id,
-        // 'name' => $user->name,
-        // 'email' => $user->email,
-        // 'role' => $user->role,
         'token' => $token->plainTextToken
-
     ], 200);
 
 } catch (Exception $e) {

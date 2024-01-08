@@ -13,15 +13,18 @@ export class RegisterComponent {
   register: FormGroup;
   formSubmitted: boolean = false;
   showPassword: boolean = false;
-
   constructor(
     private userService: RegisterService,
     private router:Router,
-    private toast:NgToastService
+    private toast:NgToastService,
+    
 
     ) {
     this.register = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      phone: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^(010|011|012|015)\\d{8}$'),
+        ]),
       name: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
     });
@@ -29,6 +32,7 @@ export class RegisterComponent {
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
+
   onSubmit() {
     if (this.register.valid) {
       const userData = this.register.value;
@@ -44,13 +48,13 @@ export class RegisterComponent {
         },
         (error) => {
           // console.error('Registration failed:', error);
-          this.toast.error({detail:"ERROR",summary:'Your Error Message',sticky:true,position:'topCenter'});
+          this.toast.error({detail:"ERROR",summary:'Error',sticky:true,position:'topCenter'});
 
         }
       );
     } else {
       // console.log('Form is invalid. Please fill all the required fields.');
-      this.toast.error({detail:"ERROR",summary:'Your Error Message',sticky:true,position:'topCenter'});
+      this.toast.error({detail:"ERROR",summary:'Error',sticky:true,position:'topCenter'});
 
     }
   }

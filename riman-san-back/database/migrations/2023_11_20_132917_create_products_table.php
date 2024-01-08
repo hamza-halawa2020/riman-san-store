@@ -15,11 +15,6 @@ return new class extends Migration {
             $table->timestamps();
             $table->string('name');
             $table->string('description');
-            $table->string('img');
-            $table->string('img1');
-            $table->string('img2');
-            $table->string('img3');
-            $table->string('img4');
             $table->boolean('stock')->default(true);
             $table->integer('rating')->default(5);
             $table->integer('price');

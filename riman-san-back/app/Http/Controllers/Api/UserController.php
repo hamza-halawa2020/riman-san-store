@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Exception;
-
+use Illuminate\Validation\Rule;
 class UserController extends Controller
 {
     function __construct()
@@ -38,11 +38,15 @@ class UserController extends Controller
         try {
             $this->validate($request, [
                 'name' => 'required|string',
-                'email' => 'required|email|unique:users',
+                'phone' => ['required', 'regex:/^(010|011|012|015)\d{8}$/','unique:users'],
                 'password' => 'required'
             ]);
       
-            $user = User::create($request->all());
+            $user = User::create([
+                'name'=> $request->name,
+                'phone'=> $request->phone,
+                'password'=> bcrypt($request->password)
+            ]);
             return response()->json(['data' => new UserResource($user)], 200);
         } catch (Exception $e) {
             return response()->json($e, 500);
@@ -65,14 +69,25 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, string $id)
     {
         try {
-            $this->validate($request, [
-                'name' => 'required|string',
-                'email' => 'required|email|unique:users',
-                'password' => 'required'
+            $user = User::findOrFail($id);
+            $data = $this->validate($request, [
+                'name' => 'sometimes|string',
+                'phone' => [
+                    'sometimes',
+                    'regex:/^(010|011|012|015)\d{8}$/',
+                     Rule::unique('users')->ignore($user->id),
+                ],
+                'password' => 'sometimes',
+                'role' => 'sometimes|in:admin,user',
+
             ]);
             if (Gate::allows("is-admin")) {
-                $user = User::findOrFail($id);
-                $user->update($request->all());
+                $user->update([
+                    'name' => $data['name'] ?? $user->name,
+                    'phone' => $data['phone'] ?? $user->phone,
+                    'role' => $data['role'] ?? $user->role,
+                    'password' => isset($data['password']) ? bcrypt($data['password']) : $user->password,
+                ]);
                 return response()->json(['data' => new UserResource($user)], 200);
             } else {
                 return response()->json(['message' => 'not allow to update user.'], 403);

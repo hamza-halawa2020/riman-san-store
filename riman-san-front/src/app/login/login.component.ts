@@ -20,8 +20,13 @@ export class LoginComponent {
     private router: Router
   ) {
     this.login = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required]),
+      phone: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^(010|011|012|015)\\d{8}$'),
+      ]),
+      password: new FormControl('', [
+        Validators.required
+      ]),
     });
   }
   togglePasswordVisibility() {

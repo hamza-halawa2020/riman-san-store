@@ -5,32 +5,36 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Image;
 use App\Http\Resources\ProductResource;
 use Exception;
 use App\Http\Requests\StoreProductRequest;
 use Illuminate\Support\Facades\Gate;
 // use Gate;
 use App\Http\Requests\UpdateProductRequest;
-// use Intervention\Image\Facades\Image;
-use Intervention\Image\Facades\Image;
+
 
 class ProductController extends Controller
 {
-    function __construct()
-    {
-        $this->middleware("auth:sanctum")->except(["index", "show", "indexByCategory"]);
-    }
+    // function __construct()
+    // {
+    //     $this->middleware("auth:sanctum")->except(["index", "show", "indexByCategory"]);
+    // }
 
     public function index()
     {
         try {
-            
-            $products = Product::all();
+            // $products = Product::all();
+            $products = Product::with('images.product')->get();
+
             return ProductResource::collection($products);
         } catch (Exception $e) {
             return response()->json($e, 500);
         }
     }
+
+    
+
     
 
     public function indexByCategory($category)
@@ -47,53 +51,95 @@ class ProductController extends Controller
         }
     }
 
-    public function store(StoreProductRequest $request)
-    {
-        // try {
-            if (Gate::allows("is-admin")) {
-            $data = $request->all();
-            $categoryId = $request->input('category_id');
+
+
+//     public function store(StoreProductRequest $request)
+//     {
+//         // try {
+//             // if (Gate::allows("is-admin")) {
+//             $data = $request->all();
+//             $categoryId = $request->input('category_id');
             
-            // $imgName = $request->name;
-            $path = 'img/products/';
-            $productFolder = public_path($path);   
-            if (!is_dir($productFolder)) {
-            mkdir($productFolder, 0755, true);
-        } 
-        if ($request->hasFile('img')) {
-            $file = $request->file('img');   
-            $filename = time() . '.' . $file->getClientOriginalExtension();   
-            $image = $file->resize(800, 600); 
-            $image->move($productFolder, $filename);   
-            $data['img'] = $filename;
-        } else {
-            $data['img'] = null;
-        }
+//             // $imgName = $request->name;
+//             $path = 'img/products/';
+//             $productFolder = public_path($path);   
+//             if (!is_dir($productFolder)) {
+//             mkdir($productFolder, 0755, true);
+//         } 
+//         if ($request->hasFile('img')) {
+//             $file = $request->file('img');   
+//             $filename = time() . '.' . $file->getClientOriginalExtension();   
+//             $file->move($productFolder, $filename);   
+//             $data['img'] = $filename;
+//         } else {
+//             $data['img'] = 'logo.png';
+//         }
 
+//         $data['category_id'] = $categoryId;
 
-
-        $data['category_id'] = $categoryId;
-
-        Product::create($data);
-        return response()->json(['data' => new ProductResource($data)], 200);
-    } else {
-        return response()->json(['message' => 'not allow to update product.'], 403);
-    }
-// } catch (Exception $e) {
-//     return response()->json($e, 500);
-// }
-    }
+//         Product::create($data);
+//         return response()->json(['data' => new ProductResource($data)], 200);
+//     // } else {
+//     //     return response()->json(['message' => 'not allow to update product.'], 403);
+//     // }
+// // } catch (Exception $e) {
+// //     return response()->json($e, 500);
+// // }
+//     }
     
 
-    public function show(string $id)
-    {
-        try {
-            $product = Product::findOrFail($id);
-            return new ProductResource($product);
-        } catch (Exception $e) {
-            return response()->json($e, 500);
+public function store(StoreProductRequest $request)
+{
+    // try {
+        // Extract product data from the request
+        $data = $request->only([
+            'name',
+            'description',
+            'price',
+            'category_id',
+        ]);
+            $categoryId = $request->input('category_id');
+
+        // Create the product
+        $product = Product::create([
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'price' => $data['price'],
+            'category_id' => $categoryId ,
+        ]);
+
+        // Extract images data from the request
+        $imagesData = $request->input('images');
+
+        // Iterate over each image data and associate it with the product
+        foreach ($imagesData as $imageData) {
+            $product->images()->create([
+                'name' => $imageData['name'],
+            ]);
         }
+
+        // Load the images and related product details
+        $product->load('images.product');
+
+        return response()->json(['data' => new ProductResource($product)], 201); // Use 201 Created status code
+    // } catch (Exception $e) {
+    //     return response()->json($e, 500);
+    // }
+}
+
+
+
+
+
+public function show(string $id)
+{
+    try {
+        $product = Product::with('images.product')->findOrFail($id);
+        return new ProductResource($product);
+    } catch (Exception $e) {
+        return response()->json($e, 500);
     }
+}
 
     public function update(UpdateProductRequest $request, string $id)
     {
