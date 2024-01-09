@@ -88,44 +88,124 @@ class ProductController extends Controller
 //     }
     
 
+// public function store(StoreProductRequest $request)
+// {
+//     // try {
+//         // Extract product data from the request
+//         $data = $request->only([
+//             'name',
+//             'description',
+//             'price',
+//             'category_id',
+//         ]);
+//             $categoryId = $request->input('category_id');
+
+//         // Create the product
+//         $product = Product::create([
+//             'name' => $data['name'],
+//             'description' => $data['description'],
+//             'price' => $data['price'],
+//             'category_id' => $categoryId ,
+//         ]);
+
+//         // Extract images data from the request
+//         $imagesData = $request->file('images');
+
+//         foreach ($imagesData as $image) {
+//             $path = $image->store('images');
+//             $product->images()->create([
+//                 'path' => $path,
+//             ]);
+//         }
+
+//         // Load the images and related product details
+//         // $product->load('images.product');
+
+//         return response()->json(['data' => new ProductResource($product)], 201); // Use 201 Created status code
+//     // } catch (Exception $e) {
+//     //     return response()->json($e, 500);
+//     // }
+// }
+
+
+
 public function store(StoreProductRequest $request)
 {
     // try {
-        // Extract product data from the request
         $data = $request->only([
             'name',
             'description',
             'price',
             'category_id',
         ]);
-            $categoryId = $request->input('category_id');
 
-        // Create the product
+        $categoryId = $request->input('category_id');
+
         $product = Product::create([
             'name' => $data['name'],
             'description' => $data['description'],
             'price' => $data['price'],
-            'category_id' => $categoryId ,
+            'category_id' => $categoryId,
         ]);
 
-        // Extract images data from the request
-        $imagesData = $request->input('images');
 
-        // Iterate over each image data and associate it with the product
-        foreach ($imagesData as $imageData) {
+        // $imagesData = $request->file('images');
+
+        // // foreach ($imagesData as $image) {
+        // //     $path = $image->store('images', 'public');
+
+        // //     $product->images()->create([
+        // //         'path' => $path,
+        // //     ]);
+        // // }
+
+        // foreach ($imagesData as $image) {
+        //     $filename = time() . '_' . $image->getClientOriginalName();
+        //     $image->move(public_path('images'), $filename);
+        
+        //     $product->images()->create([
+        //         'path' => 'images/' . $filename,
+        //     ]);
+        // }
+        
+
+
+        // $product->load('images.product');
+
+        // dd($product->images);
+
+
+
+
+        $imagesData = $request->file('images');
+
+        foreach ($imagesData as $image) {
+            $filename = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('images'), $filename);
+
             $product->images()->create([
-                'name' => $imageData['name'],
+                'path' => 'images/' . $filename,
             ]);
         }
 
-        // Load the images and related product details
-        $product->load('images.product');
+        // Load the images for the product
+        $product->load('images');
 
-        return response()->json(['data' => new ProductResource($product)], 201); // Use 201 Created status code
+
+
+
+
+
+        // $product->load('images.product');
+        return response()->json(['data' => new ProductResource($product)], 201);
     // } catch (Exception $e) {
-    //     return response()->json($e, 500);
+    //     return response()->json(['error' => 'Internal Server Error'], 500);
     // }
+
 }
+
+
+
 
 
 

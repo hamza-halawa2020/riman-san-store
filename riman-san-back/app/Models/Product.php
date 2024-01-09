@@ -13,6 +13,7 @@ class Product extends Model
         'description',
         'price',
         'category_id',
+        // 'images',
     ];
 
     public function reviews()
@@ -34,4 +35,5 @@ class Product extends Model
     {
         return $this->hasMany(Image::class);
     }
+    
 }
