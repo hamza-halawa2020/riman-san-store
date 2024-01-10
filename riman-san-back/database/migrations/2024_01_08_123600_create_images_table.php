@@ -13,18 +13,15 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('path');
+            $table->string('image');
             $table->timestamps();
-            $table->foreignId('product_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
+            // $table->foreignId('product_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
             // $table->unsignedBigInteger('product_id');
             // $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-    
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            
         });
-
-       
-
-
-
 
 
     }

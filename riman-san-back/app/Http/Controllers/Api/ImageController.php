@@ -71,48 +71,48 @@ class ImageController extends Controller
 
 
 
-    public function store(StoreImageRequest $request)
-{
-    try {
-        $data = $request->all();
-        $product_id = $request->input('product_id');
+//     public function store(StoreImageRequest $request)
+// {
+//     // try {
+//         $data = $request->all();
+//         $product_id = $request->input('product_id');
 
-        // Check if the associated product exists (if needed)
-        // $product = Product::find($product_id);
+//         // Check if the associated product exists (if needed)
+//         // $product = Product::find($product_id);
 
-        // if (!$product) {
-        //     return response()->json(['message' => 'Product not found.'], 404);
-        // }
+//         // if (!$product) {
+//         //     return response()->json(['message' => 'Product not found.'], 404);
+//         // }
 
-        $path = 'img/products/';
-        $productFolder = public_path($path);
+//         $path = 'img/products/';
+//         $productFolder = public_path($path);
 
-        if (!is_dir($productFolder)) {
-            mkdir($productFolder, 0755, true);
-        }
+//         if (!is_dir($productFolder)) {
+//             mkdir($productFolder, 0755, true);
+//         }
 
-        if ($request->hasFile('path')) {
-            $file = $request->file('path');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
+//         if ($request->hasFile('path')) {
+//             $file = $request->file('path');
+//             $filename = time() . '.' . $file->getClientOriginalExtension();
 
-            $file->move($productFolder, $filename);
+//             $file->move($productFolder, $filename);
 
-            $data['path'] = $filename;
-        } else {
-            $data['path'] = 'logo.png';
-        }
+//             $data['path'] = $filename;
+//         } else {
+//             $data['path'] = 'logo.png';
+//         }
 
-        $data['product_id'] = $product_id;
+//         $data['product_id'] = $product_id;
 
-        // Create the Image instance
-        $image = Image::create($data);
+//         // Create the Image instance
+//         $image = Image::create($data);
 
-        // Use the ImageResource to format the response
-        return response()->json(['data' => new ImageResource($image)], 200);
-    } catch (Exception $e) {
-        return response()->json(['error' => 'Internal Server Error'], 500);
-    }
-}
+//         // Use the ImageResource to format the response
+//         return response()->json(['data' => new ImageResource($image)], 200);
+//     // } catch (Exception $e) {
+//     //     return response()->json(['error' => 'Internal Server Error'], 500);
+//     // }
+// }
 
 
 
