@@ -57,16 +57,14 @@ class ProductController extends Controller
 
 public function store(StoreProductRequest $request)
 {
-    // try {
+    try {
         $data = $request->only([
             'name',
             'description',
             'price',
             'category_id',
         ]);
-
         $categoryId = $request->input('category_id');
-
         $product = Product::create([
             'name' => $data['name'],
             'description' => $data['description'],
@@ -74,45 +72,24 @@ public function store(StoreProductRequest $request)
             'category_id' => $categoryId,
         ]);
 
-
-
-        // if ($request->hasFile('image')) {
-        //     $uploadPath = public_path('image');
-        //     foreach ($request->file('image') as $imageFile) {
-        //         $extension = $imageFile->getClientOriginalExtension();
-        //         $filename = time() . '.' . $extension;
-        //         $imageFile->move($uploadPath, $filename);
-        //         $finalImagePathName = $uploadPath . '/' . $filename;
-        
-        //         $product->images()->create([
-        //             'product_id' => $product->id,
-        //             'image' => $finalImagePathName,
-        //         ]);
-        //     }
-        // }
-        
         if ($request->hasFile('image')) {
             foreach ($request->file('image') as $image) {
                 $extension = $image->getClientOriginalExtension();
                 $filename = time() . '_' . uniqid() . '.' . $extension;
-                $image->move(public_path('images'), $filename);
-        
+                $folderPath = 'images/products/' . $product->id;
+                $image->move(public_path($folderPath), $filename);
                 $product->images()->create([
                     'product_id' => $product->id,
-                    'image' => 'images/' . $filename,
+                    'image' => $folderPath . '/' . $filename,
                 ]);
             }
-        }
-        
-
-
+        }  
         $product->load('images');
 
-        // $product->load('images.product');
         return response()->json(['data' => new ProductResource($product)], 201);
-    // } catch (Exception $e) {
-    //     return response()->json(['error' => 'Internal Server Error'], 500);
-    // }
+    } catch (Exception $e) {
+        return response()->json(['error' => 'Internal Server Error'], 500);
+    }
 
 }
 
