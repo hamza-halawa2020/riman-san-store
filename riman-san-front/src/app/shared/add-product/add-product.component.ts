@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
@@ -8,14 +8,13 @@ import { ProductService } from 'src/app/services/product/product.service';
   styleUrls: ['./add-product.component.css']
 })
 export class AddProductComponent {
-
   add: FormGroup;
   formSubmitted: boolean = false;
   imageFile: any;
   categories:any;
-  constructor(private products:ProductService){
-
-    this.add = new FormGroup({
+  image: any[] = []; // Array to store multiple images
+  constructor(private products:ProductService, private fb:FormBuilder){
+    this.add = this.fb.group({
       name: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
@@ -32,7 +31,7 @@ export class AddProductComponent {
         price: new FormControl('', [
           Validators.required,
         ]),
-        img: new FormControl('', [
+        image: new FormControl('', [
         Validators.required,
       ]),
     });
@@ -52,8 +51,8 @@ export class AddProductComponent {
 
 
   saveImageToDataBase(event: any) {
-    this.imageFile = event.target.files[0];
-    // console.log(this.imageFile)
+    this.imageFile = event.target.files;
+    console.log(this.imageFile)
   }
     
   onSubmit() {
@@ -61,11 +60,19 @@ export class AddProductComponent {
       
         const productData = this.add.value;
         const formData = new FormData();
-      formData.append('name', productData.name);
-      formData.append('description', productData.description);
-      formData.append('category_id', productData.category);      
-      formData.append('price', productData.price);
-      formData.append('img', this.imageFile);
+
+
+    for (let i = 0; i < this.imageFile.length; i++) {
+      formData.append('image[]', this.imageFile[i]);
+    }
+    
+    formData.append('name', productData.name);
+    formData.append('description', productData.description);
+    formData.append('category_id', productData.category);      
+    formData.append('price', productData.price);
+    // formData.append('image', this.imageFile);
+   
+
     console.log(formData);
   
       this.products.AddProduct(formData).subscribe(

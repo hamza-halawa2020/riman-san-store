@@ -117,21 +117,22 @@
 
 
       <div class="col-12">
-        <label for="img" class="form-label">Product Image</label>
+        <label for="image" class="form-label">Product Image</label>
         <div
           class="text-danger"
-          *ngIf="add.controls['img'].touched && add.controls['img'].invalid"
+          *ngIf="add.controls['image'].touched && add.controls['image'].invalid"
         >
-          <div *ngIf="add.controls['img'].hasError('required')">
+          <div *ngIf="add.controls['image'].hasError('required')">
             Product image is required
           </div>
         </div>
         <input
         (change)="saveImageToDataBase($event)"
-          formControlName="img"
+          formControlName="image"
           type="file"
           class="form-control"
           id="ProductImage"
+          multiple
         />
       </div>
       <div class="col-12">
