@@ -8,20 +8,22 @@
       <div class="col-md-6 border-end">
         <div class="d-flex flex-column justify-content-center">
           <div class="main_image">
-            <img [src]="mainProductImage" width="35%" />
+            <img [src]="mainProductImage" 
+
+            width="35%" />
           </div>
-          <!-- <div class="thumbnail_images">
+          <div class="thumbnail_images">
             <ul id="thumbnail">
               <li *ngFor="let image of thumbnailImages">
                 <img
                   (click)="changeImage(image)"
-                  [src]="imgUrl + productDetails?.name + '/' + image"
+                  [src]="imgUrl+'images/products/' +productDetails?.id+'/' + image"
 
                   width="70"
                 />
               </li>
             </ul>
-          </div> -->
+          </div>
         </div>
       </div>
       <div class="col-md-6">

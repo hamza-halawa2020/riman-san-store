@@ -60,7 +60,14 @@ public function login(Request $request)
     $user = Auth::user();
     $user->tokens()->delete();
     $token = $user->createToken($user->phone);
+    // return response([
+    //     'token' => $token->plainTextToken
+    // ], 200);
     return response([
+        'id' => $user->id,
+        'name' => $user->name,
+        'phone' => $user->phone,
+        'role' => $user->role,
         'token' => $token->plainTextToken
     ], 200);
 

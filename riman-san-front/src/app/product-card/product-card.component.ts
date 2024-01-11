@@ -12,9 +12,7 @@ import { environment } from 'src/environments/environment';
 export class ProductCardComponent {
   @Input() products: any;
 
-  imgUrl = `${environment.imgUrl}/products/`;
-
-  rating: any = 0;
+  imgUrl = `${environment.imgUrl}/`;
   productDetails: any;
   constructor(
     private cartApi: CartService
@@ -22,8 +20,13 @@ export class ProductCardComponent {
   }
 
   ngOnInit() {
+    // console.log('imgUrl:', this.imgUrl);
+    console.log('products:', this.products);
+
 
   }
+
+  
   addProductToCart(item: any) {
     this.cartApi.addProductToCart(item);
   }

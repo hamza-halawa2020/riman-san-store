@@ -43,12 +43,12 @@ export class LoginComponent {
           // console.log(took);
           
           // localStorage.setItem('token', res.token);
-          this.auth.setTokenInCookie(res.token);
+          // this.auth.setTokenInCookie(res.token);
           this.login.reset();
           // console.log(res);
 
-          // this.auth.setRole(res.role);
-          // this.auth.setToken(res.token);
+          this.auth.setRoleInCookie(res.role);
+          this.auth.setTokenInCookie(res.token);
           this.toast.success({
             detail: 'SUCCESS',
             summary: 'Your Success Message',

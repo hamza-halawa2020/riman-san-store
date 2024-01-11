@@ -21,67 +21,35 @@ export class LoginService {
     return this.http.post(`${this.apiUrl}/login`, userData, 
     // this.httpOptions,
     {
-      withCredentials: false,
+      withCredentials: true,
     }
     );
   }
   
 
-
-
-
-  
-
   setTokenInCookie(token: string) {
-    this.cookieService.set('auth_token', token);
+    this.cookieService.set('token', token);
   }
   getTokenFromCookie(): string {
-    return this.cookieService.get('auth_token');
-    
+    return this.cookieService.get('token');
+  }
+  setRoleInCookie(role: string) {
+    this.cookieService.set('role', role);
+  }
+  getRoleFromCookie() {
+    return this.cookieService.get('role');
   }
 
-  // setRole(tokenValue:string){
-  //   // localStorage.setItem('role',role);
-  //   localStorage.setItem('token', tokenValue);
-
-  // }
-  // getRole(){
-  //   // return localStorage.getItem('role');
-  //   localStorage.getItem('token');
-
-  // }
-  // setToken(tokenValue: string) {
-  //   localStorage.setItem('token', tokenValue);
-  // }
-
-  // getToken() {
-  //   return localStorage.getItem('token');
-  // }
-
-  // isLoggedIn() {
-  //   return this.getRole() && this.getToken();
-  // }
-
   isLoggedIn() {
-    // return this.getToken();
-    // return TokenAuthInterceptor.accessToken;
-
     return this.getTokenFromCookie();
   }
 
   isAdmin() {
-    // return this.getToken();
-    return this.getTokenFromCookie();
-    // return TokenAuthInterceptor.accessToken;
-
+    return this.getRoleFromCookie() === 'admin';
   }
 
-  // getUserRole() {
-  //   return this.getRole() ;
-  // }
   logout() {
-    // localStorage.clear();
-    this.cookieService.delete('auth_token');
+    this.cookieService.deleteAll();
     this.router.navigate(['']);
   }
 }

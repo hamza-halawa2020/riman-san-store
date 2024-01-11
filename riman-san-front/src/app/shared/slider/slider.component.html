@@ -7,7 +7,9 @@
           <swiper-slide>
             
             <a [routerLink]="['/products',products.id]">
-              <img src="{{imgUrl}}/{{products.img}}" alt="" class="img-fluid">
+              <img 
+              [src]="imgUrl + products.images[0].image"
+              alt="" class="img-fluid">
             </a>
 
             <!-- <div class="">

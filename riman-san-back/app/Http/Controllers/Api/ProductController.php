@@ -73,6 +73,8 @@ public function store(StoreProductRequest $request)
             foreach ($request->file('image') as $image) {
                 $extension = $image->getClientOriginalExtension();
                 $filename = time() . '_' . uniqid() . '.' . $extension;
+
+                
                 $folderPath = 'images/products/' . $product->id;
                 $image->move(public_path($folderPath), $filename);
                 $product->images()->create([

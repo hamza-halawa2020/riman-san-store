@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgToastService } from 'ng-angular-popup';
 import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
@@ -12,8 +13,11 @@ export class AddProductComponent {
   formSubmitted: boolean = false;
   imageFile: any;
   categories:any;
-  image: any[] = []; // Array to store multiple images
-  constructor(private products:ProductService, private fb:FormBuilder){
+  constructor(
+    private products:ProductService, 
+    private fb:FormBuilder,
+    private toast: NgToastService,
+    ){
     this.add = this.fb.group({
       name: new FormControl('', [
         Validators.required,
@@ -69,9 +73,7 @@ export class AddProductComponent {
     formData.append('name', productData.name);
     formData.append('description', productData.description);
     formData.append('category_id', productData.category);      
-    formData.append('price', productData.price);
-    // formData.append('image', this.imageFile);
-   
+    formData.append('price', productData.price);   
 
     console.log(formData);
   
@@ -79,13 +81,32 @@ export class AddProductComponent {
         (response: any) => {
           this.formSubmitted = true;
           this.add.reset();
+          this.toast.success({
+            detail: 'SUCCESS',
+            summary: 'Your Success Message',
+            position: 'topCenter',
+          });
         },
         (error: any) => {
-          console.error('failed:', error);
+          // console.error('failed:', error);
+          this.toast.error({
+            detail: 'ERROR',
+            summary: 'Your Error Message',
+            sticky: true,
+            position: 'topCenter',
+          });
+
+          
         }
       );
     } else {
-      console.log('Form is invalid. Please fill all the required fields.');
+      // console.log('Form is invalid. Please fill all the required fields.');
+      this.toast.error({
+        detail: 'ERROR',
+        summary: 'Your Error Message',
+        sticky: true,
+        position: 'topCenter',
+      });
     }
   }
   }

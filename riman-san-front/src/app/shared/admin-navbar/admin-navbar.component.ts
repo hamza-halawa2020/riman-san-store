@@ -9,7 +9,6 @@ import { LoginService } from 'src/app/services/login/login.service';
 export class AdminNavbarComponent {
   constructor(private authService: LoginService) {}
 
-  ngOnInit() {}
 
   isLoggedIn() {
     return this.authService.isLoggedIn();

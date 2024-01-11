@@ -13,14 +13,13 @@ class CORS
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
-    {
-        $response = $next($request);
 
-        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
-        $response->headers->set('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token, Authorization, Accept, charset, boundary, Content-Length');
-        $response->headers->set('Access-Control-Allow-Origin', '*');
+     public function handle($request, Closure $next)
+     {
+         return $next($request)
+             ->header('Access-Control-Allow-Origin', '*') // or specify your frontend URL
+             ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+             ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+     }
 
-        return $response;
-    }
 }
