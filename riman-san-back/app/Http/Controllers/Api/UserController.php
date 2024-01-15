@@ -11,11 +11,14 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Exception;
 use Illuminate\Validation\Rule;
+use Twilio\Rest\Client;
+use Illuminate\Support\Facades\Log;
+
 class UserController extends Controller
 {
     function __construct()
     {
-        $this->middleware("auth:sanctum")->except('store');
+        $this->middleware("auth:sanctum")->except('store','sendVerificationCode');
     }
 
     public function index()
@@ -41,17 +44,49 @@ class UserController extends Controller
                 'phone' => ['required', 'regex:/^(010|011|012|015)\d{8}$/','unique:users'],
                 'password' => 'required'
             ]);
+
+            $verificationCode = mt_rand(1000, 9999);
       
             $user = User::create([
                 'name'=> $request->name,
                 'phone'=> $request->phone,
-                'password'=> bcrypt($request->password)
+                'password'=> bcrypt($request->password),
+                'verification_code' => $verificationCode,
             ]);
+
+            $this->sendVerificationCode($request->phone, $verificationCode);
             return response()->json(['data' => new UserResource($user)], 200);
         } catch (Exception $e) {
             return response()->json($e, 500);
         }
     }
+
+
+    private function sendVerificationCode($receiverNumber, $verificationCode)
+    {
+        try {
+            $account_sid = config('services.twilio.sid');
+            $auth_token = config('services.twilio.token');
+            $twilio_number = config('services.twilio.from');
+    
+            $client = new Client($account_sid, $auth_token);
+            $client->messages->create($receiverNumber, [
+                'from' => $twilio_number,
+                'body' => "Your verification code: $verificationCode",
+            ]);
+    
+            Log::info('Verification code sent successfully.');
+            return 'Verification code sent successfully.';
+        } catch (Exception $e) {
+            Log::error("Error sending verification code: " . $e->getMessage());
+            return "Error sending verification code: " . $e->getMessage();
+        }
+    }
+
+
+
+
+
 
     public function show(string $id)
     {

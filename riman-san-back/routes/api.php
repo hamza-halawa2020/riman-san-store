@@ -33,7 +33,6 @@ Route::apiResource('categories', CategoryController::class);
 Route::get('/product/category/{id}', [ProductController::class, 'indexByCategory']);
 Route::apiResource('users', UserController::class);
 Route::apiResource('contacts', ContactController::class);
-Route::apiResource('images', ImageController::class);
 Route::apiResource('orders', OrderController::class);
 Route::apiResource('orderdetails', OrderDetailsController::class);
 // Route::get('/order/details/{id}', [OrderDetailsController::class, 'indexByOrderId']);
