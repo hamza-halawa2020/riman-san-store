@@ -33,17 +33,14 @@ class ProductController extends Controller
         }
     }
 
-    
 
     
-
     public function indexByCategory($category)
     {
         try {
             $products = Product::whereHas('category', function ($query) use ($category) {
                 $query->where('id', $category);
-            })->get();
-            // return response()->json($products);
+            })->with('images')->get();
             return new ProductResource($products);
 
         } catch (Exception $e) {
