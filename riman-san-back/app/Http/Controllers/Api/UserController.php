@@ -21,12 +21,12 @@ class UserController extends Controller
     public function index()
     {
         try {
-            if (Gate::allows("is-admin")) {
+            // if (Gate::allows("is-admin")) {
                 $users = User::all();
                 return UserResource::collection($users);
-            } else {
-                return response()->json(['message' => 'not allow to show users.'], 403);
-            }
+            // } else {
+            //     return response()->json(['message' => 'not allow to show users.'], 403);
+            // }
         } catch (Exception $e) {
             return response()->json($e, 500);
         }
@@ -77,7 +77,6 @@ class UserController extends Controller
                     'regex:/^(010|011|012|015)\d{8}$/',
                      Rule::unique('users')->ignore($user->id),
                 ],
-                'password' => 'sometimes',
                 'role' => 'sometimes|in:admin,user',
 
             ]);
@@ -86,7 +85,7 @@ class UserController extends Controller
                     'name' => $data['name'] ?? $user->name,
                     'phone' => $data['phone'] ?? $user->phone,
                     'role' => $data['role'] ?? $user->role,
-                    'password' => isset($data['password']) ? bcrypt($data['password']) : $user->password,
+                    // 'password' => isset($data['password']) ? bcrypt($data['password']) : $user->password,
                 ]);
                 return response()->json(['data' => new UserResource($user)], 200);
             } else {

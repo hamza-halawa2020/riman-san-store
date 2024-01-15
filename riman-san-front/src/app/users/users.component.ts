@@ -8,8 +8,9 @@ import { UserService } from '../services/user/user.service';
 })
 export class UsersComponent {
   users: any = [];
-  selectedUser: any; // Track the user being edited
-  selectedUserIndex: number | null = null; // Add this line
+  selectedUser: any; 
+  selectedUserIndex: number | null = null; 
+  roles: string[] = ['admin', 'user']; 
   loading: boolean = false;
   constructor(private userService: UserService) {}
   ngOnInit(): void {
@@ -23,6 +24,8 @@ export class UsersComponent {
       this.loading = false;
     });
   }
+
+  
   deleteUser(userId: number): void {
     this.userService.deleteUser(userId).subscribe(
       () => {
@@ -35,9 +38,34 @@ export class UsersComponent {
       }
     );
   }
+
+
+
   updateUser(user: any): void {
     console.log('Updating user:', user);
+
+    if (this.selectedUser && this.selectedUser.role) {
+      user.role = this.selectedUser.role;
+
+      this.userService.updateUser(user).subscribe(
+        (updatedUser: any) => {
+          console.log('User updated successfully:', updatedUser);
+          this.selectedUser = null;
+          this.selectedUserIndex = null;
+          this.getUser();
+        },
+        (error: any) => {
+          console.error('Error updating user:', error);
+        }
+      );
+    }
   }
+
+
+
+
+
+
 
   editUser(user: any): void {
     const index = this.users.indexOf(user);

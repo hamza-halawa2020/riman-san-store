@@ -1,17 +1,15 @@
-<!-- <nav class="navbar navbar-expand-lg bg-primary"> -->
-  <!-- <nav class="navbar navbar-expand-lg bg-primary" *ngIf="isLoggedIn()"> -->
 <nav class="navbar navbar-expand-lg" *ngIf="isAdmin()">
   <div class="container">
     <button
       class="navbar-toggler"
       type="button"
       data-bs-toggle="offcanvas"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
+      data-bs-target="#navbarSupportedContent2"
+      aria-controls="navbarSupportedContent2"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="navbarSupportedContent">
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="navbarSupportedContent2">
       <div class="offcanvas-header">
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
@@ -26,9 +24,6 @@
           <li>
             <a class="nav-link" routerLink="adminorders">All Orders</a>
           </li>
-          <!-- <li>
-            <a class="nav-link" routerLink="adminreviews">All Reviews</a>
-          </li> -->
           <li>
             <a class="nav-link" routerLink="admincontact">All Contacts</a>
           </li>

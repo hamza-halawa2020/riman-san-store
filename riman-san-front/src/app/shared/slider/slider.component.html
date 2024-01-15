@@ -8,22 +8,23 @@
             
             <a [routerLink]="['/products',products.id]">
               <img 
+              style="height: 15rem;"
               [src]="imgUrl + products.images[0].image"
               alt="" class="img-fluid">
             </a>
 
-            <!-- <div class="">
-              <div class="text-white">{{ products.price | price }}</div>
+                  <!-- <div class="">
+                    <div class="text-white">{{ products.price | price }}</div>
 
-              <div
-                class="btn btn-outline-warning"
-                [class.disabled]="!products?.stock"
-                (click)="addProductToCart(products)"
-              >
-                Add to Cart
-            </div>
+                    <div
+                      class="btn btn-outline-warning"
+                      [class.disabled]="!products?.stock"
+                      (click)="addProductToCart(products)"
+                    >
+                      Add to Cart
+                  </div>
 
-            </div> -->
+                  </div> -->
           </swiper-slide>
           
         </div>

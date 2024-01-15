@@ -6,10 +6,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class UserService {
-  // private apiUrl = 'https://rimansan.net/api';
+ 
   private apiUrl = environment.backEndUrl;
-
-
   constructor(private http: HttpClient) {}
 
   getUsers() {
@@ -19,8 +17,14 @@ export class UserService {
     const url = `${this.apiUrl}/${userId}`;
     return this.http.get(url);
   }
+
+  updateUser(user: any) {
+    const userId = user.id;
+    return this.http.put(`${this.apiUrl}/users/${userId}`, user);
+  }
+  
   deleteUser(userId: number) {
-    const url = `${this.apiUrl}/${userId}`;
+    const url = `${this.apiUrl}/users/${userId}`;
     return this.http.delete(url);
   }
 }

@@ -3,23 +3,23 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '../services/cart/cart.service';
 import { ProductService } from '../services/product/product.service';
 import { environment } from 'src/environments/environment';
-
+import { trigger, state, style, animate, transition } from '@angular/animations';
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css'],
+
 })
 export class ProductDetailsComponent {
   // product: any;
+
   id: any;
   productDetails: any;
   loading: boolean = false;
   imgUrl = `${environment.imgUrl}/`;
-
-  rating: any;
+  chunkSize = 3;
+  thumbnailChunks: string[][] = [];
   mainProductImage: string = '';
-  
-  // thumbnailImages: string[] = ['1704979806_659fed5eead01.png', '2.jpg', '3.jpg', '4.jpg'];
   thumbnailImages: string[] = [];
   constructor(
     private activateRoute: ActivatedRoute,
@@ -29,6 +29,7 @@ export class ProductDetailsComponent {
   ngOnInit(): void {
     this.getProduct();
   }
+
 
   getProduct() {
     this.loading = true;
@@ -42,10 +43,9 @@ export class ProductDetailsComponent {
         //   this.productDetails.category_name = Object.values(categoryData)[0];
           // console.log(this.productDetails.category_name);
 
-            // Populate thumbnailImages array with backend images
             this.thumbnailImages = this.productDetails.images.map((image: any) => image.image);
-
-        this.mainProductImage = `${this.imgUrl}${this.productDetails.images[0].image}`;
+            this.thumbnailChunks = this.chunkArray(this.thumbnailImages, this.chunkSize);
+            this.mainProductImage = `${this.imgUrl}${this.productDetails.images[0].image}`;
 
         this.loading = false;
       });
@@ -60,6 +60,12 @@ export class ProductDetailsComponent {
   changeImage(image: string): void {
     this.mainProductImage = `${this.imgUrl}${image}`;
   }
+
+chunkArray(array: any[], size: number): any[][] {
+  return Array.from({ length: Math.ceil(array.length / size) }, (v, i) =>
+    array.slice(i * size, i * size + size)
+  );
+}
 }
 
 

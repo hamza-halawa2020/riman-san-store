@@ -1,3 +1,31 @@
+
+.image-carousel {
+  display: flex;
+  overflow-x: auto;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.image-carousel li {
+  display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.image-carousel li:hover {
+  transform: scale(1.1);
+}
+
+
+
+
+
+
+
+
 .showmore {
   display: -webkit-box;
   -webkit-line-clamp: 4;

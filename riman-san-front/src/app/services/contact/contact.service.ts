@@ -28,15 +28,11 @@ export class ContactService {
   }
 
   updateContact(contactId: any, updatedContactData: any): Observable<any> {
-    console.log('Contact ID:', contactId);
-    console.log('Updated Contact Data:', updatedContactData);
+    // console.log('Contact ID:', contactId);
+    // console.log('Updated Contact Data:', updatedContactData);
 
     const url = `${this.apiUrl}/contacts/${contactId}`;
     return this.http.put(url, updatedContactData);
   }
 }
-// updateContact(contactId: any) {
-//   const url = `${this.apiUrl}/contacts/${contactId}`;
-//   return this.http.put(url,contactId);
-// }
-// }
+
