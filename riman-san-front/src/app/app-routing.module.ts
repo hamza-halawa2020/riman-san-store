@@ -21,7 +21,6 @@ import { PrivacyPolicyComponent } from './shared/privacy-policy/privacy-policy.c
 import { TermsOfUseComponent } from './shared/terms-of-use/terms-of-use.component';
 import { FaqsComponent } from './shared/faqs/faqs.component';
 import { AddProductComponent } from './shared/add-product/add-product.component';
-
 import { register } from 'swiper/element/bundle';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';

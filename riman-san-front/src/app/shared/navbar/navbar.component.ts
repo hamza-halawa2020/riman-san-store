@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscriber } from 'rxjs';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { LoginService } from 'src/app/services/login/login.service';
@@ -18,7 +19,8 @@ export class NavbarComponent {
 
   constructor(
     private cartApi: CartService,
-    private authService: LoginService
+    private authService: LoginService,
+    public translate:TranslateService
   ) {}
 
   ngOnInit() {

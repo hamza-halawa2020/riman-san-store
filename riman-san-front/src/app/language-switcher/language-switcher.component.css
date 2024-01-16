@@ -1,0 +1,42 @@
+/* language-switcher.component.scss */
+.language-switcher {
+  cursor: pointer;
+  padding: 16px;
+  border: 2px solid #007bff; /* Use your preferred color */
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f8f9fa; /* Use your preferred background color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #e9ecef; /* Use your preferred hover background color */
+  }
+
+  label {
+    font-size: 16px;
+    margin-right: 10px;
+  }
+
+  .buttons-container {
+    display: flex;
+    gap: 10px;
+
+    .language-button {
+      padding: 10px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: #007bff; /* Use your preferred button color */
+      color: #fff; /* Use your preferred text color */
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #0056b3; /* Use your preferred hover color */
+      }
+    }
+  }
+}

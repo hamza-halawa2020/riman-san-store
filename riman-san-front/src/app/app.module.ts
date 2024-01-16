@@ -9,7 +9,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { UsersComponent } from './users/users.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
@@ -49,6 +49,14 @@ import { TokenAuthInterceptor } from './interceptor/token-auth.interceptor';
 import { AddProductComponent } from './shared/add-product/add-product.component';
 import { SliderComponent } from './shared/slider/slider.component';
 import { ProfileComponent } from './profile/profile.component';
+import { LanguageSwitcherComponent } from './language-switcher/language-switcher.component';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
+
+export function HttpTranslateLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -93,6 +101,7 @@ import { ProfileComponent } from './profile/profile.component';
     AddProductComponent,
     SliderComponent,
     ProfileComponent,
+    LanguageSwitcherComponent,
   ],
   imports: [
     BrowserModule,
@@ -102,7 +111,15 @@ import { ProfileComponent } from './profile/profile.component';
     ReactiveFormsModule,
     CommonModule,
     NgbModule,
-    NgToastModule
+    NgToastModule,
+    TranslateModule.forRoot({
+      defaultLanguage:'ar',
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpTranslateLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
 

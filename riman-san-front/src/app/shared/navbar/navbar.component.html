@@ -79,12 +79,12 @@
             routerLink="/"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
-            >Home</a
+            >{{'Home' | translate}}</a
           >
         </li>
         <li>
           <a class="nav-link" routerLink="products" routerLinkActive="active"
-            >All Products</a
+            >{{'All Products' | translate}}</a
           >
         </li>
 
@@ -101,6 +101,10 @@
               total
             }}</span>
           </a>
+        </li>
+        <li>
+          <app-language-switcher></app-language-switcher>
+
         </li>
       </ul>
       <!-- <form class="d-flex" role="search">
@@ -213,4 +217,5 @@
       </ul>
     </div>
   </div>
-</nav>
+
+  </nav>
