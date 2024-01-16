@@ -15,14 +15,16 @@ import { OrderNowComponent } from './order-now/order-now.component';
 import { AdminContactComponent } from './shared/admin-contact/admin-contact.component';
 import { AdminOrderComponent } from './shared/admin-order/admin-order.component';
 import { AdminReviewComponent } from './shared/admin-review/admin-review.component';
-import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
 import { unauthGuard } from './guards/unauth.guard';
 import { PrivacyPolicyComponent } from './shared/privacy-policy/privacy-policy.component';
 import { TermsOfUseComponent } from './shared/terms-of-use/terms-of-use.component';
 import { FaqsComponent } from './shared/faqs/faqs.component';
 import { AddProductComponent } from './shared/add-product/add-product.component';
 
-import {register} from 'swiper/element/bundle';
+import { register } from 'swiper/element/bundle';
+import { ProfileComponent } from './profile/profile.component';
+import { AuthGuard } from './guards/auth.guard';
 
 register();
 
@@ -38,12 +40,17 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    canActivate: [unauthGuard]
+    canActivate: [unauthGuard],
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'register',
     component: RegisterComponent,
-    canActivate: [unauthGuard]
+    canActivate: [unauthGuard],
   },
   {
     path: 'contact',
@@ -52,48 +59,50 @@ const routes: Routes = [
   {
     path: 'admincontact',
     component: AdminContactComponent,
-    canActivate:[AuthGuard],
-    // data: { role: 'admin' } 
+    canActivate: [AdminGuard],
   },
   {
     path: 'add',
     component: AddProductComponent,
-    canActivate:[AuthGuard]
-
+    canActivate: [AdminGuard],
   },
   {
     path: 'adminorders',
     component: AdminOrderComponent,
-    canActivate:[AuthGuard]
-
+    canActivate: [AdminGuard],
   },
   {
     path: 'adminreviews',
     component: AdminReviewComponent,
-    canActivate:[AuthGuard]
-
+    canActivate: [AdminGuard],
   },
   {
     path: 'recovery',
     component: ForgetPasswordComponent,
-    canActivate: [unauthGuard]
-
+    canActivate: [unauthGuard],
   },
   {
     path: 'users',
     component: UsersComponent,
-    canActivate:[AuthGuard]
-
+    canActivate: [AdminGuard],
   },
-  { path: 'user/:id', component: UserDetailsComponent,
-  canActivate:[AuthGuard]
-},
+  {
+    path: 'user/:id',
+    component: UserDetailsComponent,
+    canActivate: [AdminGuard],
+  },
   {
     path: 'products',
     component: ProductsComponent,
   },
-  { path: 'products/:id', component: ProductDetailsComponent },
-  { path: 'cart', component: CartComponent },
+  {
+    path: 'products/:id',
+    component: ProductDetailsComponent,
+  },
+  {
+    path: 'cart',
+    component: CartComponent,
+  },
   {
     path: 'privacy-policy',
     component: PrivacyPolicyComponent,
@@ -110,13 +119,11 @@ const routes: Routes = [
   {
     path: '404',
     component: NotFoundComponent,
-    data: { title: '404 Page not found' },
   },
 
   {
     path: '**',
     component: NotFoundComponent,
-    data: { title: '404 Page not found' },
   },
 ];
 

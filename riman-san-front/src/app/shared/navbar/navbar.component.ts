@@ -38,11 +38,32 @@ export class NavbarComponent {
   isLoggedIn(): boolean {
     return !!this.authService.isLoggedIn();
   }
+  isAdmin() {
+    return this.authService.isAdmin();
+  }
 
   logout() {
     this.authService.logout();
   }
+
+  isTopDropdownOpen = false;
+  isNestedDropdownOpen = false;
+
+  toggleTopDropdown() {
+    this.isTopDropdownOpen = !this.isTopDropdownOpen;
+  }
+
+  toggleNestedDropdown(event: Event) {
+    event.stopPropagation(); 
+    this.isNestedDropdownOpen = !this.isNestedDropdownOpen;
+  }
+
+  closeDropdowns() {
+    this.isTopDropdownOpen = false;
+    this.isNestedDropdownOpen = false;
+  }
 }
+
 // updateCartTotal() {
 //   this.cartApi.getCart(); 
 //   this.cartApi.getcounterCart().subscribe((res: any) => {

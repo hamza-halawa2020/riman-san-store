@@ -48,6 +48,7 @@ import { WhatsAppComponent } from './shared/whats-app/whats-app.component';
 import { TokenAuthInterceptor } from './interceptor/token-auth.interceptor';
 import { AddProductComponent } from './shared/add-product/add-product.component';
 import { SliderComponent } from './shared/slider/slider.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { SliderComponent } from './shared/slider/slider.component';
     WhatsAppComponent,
     AddProductComponent,
     SliderComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

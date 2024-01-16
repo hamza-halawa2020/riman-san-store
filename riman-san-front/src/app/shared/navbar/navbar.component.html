@@ -19,16 +19,21 @@
           {{ email2 }}
         </a>
         <div class="d-none d-lg-block">
-          <a href="https://www.facebook.com/rimansan.net" target="_blank" >
-          <i class="p-1 me-2 fab fa-facebook-f fa-xs"></i></a>
-          <a href="https://www.linkedin.com/company/riman-san/" target="_blank" >
-          <i class="p-1 me-2 fab fa-linkedin-in fa-xs"></i></a>
-          <a href="https://www.tiktok.com/@rimansan.net" target="_blank" >
-          <i class="p-1 me-2 fab fa-tiktok fa-xs"></i></a>
-          <a href="https://www.youtube.com/@-rimansan" target="_blank" >
-          <i class="p-1 me-2 fab fa-youtube fa-xs"></i></a>
-          <a href="" target="_blank" >
-          <i class="p-1 me-2 fab fa-instagram fa-xs"></i></a>
+          <a href="https://www.facebook.com/rimansan.net" target="_blank">
+            <i class="p-1 me-2 fab fa-facebook-f fa-xs"></i
+          ></a>
+          <a href="https://www.linkedin.com/company/riman-san/" target="_blank">
+            <i class="p-1 me-2 fab fa-linkedin-in fa-xs"></i
+          ></a>
+          <a href="https://www.tiktok.com/@rimansan.net" target="_blank">
+            <i class="p-1 me-2 fab fa-tiktok fa-xs"></i
+          ></a>
+          <a href="https://www.youtube.com/@-rimansan" target="_blank">
+            <i class="p-1 me-2 fab fa-youtube fa-xs"></i
+          ></a>
+          <a href="" target="_blank">
+            <i class="p-1 me-2 fab fa-instagram fa-xs"></i
+          ></a>
         </div>
       </div>
     </div>
@@ -88,24 +93,7 @@
             >Contact Us</a
           >
         </li>
-        <!-- <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Dropdown
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" routerLink="#">Action</a></li>
-            <li><a class="dropdown-item" routerLink="#">Another action</a></li>
-            <li><hr class="dropdown-divider" /></li>
-            <li>
-              <a class="dropdown-item" routerLink="#">Something else here</a>
-            </li>
-          </ul>
-        </li> -->
+
         <li>
           <a class="nav-link" routerLink="cart" routerLinkActive="active"
             ><i class="fa-solid fa-cart-plus fa-lg"></i>
@@ -114,9 +102,6 @@
             }}</span>
           </a>
         </li>
-       
-        
-
       </ul>
       <!-- <form class="d-flex" role="search">
         <input
@@ -130,38 +115,102 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a
-        *ngIf="!isLoggedIn()"
-          class="nav-link"
-          routerLink="login"
-          routerLinkActive="active"
+            *ngIf="!isLoggedIn()"
+            class="nav-link"
+            routerLink="login"
+            routerLinkActive="active"
           >
-          Log In
+            Log In
           </a>
         </li>
         <li class="nav-item">
-
-        <a
-          class="nav-link"
-          *ngIf="!isLoggedIn()"
-          routerLink="register"
-          routerLinkActive="active"
+          <a
+            class="nav-link"
+            *ngIf="!isLoggedIn()"
+            routerLink="register"
+            routerLinkActive="active"
           >
-          Register
+            Register
           </a>
-          </li>
-          <li class="nav-item">
+        </li>
 
+        <li class="nav-item dropdown" *ngIf="isLoggedIn()">
+          <a
+            class="nav-link dropdown-toggle"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fa-solid fa-id-card fa-2xl"></i>
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            [ngClass]="{ show: isTopDropdownOpen }"
+            aria-labelledby="topDropdown"
+          >
+            <li>
+              <a class="dropdown-item" routerLink="profile" *ngIf="isLoggedIn()"
+                >Profile</a
+              >
+            </li>
 
-      <a
-      class="nav-link"
-      *ngIf="isLoggedIn()"
-      routerLink=""
-      (click)="logout()"
-      >
-      Log Out
-      </a>
-      </li>
-    </ul>
+            <li class="dropdown" (click)="toggleNestedDropdown($event)">
+              <a
+                class="dropdown-item dropdown-toggle"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                *ngIf="isAdmin()"
+              >
+                Admin Panel
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                [ngClass]="{ show: isNestedDropdownOpen }"
+              >
+                <li>
+                  <a class="dropdown-item" *ngIf="isAdmin()" routerLink="users"
+                    >All Users</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" *ngIf="isAdmin()" routerLink="add"
+                    >Add Products</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    *ngIf="isAdmin()"
+                    routerLink="adminorders"
+                    >All Orders</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    *ngIf="isAdmin()"
+                    routerLink="admincontact"
+                    >All Contacts</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a
+                class="dropdown-item"
+                *ngIf="isLoggedIn()"
+                routerLink=""
+                (click)="logout()"
+              >
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Log Out
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>

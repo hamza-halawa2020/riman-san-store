@@ -6,15 +6,15 @@ import { LoginService } from '../services/login/login.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
   constructor(private auth : LoginService, private router: Router, private toast: NgToastService){
 
   }
   canActivate():boolean{
-    if(this.auth.isLoggedIn()){
+    if(this.auth.isAdmin()){
       return true
     }else{
-      this.toast.error({detail:"ERROR", summary:"Please Login First!"});
+      this.toast.error({detail:"ERROR", summary:"403"});
       this.router.navigate(['/'])
       return false;
     }
