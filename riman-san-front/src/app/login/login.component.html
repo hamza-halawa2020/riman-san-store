@@ -1,18 +1,24 @@
-<div class="wrapper mt-5">
+<div class="wrapper mt-5" [dir]="'dir' | translate">
   <div class="logo">
     <img src="../../assets/images/logo.png" alt="" />
   </div>
-  <div class="text-center mt-4 name">Login</div>
+  <div class="text-center mt-4 name">{{ "Login" | translate }}</div>
   <form class="p-3 mt-3" [formGroup]="login" (ngSubmit)="onSubmit()">
-    <div class="text-danger" *ngIf="login.controls['phone'].touched && login.controls['phone'].invalid">
+    <div
+      class="text-danger"
+      *ngIf="login.controls['phone'].touched && login.controls['phone'].invalid"
+    >
       <div *ngIf="login.controls['phone'].hasError('required')">
-        Phone is required
+        {{ "Phone is required" | translate }}
       </div>
       <div *ngIf="login.controls['phone'].hasError('pattern')">
-        Invalid phone number format. Please enter a valid Egyptian phone number.
+        {{
+          "Invalid phone number format. Please enter a valid Egyptian phone number."
+            | translate
+        }}
       </div>
     </div>
-    
+
     <div class="form-field d-flex align-items-center">
       <span class="fa fa-phone"></span>
       <input
@@ -20,11 +26,11 @@
         type="text"
         name="phone"
         id="phone"
-        placeholder="Enter Your Phone Number"
+        placeholder="{{ 'Enter Your Phone Number' | translate }}"
         required
       />
     </div>
-    
+
     <div
       class="text-danger"
       *ngIf="
@@ -32,7 +38,7 @@
       "
     >
       <div *ngIf="login.controls['password'].hasError('required')">
-        Password is required
+        {{ "password is required" | translate }}
       </div>
     </div>
     <div class="form-field d-flex align-items-center">
@@ -42,19 +48,22 @@
         [type]="showPassword ? 'text' : 'password'"
         name="password"
         id="pwd"
-        placeholder="Enter Your Password"
+        placeholder="{{ 'Enter Your Password' | translate }}"
       />
-      <app-hide-show-pass (click)="togglePasswordVisibility()"></app-hide-show-pass>
+      <app-hide-show-pass
+        (click)="togglePasswordVisibility()"
+      ></app-hide-show-pass>
     </div>
     <input
       [disabled]="login.invalid"
       type="submit"
-      value="Login"
+      value="{{ 'Login' | translate }}"
       class="btn mt-3"
     />
   </form>
   <div class="text-center fs-6">
-    <a routerLink="/recovery">Forget password?</a> or
-    <a routerLink="/register">Sign up</a>
+    <a routerLink="/recovery">{{ "Forget password?" | translate }}</a>
+    {{ "or" | translate }}
+    <a routerLink="/register">{{ "Sign up" | translate }}</a>
   </div>
 </div>

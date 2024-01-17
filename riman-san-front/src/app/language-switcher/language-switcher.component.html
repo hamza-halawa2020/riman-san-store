@@ -1,21 +1,9 @@
-  <a class=""
-    (click)="changeLanguage('en')"
-    class="language-button"
-    *ngIf="!isEnglishSelected"
-  >
-  <i class="fa fa-language 2xl"></i>
+<div>
+  <a class="" (click)="changeLanguage('en')" *ngIf="!isEnglishSelected">
+    <img src="assets/images/ar.svg" alt="Arabic Flag" width="35" height="35" />
+  </a>
 
-    <small>
-      En
-    </small>
-</a>
-
-  <a class=""
-    (click)="changeLanguage('ar')"
-    class="language-button"
-    *ngIf="!isArabicSelected"
-  >
-  <i class="fa fa-language 2xl"></i>
-
-    <small>Ar</small>
-</a>
+  <a class="" (click)="changeLanguage('ar')" *ngIf="!isArabicSelected">
+    <img src="assets/images/en.svg" alt="English Flag" width="35" height="35" />
+  </a>
+</div>
