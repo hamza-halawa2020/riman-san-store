@@ -1,4 +1,5 @@
 <!-- Top bar -->
+
 <div class="container-fluid bg-dark">
   <div class="row g-0">
     <div class="col-2 col-md-6 col-lg-8 ps-5 text-start">
@@ -37,17 +38,18 @@
         </div>
       </div>
     </div>
-    <div class="col-10 col-md-6 col-lg-4 text-end">
+    <div class="col-10 col-md-6 col-lg-4 text-end" [dir]="'dir' | translate">
       <div
         class="h-100 topbar-right d-inline-flex align-items-center text-white px-2"
       >
         <span class="fw-bold me-2"
-          ><i class="fas fa-phone me-2 fs-6"></i>Call Us:</span
+          ><i class="fas fa-phone me-2 fs-6"></i
+          >{{ "Call Us:" | translate }}</span
         >
         <a
           class="fs-6 fw-bold text-white text-decoration-none"
           href="tel:+01068743043"
-          >+2010 687 43 0 43</a
+          >{{ "+2010 687 43 0 43" | translate }}</a
         >
       </div>
     </div>
@@ -55,7 +57,10 @@
 </div>
 <!-- Main header -->
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary shadow sticky-top mb-1">
+<nav
+  class="navbar navbar-expand-lg bg-body-tertiary shadow sticky-top mb-1"
+  [dir]="'dir' | translate"
+>
   <div class="container">
     <a class="navbar-brand" routerLink="/">
       <img src="assets/images/logo.png" alt="" width="80px" />
@@ -79,19 +84,19 @@
             routerLink="/"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
-            >{{'Home' | translate}}</a
+            >{{ "Home" | translate }}</a
           >
         </li>
         <li>
-          <a class="nav-link" routerLink="products" routerLinkActive="active"
-            >{{'All Products' | translate}}</a
-          >
+          <a class="nav-link" routerLink="products" routerLinkActive="active">{{
+            "All Products" | translate
+          }}</a>
         </li>
 
         <li>
-          <a class="nav-link" routerLink="contact" routerLinkActive="active"
-            >Contact Us</a
-          >
+          <a class="nav-link" routerLink="contact" routerLinkActive="active">{{
+            "Contact Us" | translate
+          }}</a>
         </li>
 
         <li>
@@ -104,7 +109,6 @@
         </li>
         <li>
           <app-language-switcher></app-language-switcher>
-
         </li>
       </ul>
       <!-- <form class="d-flex" role="search">
@@ -124,7 +128,7 @@
             routerLink="login"
             routerLinkActive="active"
           >
-            Log In
+            {{ "Log In" | translate }}
           </a>
         </li>
         <li class="nav-item">
@@ -134,7 +138,7 @@
             routerLink="register"
             routerLinkActive="active"
           >
-            Register
+            {{ "Register" | translate }}
           </a>
         </li>
 
@@ -153,8 +157,11 @@
             aria-labelledby="topDropdown"
           >
             <li>
-              <a class="dropdown-item" routerLink="profile" *ngIf="isLoggedIn()"
-                >Profile</a
+              <a
+                class="dropdown-item"
+                routerLink="profile"
+                *ngIf="isLoggedIn()"
+                >{{ "Profile" | translate }}</a
               >
             </li>
 
@@ -166,28 +173,31 @@
                 aria-expanded="false"
                 *ngIf="isAdmin()"
               >
-                Admin Panel
+                {{ "Admin Panel" | translate }}
               </a>
               <ul
                 class="dropdown-menu dropdown-menu-end"
                 [ngClass]="{ show: isNestedDropdownOpen }"
               >
                 <li>
-                  <a class="dropdown-item" *ngIf="isAdmin()" routerLink="users"
-                    >All Users</a
+                  <a
+                    class="dropdown-item"
+                    *ngIf="isAdmin()"
+                    routerLink="users"
+                    >{{ "All Users" | translate }}</a
                   >
                 </li>
                 <li>
-                  <a class="dropdown-item" *ngIf="isAdmin()" routerLink="add"
-                    >Add Products</a
-                  >
+                  <a class="dropdown-item" *ngIf="isAdmin()" routerLink="add">{{
+                    "Add Products" | translate
+                  }}</a>
                 </li>
                 <li>
                   <a
                     class="dropdown-item"
                     *ngIf="isAdmin()"
                     routerLink="adminorders"
-                    >All Orders</a
+                    >{{ "All Orders" | translate }}</a
                   >
                 </li>
                 <li>
@@ -195,7 +205,7 @@
                     class="dropdown-item"
                     *ngIf="isAdmin()"
                     routerLink="admincontact"
-                    >All Contacts</a
+                    >{{ "All Contacts" | translate }}</a
                   >
                 </li>
               </ul>
@@ -209,7 +219,7 @@
                 (click)="logout()"
               >
                 <i class="fa-solid fa-right-from-bracket"></i>
-                Log Out
+                {{ "Log Out" | translate }}
               </a>
             </li>
           </ul>
@@ -217,5 +227,4 @@
       </ul>
     </div>
   </div>
-
-  </nav>
+</nav>

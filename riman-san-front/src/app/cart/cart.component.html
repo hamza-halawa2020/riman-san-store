@@ -1,28 +1,28 @@
-<div class="container" *ngIf="card.length > 0; else emptyCart">
+<div class="container" *ngIf="card.length > 0; else emptyCart" [dir]="'dir' | translate">
   <div class="container text-center">
-    <div class="h1">Shopping Cart</div>
-    <div class="h5">you have {{ card.length }} item in your cart</div>
+    <div class="h1">{{'Shopping Cart' | translate}}</div>
+    <div class="h5">{{'you have' | translate}} {{ card.length }} {{'item in your cart' | translate}}</div>
     <div class="btn" (click)="removeAllProduct()">
       <i class="fa-solid fa-trash fa-2xl"></i>
 
-      clear your cart
+      {{'clear your cart' | translate}}
     </div>
   </div>
   <div class="row">
     <div class="col-lg-6 col-sm-12">
       <div class="h3 mt-5 mb-3 text-danger text-center">
-        From your class, put the appropriate amount for you
+        {{'From your class, put the appropriate amount for you' | translate}}
       </div>
       <table class="table table-bordered text-center">
         <thead>
           <tr>
-            <th>N</th>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total</th>
-            <th>Delete</th>
+            <th>{{'N' | translate}}</th>
+            <th>{{'Image' | translate}}</th>
+            <th>{{'Name' | translate}}</th>
+            <th>{{'Price' | translate}}</th>
+            <th>{{'Quantity' | translate}}</th>
+            <th>{{'Total' | translate}}</th>
+            <th>{{'Delete' | translate}}</th>
           </tr>
         </thead>
         <tbody>
@@ -66,11 +66,11 @@
         <table class="table table-bordered text-center">
           <thead>
             <tr>
-              <th>Total</th>
+              <th>{{'Total' | translate}}</th>
               <th></th>
-              <th>Shipping Expenses</th>
+              <th>{{'Shipping Expenses' | translate}}</th>
               <th></th>
-              <th>Total after Shipping Expenses</th>
+              <th>{{'Total after Shipping Expenses' | translate}}</th>
             </tr>
           </thead>
           <tbody>
@@ -89,12 +89,12 @@
     </div>
     <div class="col-lg-6 col-sm-12">
       <div class="text-center text-danger h5">
-        Add Your Data To Complete Your Order
+        {{'Add Your Data To Complete Your Order' | translate}}
       </div>
       <div class="container">
         <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="mt-4">
           <div class="mb-3">
-            <label for="name" class="form-label">Name:</label>
+            <label for="name" class="form-label">{{'Name:' | translate}}</label>
             <div
               class="text-danger"
               *ngIf="
@@ -103,7 +103,7 @@
               "
             >
               <div *ngIf="orderForm.controls['name'].hasError('required')">
-                Name is required
+                {{'Name is required' | translate}}
               </div>
             </div>
             <input
@@ -116,7 +116,7 @@
           </div>
 
           <div class="mb-3">
-            <label for="phone" class="form-label">Phone:</label>
+            <label for="phone" class="form-label">{{'Phone:' | translate}}</label>
             <div
               class="text-danger"
               *ngIf="
@@ -125,7 +125,7 @@
               "
             >
               <div *ngIf="orderForm.controls['phone'].hasError('required')">
-                phone is required
+                {{'phone is required' | translate}}
               </div>
             </div>
             <input
@@ -138,7 +138,7 @@
           </div>
 
           <div class="mb-3">
-            <label for="address" class="form-label">Address:</label>
+            <label for="address" class="form-label">{{'Address:' | translate}}</label>
             <div
               class="text-danger"
               *ngIf="
@@ -147,7 +147,7 @@
               "
             >
               <div *ngIf="orderForm.controls['address'].hasError('required')">
-                address is required
+                {{'address is required' | translate}}
               </div>
             </div>
             <input
@@ -160,7 +160,7 @@
           </div>
 
           <div class="mb-3">
-            <label for="city" class="form-label">City:</label>
+            <label for="city" class="form-label">{{'City:' | translate}}</label>
             <div
               class="text-danger"
               *ngIf="
@@ -169,7 +169,7 @@
               "
             >
               <div *ngIf="orderForm.controls['city'].hasError('required')">
-                city is required
+                {{'city is required' | translate}}
               </div>
             </div>
             <input
@@ -182,7 +182,7 @@
           </div>
 
           <div class="mb-3">
-            <label for="notes" class="form-label">Notes:</label>
+            <label for="notes" class="form-label">{{'Notes:' | translate}}</label>
             <textarea
               id="notes"
               class="form-control"
@@ -192,7 +192,7 @@
           <input
             [disabled]="orderForm.invalid"
             type="submit"
-            value="Submit Order"
+            value="{{'Submit Order' | translate}}"
             class="btn btn-light"
           />
         </form>
@@ -201,15 +201,14 @@
   </div>
 </div>
 
-<ng-template #emptyCart>
+<ng-template #emptyCart [dir]="'dir' | translate">
   <div class="container text-center">
     <a class="" routerLink="/products"><img src="assets/images/cart.jpeg" /></a>
-    <h2 class="">Your Cart Is Currently Empty!</h2>
+    <h2 class="">{{'Your Cart Is Currently Empty!' | translate}}</h2>
     <div>
-      Before proceed to checkout you must add some products to your shopping
-      cart.
+      {{'Before proceed to checkout you must add some products to your shopping cart.' | translate}}
     </div>
-    <p>You will find a lot of interesting products on our "Products" page.</p>
-    <a class="btn btn-primary" routerLink="/products">Return To Shop</a>
+    <p>{{"You will find a lot of interesting products on our 'Products' page." | translate}}</p>
+    <a class="btn btn-primary" routerLink="/products">{{'Return To Shop' | translate}}</a>
   </div>
 </ng-template>

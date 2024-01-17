@@ -2,7 +2,7 @@
   <app-loading></app-loading>
 </div>
 
-<div class="container mt-5 mb-5" *ngIf="productDetails">
+<div class="container mt-5 mb-5" *ngIf="productDetails" [dir]="'dir' | translate">
   <div class="card">
     <div class="row g-0">
       <div class="col-md-6 border-end">
@@ -11,50 +11,58 @@
             <img [src]="mainProductImage" width="180 rem" />
           </div>
 
-
-<!-- ... existing code ... -->
-<div class="thumbnail_images">
-  <div id="thumbnailCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <div *ngFor="let chunk of thumbnailChunks; let i = index" class="carousel-item" [class.active]="i === 0">
-        <ul id="thumbnail" class="image-carousel">
-          <li *ngFor="let image of chunk" (click)="changeImage(image)">
-            <img [src]="imgUrl + image" height="70 rem" />
-          </li>
-        </ul>
-      </div>
-    </div>
-    <button class="carousel-control-prev bg-warning" type="button" data-bs-target="#thumbnailCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next bg-warning" type="button" data-bs-target="#thumbnailCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-</div>
-<!-- ... existing code ... -->
-
+          <!-- ... existing code ... -->
+          <div class="thumbnail_images">
+            <div
+              id="thumbnailCarousel"
+              class="carousel slide"
+              data-bs-ride="carousel"
+            >
+              <div class="carousel-inner">
+                <div
+                  *ngFor="let chunk of thumbnailChunks; let i = index"
+                  class="carousel-item"
+                  [class.active]="i === 0"
+                >
+                  <ul id="thumbnail" class="image-carousel">
+                    <li
+                      *ngFor="let image of chunk"
+                      (click)="changeImage(image)"
+                    >
+                      <img [src]="imgUrl + image" height="70 rem" />
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <button
+                class="carousel-control-prev bg-warning"
+                type="button"
+                data-bs-target="#thumbnailCarousel"
+                data-bs-slide="prev"
+              >
+                <span
+                  class="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button
+                class="carousel-control-next bg-warning"
+                type="button"
+                data-bs-target="#thumbnailCarousel"
+                data-bs-slide="next"
+              >
+                <span
+                  class="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+          <!-- ... existing code ... -->
         </div>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       <div class="col-md-6">
         <div class="p-3 right-side">
@@ -68,12 +76,22 @@
             <p>{{ productDetails.description }}</p>
           </div>
           <h3>{{ productDetails.price | price }}</h3>
-          <div class="list-group-item fw-bold" [ngClass]="{'text-success': productDetails.stock, 'text-danger': !productDetails.stock}">
+          <div
+            class="list-group-item fw-bold"
+            [ngClass]="{
+              'text-success': productDetails.stock,
+              'text-danger': !productDetails.stock
+            }"
+          >
             {{ productDetails.stock | stock }}
           </div>
           <div class="buttons d-flex flex-row mt-2 gap-3">
-            <button class="btn btn-outline-dark" [class.disabled]="!productDetails.stock" (click)="addProductToCart(productDetails)">
-              Add to Cart
+            <button
+              class="btn btn-outline-dark"
+              [class.disabled]="!productDetails.stock"
+              (click)="addProductToCart(productDetails)"
+            >
+              {{ "Add To Cart" | translate }}
             </button>
           </div>
         </div>

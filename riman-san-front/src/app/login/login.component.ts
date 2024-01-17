@@ -4,6 +4,7 @@ import { LoginService } from '../services/login/login.service';
 import { NgToastService } from 'ng-angular-popup';
 import { Router } from '@angular/router';
 import { TokenAuthInterceptor } from '../interceptor/token-auth.interceptor';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,8 @@ export class LoginComponent {
   constructor(
     private auth: LoginService,
     private toast: NgToastService,
+    public translate:TranslateService,
+
     private router: Router
   ) {
     this.login = new FormGroup({
@@ -51,7 +54,7 @@ export class LoginComponent {
           this.auth.setTokenInCookie(res.token);
           this.toast.success({
             detail: 'SUCCESS',
-            summary: 'Your Success Message',
+            summary: this.translate.instant('Your Success Message'),
             position: 'topCenter',
           });
           this.router.navigate(['/']);

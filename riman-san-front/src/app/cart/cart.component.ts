@@ -3,6 +3,7 @@ import { OrderService } from '../services/order/order.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 import { CartService } from '../services/cart/cart.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cart',
@@ -19,7 +20,7 @@ export class CartComponent {
   constructor(
     private orderService: OrderService,
     private catService: CartService,
-
+    public translate:TranslateService,
     private toast: NgToastService
   ) {
     this.orderForm = new FormGroup({

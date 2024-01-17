@@ -1,13 +1,13 @@
 <div class="container" *ngIf="loading">
   <app-loading></app-loading>
 </div>
-<div *ngIf="!loading" class="container mb-5">
+<div *ngIf="!loading" class="container mb-5" [dir]="'dir' | translate">
   <div>
-    <h2 class="text-center display-5 mb-4">Our Products</h2>
+    <h2 class="text-center display-5 mb-4">{{'Our Products' | translate}}</h2>
     <div class="w-25">
-      <label for="">categories :</label>
+      <label for="">{{'categories :' | translate}}</label>
       <select class="form-control" (change)="filterCategory($event)">
-        <option value="all" selected>All</option>
+        <option value="all" selected>{{'All' | translate}}</option>
         <option value="{{ option.id }}" *ngFor="let option of categories">
           {{ option.name }}
         </option>

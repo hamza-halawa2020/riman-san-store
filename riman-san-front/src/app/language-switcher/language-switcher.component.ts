@@ -8,21 +8,38 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LanguageSwitcherComponent {
 
-
   isArabicSelected: boolean = false;
-  isEnglishSelected: boolean = false;
+  isEnglishSelected: boolean = true;
 
-constructor(private translate: TranslateService) {}
+  constructor(
+    private translate: TranslateService,
 
-changeLanguage(language: string): void {
-  this.translate.use(language);
+    ) {
+      const savedLanguage = localStorage.getItem('selectedLanguage');
 
-  if (language === 'ar') {
-    this.isArabicSelected = true;
-    this.isEnglishSelected = false; // Reset English flag
-  } else if (language === 'en') {
-    this.isEnglishSelected = true;
-    this.isArabicSelected = false; // Reset Arabic flag
+      if (savedLanguage) {
+        this.translate.use(savedLanguage);
+        this.setLanguageSelection(savedLanguage);
+      } else {
+        this.translate.use('en'); // Default to English if no language is saved
+      }
+    }
+  
+    changeLanguage(language: string): void {
+      this.translate.use(language);
+      this.setLanguageSelection(language);
+  
+      // Save selected language to local storage
+      localStorage.setItem('selectedLanguage', language);
+    }
+  
+    private setLanguageSelection(language: string): void {
+      if (language === 'ar') {
+        this.isArabicSelected = true;
+        this.isEnglishSelected = false;
+      } else if (language === 'en') {
+        this.isEnglishSelected = true;
+        this.isArabicSelected = false;
+      }
+    }
   }
-}
-}

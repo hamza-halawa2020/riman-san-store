@@ -113,7 +113,6 @@ export function HttpTranslateLoaderFactory(http: HttpClient) {
     NgbModule,
     NgToastModule,
     TranslateModule.forRoot({
-      defaultLanguage:'ar',
       loader:{
         provide:TranslateLoader,
         useFactory:HttpTranslateLoaderFactory,
