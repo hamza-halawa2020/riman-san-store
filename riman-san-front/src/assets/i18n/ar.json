@@ -1,6 +1,6 @@
 {
   "dir": "rtl",
-  "+2010 687 43 0 43": " 34 0 34 786 0102+ ",
+  "010 687 43 0 43": " 43 0 43 687 010 ",
   "Stand with Palestine": "تضامنا مع فلسطين",
   "name": "الاسم",
   "role": "الصلاحيات",
@@ -46,7 +46,7 @@
   "Saturday - Thursday": "السبت - الخميس",
   "Friday": "الجمعة",
   "Closed": "مغلق",
-  "Copyright © Riman-San, All Right Reserved.": "حقوق النشر © ريمان-سان، كل الحقوق محفوظة.",
+  "Copyright © Riman-San, All Right Reserved.": "حقوق النشر © الحقوق محفوظة لدي , ريمان-سان .",
   "Made with": "صُنع بشغف ",
   "by": "بواسطة",
   "Hamza Halawa": "حمزة حلاوة",
@@ -143,5 +143,19 @@
   "Action": "العملية",
   "Cancel": "إلغاء",
   "Edit User": "تعديل المستخدم",
-  "Save": "حفظ"
+  "Save": "حفظ",
+  "product added succefully": "تم اضافة المنتج بنجاح",
+  "Product is already in the cart.": "المنتج موجود بالفعل فى سلتك",
+  "ERROR": "خطأ",
+  "SUCCESS": "نجاح",
+  "order sent succefully": "تم ارسال الطلب بنجاح",
+  "login success": "تم تسجيل الدخول بنجاح",
+  "Register Success": "تم تسجيل البيانات بنجاح",
+  "Index": "م",
+  "Date": "التاريخ",
+  "fullName": "اﻻسم",
+  "email": "البريد",
+  "subject": "عنوان الرسالة",
+  "message": "محتوي الرسالة",
+  "message deleted": "تم حذف الرسالة بنجاح"
 }

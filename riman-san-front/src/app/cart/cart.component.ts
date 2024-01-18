@@ -20,7 +20,7 @@ export class CartComponent {
   constructor(
     private orderService: OrderService,
     private catService: CartService,
-    public translate:TranslateService,
+    public translate: TranslateService,
     private toast: NgToastService
   ) {
     this.orderForm = new FormGroup({
@@ -40,15 +40,14 @@ export class CartComponent {
     this.getCartProducts();
   }
 
-
   getCartProducts() {
     if ('cart' in localStorage) {
       const storedCart = localStorage.getItem('cart');
       if (storedCart) {
         this.card = JSON.parse(storedCart);
-  
+
         // Set default quantity to 1 for each product
-        this.card.forEach(item => {
+        this.card.forEach((item) => {
           if (!item.quantity || item.quantity < 1) {
             item.quantity = 1;
           }
@@ -98,61 +97,51 @@ export class CartComponent {
     localStorage.setItem('cart', JSON.stringify(this.card));
   }
 
+  onSubmit() {
+    if (this.orderForm.valid) {
+      const orderDetails = this.card.map((item) => {
+        return {
+          product_id: item.id,
+          quantity: item.quantity || 1,
+        };
+      });
 
-
-
-
-
-
-
-
-
-onSubmit() {
-  if (this.orderForm.valid) {
-    const orderDetails = this.card.map((item) => {
-      return {
-        product_id: item.id,
-        quantity: item.quantity || 1,
+      const orderData = {
+        name: this.orderForm.value.name,
+        address: this.orderForm.value.address,
+        phone: this.orderForm.value.phone,
+        city: this.orderForm.value.city,
+        notes: this.orderForm.value.notes,
+        order_details: orderDetails,
       };
-    });
 
-    const orderData = {
-      name: this.orderForm.value.name,
-      address: this.orderForm.value.address,
-      phone: this.orderForm.value.phone,
-      city: this.orderForm.value.city,
-      notes: this.orderForm.value.notes,
-      order_details: orderDetails,
-    };
-
-
-    this.orderService.setOrder(orderData).subscribe(
-      (res) => {
-        this.toast.success({
-          detail: 'SUCCESS',
-          summary: 'Your Success Message',
-          position: 'topCenter',
-        });
-        this.orderForm.reset();
-        this.removeAllProduct();
-      },
-      (error) => {
-        // console.error('Order Failed:', error);
-        this.toast.error({
-          detail: 'ERROR',
-          summary: 'Your Error Message',
-          sticky: true,
-          position: 'topCenter',
-        });
-      }
-    );
-  } else {
-    this.toast.error({
-      detail: 'ERROR',
-      summary: 'Form is invalid. Please fill all the required fields.',
-      sticky: true,
-      position: 'topCenter',
-    });
+      this.orderService.setOrder(orderData).subscribe(
+        (res) => {
+          this.toast.success({
+            detail: this.translate.instant('SUCCESS'),
+            summary: this.translate.instant('order sent succefully'),
+            position: 'topCenter',
+          });
+          this.orderForm.reset();
+          this.removeAllProduct();
+        },
+        (error) => {
+          // console.error('Order Failed:', error);
+          this.toast.error({
+            detail: this.translate.instant('ERROR'),
+            summary: 'Your Error Message',
+            sticky: true,
+            position: 'topCenter',
+          });
+        }
+      );
+    } else {
+      this.toast.error({
+        detail: this.translate.instant('ERROR'),
+        summary: 'Form is invalid. Please fill all the required fields.',
+        sticky: true,
+        position: 'topCenter',
+      });
+    }
   }
-}
 }

@@ -1,6 +1,6 @@
 {
   "dir": "ltr",
-  "+2010 687 43 0 43": "+2010 687 43 0 43",
+  "010 687 43 0 43": "010 687 43 0 43",
   "Stand with Palestine": "Stand with Palestine",
   "name": "name",
   "role": "role",
@@ -143,5 +143,19 @@
   "Action": "Action",
   "Cancel": "Cancel",
   "Edit User": "Edit User",
-  "Save": "Save"
+  "Save": "Save",
+  "product added succefully": "product added succefully",
+  "Product is already in the cart.": "Product is already in the cart.",
+  "ERROR": "ERROR",
+  "SUCCESS": "SUCCESS",
+  "order sent succefully": "order sent succefully",
+  "login success": "login success",
+  "Register Success": "Register Success",
+  "Index": "Index",
+  "Date": "Date",
+  "fullName": "fullName",
+  "email": "email",
+  "subject": "subject",
+  "message": "message",
+  "message deleted": "message deleted"
 }

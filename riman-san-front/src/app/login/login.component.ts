@@ -18,7 +18,7 @@ export class LoginComponent {
   constructor(
     private auth: LoginService,
     private toast: NgToastService,
-    public translate:TranslateService,
+    public translate: TranslateService,
 
     private router: Router
   ) {
@@ -27,9 +27,7 @@ export class LoginComponent {
         Validators.required,
         Validators.pattern('^(010|011|012|015)\\d{8}$'),
       ]),
-      password: new FormControl('', [
-        Validators.required
-      ]),
+      password: new FormControl('', [Validators.required]),
     });
   }
   togglePasswordVisibility() {
@@ -41,10 +39,10 @@ export class LoginComponent {
       this.formSubmitted = true;
       this.auth.login(this.login.value).subscribe({
         next: (res: any) => {
-          const took = TokenAuthInterceptor.accessToken = res.token;
+          const took = (TokenAuthInterceptor.accessToken = res.token);
 
           // console.log(took);
-          
+
           // localStorage.setItem('token', res.token);
           // this.auth.setTokenInCookie(res.token);
           this.login.reset();
@@ -53,15 +51,15 @@ export class LoginComponent {
           this.auth.setRoleInCookie(res.role);
           this.auth.setTokenInCookie(res.token);
           this.toast.success({
-            detail: 'SUCCESS',
-            summary: this.translate.instant('Your Success Message'),
+            detail: this.translate.instant('SUCCESS'),
+            summary: this.translate.instant('login success'),
             position: 'topCenter',
           });
           this.router.navigate(['/']);
         },
         error: (err) => {
           this.toast.error({
-            detail: 'ERROR',
+            detail: this.translate.instant('ERROR'),
             summary: 'Your Error Message',
             sticky: true,
             position: 'topCenter',
@@ -71,7 +69,7 @@ export class LoginComponent {
     } else {
       // console.log('Form is invalid. Please fill all the required fields.');
       this.toast.error({
-        detail: 'ERROR',
+        detail: this.translate.instant('ERROR'),
         summary: 'Your Error Message',
         sticky: true,
         position: 'topCenter',

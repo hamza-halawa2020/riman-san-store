@@ -1,14 +1,10 @@
-.back-to-top {
+.whats-app {
     position: fixed;
     bottom: 20px;
     left: 20px;
     padding: 10px;
-    color: #ffffff;
-    border-radius: 5px;
     z-index: 999;
-    transition: opacity 0.3s ease-in-out;
+    scale: 1.7;
   }
-  .back-to-top:hover {
-    scale: 1.2;
-  }
+
 

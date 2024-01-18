@@ -20,22 +20,23 @@ export class NavbarComponent {
   constructor(
     private cartApi: CartService,
     private authService: LoginService,
-    public translate:TranslateService
+    public translate: TranslateService
   ) {}
 
   ngOnInit() {
     this.updateCartTotal();
   }
   updateCartTotal() {
-    this.cartApi.getcounterCart().subscribe((res: any) => {
+    this.cartApi.getcounterCart().subscribe(() => {
       const storedCart = localStorage.getItem('cart');
       if (storedCart) {
-        this.total = JSON.parse(storedCart).length;
-      console.log('total', this.total);
-    }
-   } );
+        const cartItems = JSON.parse(storedCart);
+        this.total = cartItems.length;
+      } else {
+        this.total = 0;
+      }
+    });
   }
-
 
   isLoggedIn(): boolean {
     return !!this.authService.isLoggedIn();
@@ -56,7 +57,7 @@ export class NavbarComponent {
   }
 
   toggleNestedDropdown(event: Event) {
-    event.stopPropagation(); 
+    event.stopPropagation();
     this.isNestedDropdownOpen = !this.isNestedDropdownOpen;
   }
 
@@ -67,7 +68,7 @@ export class NavbarComponent {
 }
 
 // updateCartTotal() {
-//   this.cartApi.getCart(); 
+//   this.cartApi.getCart();
 //   this.cartApi.getcounterCart().subscribe((res: any) => {
 //     this.total = res.reduce((acc: number, item: any) => acc + item.quantity, 0);
 //   });

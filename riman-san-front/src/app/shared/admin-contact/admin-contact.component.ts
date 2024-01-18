@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { NgToastService } from 'ng-angular-popup';
 import { ContactService } from 'src/app/services/contact/contact.service';
 
@@ -16,7 +17,8 @@ export class AdminContactComponent {
   editedContact: any = {};
   constructor(
     private ContactService: ContactService,
-    private toast: NgToastService
+    private toast: NgToastService,
+    public translate: TranslateService
   ) {}
   ngOnInit(): void {
     this.getContact();
@@ -36,15 +38,15 @@ export class AdminContactComponent {
         this.ContactService.getContacts().subscribe((data) => {
           this.Contacts = Object.values(data)[0];
           this.toast.success({
-            detail: 'SUCCESS',
-            summary: 'Your Success Message',
+            detail: this.translate.instant('SUCCESS'),
+            summary: this.translate.instant('message deleted'),
             // position: 'topCenter',
           });
         });
       },
       (error) => {
         this.toast.error({
-          detail: 'ERROR',
+          detail: this.translate.instant('ERROR'),
           summary: 'Your Error Message',
           sticky: true,
           position: 'topCenter',
