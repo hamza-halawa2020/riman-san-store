@@ -73,8 +73,9 @@
       aria-controls="navbarSupportedContent"
       aria-expanded="false"
       aria-label="Toggle navigation"
+      
     >
-      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon" ></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mb-lg-0">
@@ -101,7 +102,8 @@
 
         <li>
           <a class="nav-link" routerLink="cart" routerLinkActive="active"
-            ><i class="fa-solid fa-cart-plus fa-lg"></i>
+            >
+            <i class="fa-solid fa-cart-plus fa-lg"></i>
             <span class="text-danger fw-bold h5" *ngIf="total > 0">{{
               total
             }}</span>
@@ -138,7 +140,7 @@
             routerLink="register"
             routerLinkActive="active"
           >
-            {{ "Register" | translate }}
+            {{ "sign up" | translate }}
           </a>
         </li>
 
@@ -166,6 +168,7 @@
             </li>
 
             <li class="dropdown" (click)="toggleNestedDropdown($event)">
+              
               <a
                 class="dropdown-item dropdown-toggle"
                 role="button"

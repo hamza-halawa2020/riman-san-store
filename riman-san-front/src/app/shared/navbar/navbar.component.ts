@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscriber } from 'rxjs';
 import { CartService } from 'src/app/services/cart/cart.service';
@@ -20,12 +21,36 @@ export class NavbarComponent {
   constructor(
     private cartApi: CartService,
     private authService: LoginService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.updateCartTotal();
+    this.toggleNavar();
   }
+  toggleNavar() {
+    const documentClickHandler = (event: any) => {
+      const element = document.querySelector('.navbar-collapse');
+      if (element && element.classList.contains('show') && !element.contains(event.target)) 
+      {
+        element.classList.remove('show');
+        document.removeEventListener('click', documentClickHandler);
+      }
+      document.addEventListener('click', documentClickHandler);
+    };
+    this.router.events.subscribe((event: any) => {
+      if (event) {
+        const element = document.querySelector('.navbar-collapse');
+        if (element && element.classList.contains('show')) {
+          element.classList.remove('show');
+        }
+      }
+      document.addEventListener('click', documentClickHandler);
+    });
+    
+  }
+
   updateCartTotal() {
     this.cartApi.getcounterCart().subscribe(() => {
       const storedCart = localStorage.getItem('cart');
