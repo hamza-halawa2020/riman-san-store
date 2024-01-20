@@ -16,10 +16,10 @@ use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
-    // function __construct()
-    // {
-    //     $this->middleware("auth:sanctum")->except(["index", "show", "indexByCategory"]);
-    // }
+    function __construct()
+    {
+        $this->middleware("auth:sanctum")->except(["index", "show", "indexByCategory"]);
+    }
 
     public function index()
     {
@@ -34,7 +34,7 @@ class ProductController extends Controller
     }
 
 
-    
+
     public function indexByCategory($category)
     {
         try {
@@ -49,62 +49,61 @@ class ProductController extends Controller
     }
 
 
-public function store(StoreProductRequest $request)
-{
-    try {
-        $data = $request->only([
-            'name',
-            'description',
-            'price',
-            'category_id',
-        ]);
-        $categoryId = $request->input('category_id');
-        $product = Product::create([
-            'name' => $data['name'],
-            'description' => $data['description'],
-            'price' => $data['price'],
-            'category_id' => $categoryId,
-        ]);
+    public function store(StoreProductRequest $request)
+    {
 
-        if ($request->hasFile('image')) {
-            foreach ($request->file('image') as $image) {
-                $extension = $image->getClientOriginalExtension();
-                $filename = time() . '_' . uniqid() . '.' . $extension;
-
-                
-                $folderPath = 'images/products/' . $product->id;
-                $image->move(public_path($folderPath), $filename);
-                $product->images()->create([
-                    'product_id' => $product->id,
-                    'image' => $folderPath . '/' . $filename,
+        try {
+            if (Gate::allows("is-admin")) {
+                $data = $request->only([
+                    'name',
+                    'description',
+                    'price',
+                    'category_id',
                 ]);
+                $categoryId = $request->input('category_id');
+                $product = Product::create([
+                    'name' => $data['name'],
+                    'description' => $data['description'],
+                    'price' => $data['price'],
+                    'category_id' => $categoryId,
+                ]);
+
+                if ($request->hasFile('image')) {
+                    foreach ($request->file('image') as $image) {
+                        $extension = $image->getClientOriginalExtension();
+                        $filename = time() . '_' . uniqid() . '.' . $extension;
+
+
+                        $folderPath = 'images/products/' . $product->id;
+                        $image->move(public_path($folderPath), $filename);
+                        $product->images()->create([
+                            'product_id' => $product->id,
+                            'image' => $folderPath . '/' . $filename,
+                        ]);
+                    }
+                }
+                $product->load('images');
+
+                return response()->json(['data' => new ProductResource($product)], 201);
+            } else {
+                return response()->json(['message' => 'not allow to delete product.'], 403);
             }
-        }  
-        $product->load('images');
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
 
-        return response()->json(['data' => new ProductResource($product)], 201);
-    } catch (Exception $e) {
-        return response()->json(['error' => 'Internal Server Error'], 500);
     }
 
-}
 
-
-
-
-
-
-
-
-public function show(string $id)
-{
-    try {
-        $product = Product::with('images.product')->findOrFail($id);
-        return new ProductResource($product);
-    } catch (Exception $e) {
-        return response()->json($e, 500);
+    public function show(string $id)
+    {
+        try {
+            $product = Product::with('images.product')->findOrFail($id);
+            return new ProductResource($product);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
+        }
     }
-}
 
     public function update(UpdateProductRequest $request, string $id)
     {
@@ -117,9 +116,9 @@ public function show(string $id)
                 'category_id' => 'required',
             ]);
             if (Gate::allows("is-admin")) {
-            $product = Product::findOrFail($id);
-            $product->update($request->all());
-            return response()->json(['data' => new ProductResource($product)], 200);
+                $product = Product::findOrFail($id);
+                $product->update($request->all());
+                return response()->json(['data' => new ProductResource($product)], 200);
             } else {
                 return response()->json(['message' => 'not allow to update product.'], 403);
             }
@@ -132,9 +131,9 @@ public function show(string $id)
     {
         try {
             if (Gate::allows("is-admin")) {
-            $product = Product::findOrFail($id);
-            $product->delete();
-            return response()->json(['data' => 'Category deleted successfully'], 200);
+                $product = Product::findOrFail($id);
+                $product->delete();
+                return response()->json(['data' => 'Category deleted successfully'], 200);
             } else {
                 return response()->json(['message' => 'not allow to delete product.'], 403);
             }

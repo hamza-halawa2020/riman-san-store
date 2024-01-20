@@ -97,13 +97,13 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         try {
-            // if (Gate::allows("is-admin")) {
+            if (Gate::allows("is-admin")) {
             $user = Category::findOrFail($id);
             $user->delete();
             return response()->json(['data' => 'Category deleted successfully'], 200);
-            // } else {
-            //     return response()->json(['message' => 'not allow to delete Category.'], 403);
-            // }
+            } else {
+                return response()->json(['message' => 'not allow to delete Category.'], 403);
+            }
         } catch (Exception $e) {
             return response()->json($e, 500);
         }

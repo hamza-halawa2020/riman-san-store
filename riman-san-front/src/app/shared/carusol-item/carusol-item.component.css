@@ -13,7 +13,7 @@
   z-index: 1;
 } */
 
-.carousel-control-prev,
+/* .carousel-control-prev,
 .carousel-control-next {
   width: 15%;
 }
@@ -52,4 +52,5 @@
 }
 .carousel-item {
   height: 550px;
-}
+  max-height: 550px;
+} */

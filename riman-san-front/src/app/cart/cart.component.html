@@ -1,28 +1,36 @@
-<div class="container" *ngIf="card.length > 0; else emptyCart" [dir]="'dir' | translate">
+<div
+  class="container"
+  *ngIf="card.length > 0; else emptyCart"
+  [dir]="'dir' | translate"
+>
   <div class="container text-center">
-    <div class="h1">{{'Shopping Cart' | translate}}</div>
-    <div class="h5">{{'you have' | translate}} {{ card.length }} {{'item in your cart' | translate}}</div>
+    <div class="h1">{{ "Shopping Cart" | translate }}</div>
+    <div class="h5">
+      {{ "you have" | translate }} {{ card.length }}
+      {{ "item in your cart" | translate }}
+    </div>
     <div class="btn" (click)="removeAllProduct()">
       <i class="fa-solid fa-trash fa-2xl"></i>
-
-      {{'clear your cart' | translate}}
+      {{ "clear your cart" | translate }}
     </div>
   </div>
+
   <div class="row">
-    <div class="col-lg-6 col-sm-12">
-      <div class="h3 mt-5 mb-3 text-danger text-center">
-        {{'From your class, put the appropriate amount for you' | translate}}
+    <div class="col-lg-6 col-sm-12 mt-4">
+      <div class="h3 text-danger text-center">
+        {{ "From your class, put the appropriate amount for you" | translate }}
       </div>
+      <div class="table-responsive">
       <table class="table table-bordered text-center">
         <thead>
           <tr>
-            <th>{{'N' | translate}}</th>
-            <th>{{'Image' | translate}}</th>
-            <th>{{'Name' | translate}}</th>
-            <th>{{'Price' | translate}}</th>
-            <th>{{'Quantity' | translate}}</th>
-            <th>{{'Total' | translate}}</th>
-            <th>{{'Delete' | translate}}</th>
+            <th>{{ "N" | translate }}</th>
+            <th>{{ "Image" | translate }}</th>
+            <th>{{ "Name" | translate }}</th>
+            <th>{{ "Price" | translate }}</th>
+            <th>{{ "Quantity" | translate }}</th>
+            <th>{{ "Total" | translate }}</th>
+            <th>{{ "Delete" | translate }}</th>
           </tr>
         </thead>
         <tbody>
@@ -33,7 +41,7 @@
             <td>{{ i + 1 }}</td>
             <td>
               <img
-                [src]="x + item.img"
+                [src]="imgUrl + item.images[0].image"
                 alt="Product Image"
                 class="rounded border"
                 style="height: 45px"
@@ -44,9 +52,9 @@
             <td>
               <input
                 type="number"
-                class="rounded"
+                class="form-control rounded"
                 [(ngModel)]="item.quantity"
-                placeholder="Enter Your Quantity"
+                placeholder="{{ 'Enter Your Quantity' | translate }}"
                 (input)="updateTotal(item.price, item.quantity)"
                 min="1"
                 (change)="changeData()"
@@ -54,23 +62,23 @@
             </td>
             <td>{{ calculateTotal(item) }}</td>
             <td>
-              <button class="btn" (click)="removeProduct(item)">
+              <button class="btn btn-danger" (click)="removeProduct(i)">
                 <i class="fa-solid fa-trash fa-xl"></i>
               </button>
             </td>
           </tr>
         </tbody>
       </table>
-
-      <div class="row mt-5 text-center">
+    </div>
+      <div class="row mt-4 text-center">
         <table class="table table-bordered text-center">
           <thead>
             <tr>
-              <th>{{'Total' | translate}}</th>
+              <th>{{ "Total" | translate }}</th>
               <th></th>
-              <th>{{'Shipping Expenses' | translate}}</th>
+              <th>{{ "Shipping Expenses" | translate }}</th>
               <th></th>
-              <th>{{'Total after Shipping Expenses' | translate}}</th>
+              <th>{{ "Total after Shipping Expenses" | translate }}</th>
             </tr>
           </thead>
           <tbody>
@@ -87,128 +95,155 @@
         </table>
       </div>
     </div>
-    <div class="col-lg-6 col-sm-12">
-      <div class="text-center text-danger h5">
-        {{'Add Your Data To Complete Your Order' | translate}}
+
+    <div class="col-lg-6 col-md-12 mt-4">
+      <div class="h5 text-danger text-center">
+        {{ "Add Your Data To Complete Your Order" | translate }}
       </div>
-      <div class="container">
-        <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="mt-4">
-          <div class="mb-3">
-            <label for="name" class="form-label">{{'Name:' | translate}}</label>
-            <div
-              class="text-danger"
-              *ngIf="
-                orderForm.controls['name'].touched &&
-                orderForm.controls['name'].invalid
-              "
-            >
-              <div *ngIf="orderForm.controls['name'].hasError('required')">
-                {{'Name is required' | translate}}
-              </div>
+      <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="mt-4">
+        <div class="mb-3">
+          <label for="name" class="form-label">{{ "Name:" | translate }}</label>
+          <div
+            class="text-danger"
+            *ngIf="
+              orderForm.controls['name'].touched &&
+              orderForm.controls['name'].invalid
+            "
+          >
+            <div *ngIf="orderForm.controls['name'].hasError('required')">
+              {{ "Name is required" | translate }}
             </div>
-            <input
-              type="text"
-              id="name"
-              class="form-control"
-              formControlName="name"
-              required
-            />
-          </div>
-
-          <div class="mb-3">
-            <label for="phone" class="form-label">{{'Phone:' | translate}}</label>
-            <div
-              class="text-danger"
-              *ngIf="
-                orderForm.controls['phone'].touched &&
-                orderForm.controls['phone'].invalid
-              "
-            >
-              <div *ngIf="orderForm.controls['phone'].hasError('required')">
-                {{'phone is required' | translate}}
-              </div>
-            </div>
-            <input
-              type="text"
-              id="phone"
-              class="form-control"
-              formControlName="phone"
-              required
-            />
-          </div>
-
-          <div class="mb-3">
-            <label for="address" class="form-label">{{'Address:' | translate}}</label>
-            <div
-              class="text-danger"
-              *ngIf="
-                orderForm.controls['address'].touched &&
-                orderForm.controls['address'].invalid
-              "
-            >
-              <div *ngIf="orderForm.controls['address'].hasError('required')">
-                {{'address is required' | translate}}
-              </div>
-            </div>
-            <input
-              type="text"
-              id="address"
-              class="form-control"
-              formControlName="address"
-              required
-            />
-          </div>
-
-          <div class="mb-3">
-            <label for="city" class="form-label">{{'City:' | translate}}</label>
-            <div
-              class="text-danger"
-              *ngIf="
-                orderForm.controls['city'].touched &&
-                orderForm.controls['city'].invalid
-              "
-            >
-              <div *ngIf="orderForm.controls['city'].hasError('required')">
-                {{'city is required' | translate}}
-              </div>
-            </div>
-            <input
-              type="text"
-              id="city"
-              class="form-control"
-              formControlName="city"
-              required
-            />
-          </div>
-
-          <div class="mb-3">
-            <label for="notes" class="form-label">{{'Notes:' | translate}}</label>
-            <textarea
-              id="notes"
-              class="form-control"
-              formControlName="notes"
-            ></textarea>
           </div>
           <input
-            [disabled]="orderForm.invalid"
-            type="submit"
-            value="{{'Submit Order' | translate}}"
-            class="btn btn-light"
+            type="text"
+            id="name"
+            class="form-control"
+            formControlName="name"
+            required
           />
-        </form>
-      </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="phone" class="form-label">{{
+            "Phone:" | translate
+          }}</label>
+          <div
+            class="text-danger"
+            *ngIf="
+              orderForm.controls['phone'].touched &&
+              orderForm.controls['phone'].invalid
+            "
+          >
+            <div *ngIf="orderForm.controls['phone'].hasError('required')">
+              {{ "phone is required" | translate }}
+            </div>
+          </div>
+          <input
+            type="text"
+            id="phone"
+            class="form-control"
+            formControlName="phone"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="address" class="form-label">{{
+            "Address:" | translate
+          }}</label>
+          <div
+            class="text-danger"
+            *ngIf="
+              orderForm.controls['address'].touched &&
+              orderForm.controls['address'].invalid
+            "
+          >
+            <div *ngIf="orderForm.controls['address'].hasError('required')">
+              {{ "address is required" | translate }}
+            </div>
+          </div>
+          <input
+            type="text"
+            id="address"
+            class="form-control"
+            formControlName="address"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="city" class="form-label">{{ "City:" | translate }}</label>
+          <div
+            class="text-danger"
+            *ngIf="
+              orderForm.controls['city'].touched &&
+              orderForm.controls['city'].invalid
+            "
+          >
+            <div *ngIf="orderForm.controls['city'].hasError('required')">
+              {{ "city is required" | translate }}
+            </div>
+          </div>
+          <input
+            type="text"
+            id="city"
+            class="form-control"
+            formControlName="city"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="notes" class="form-label">{{
+            "Notes:" | translate
+          }}</label>
+          <textarea
+            id="notes"
+            class="form-control"
+            formControlName="notes"
+          ></textarea>
+        </div>
+        <input
+          [disabled]="orderForm.invalid"
+          type="submit"
+          value="{{ 'Submit Order' | translate }}"
+          class="btn btn-light"
+        />
+      </form>
     </div>
   </div>
+
+
+
+
+
+
+
+
+
+  
 </div>
 
-<ng-template #emptyCart [dir]="'dir' | translate">
-  <div class="container text-center">
-    <a class="" routerLink="/products"><img src="assets/images/cart.jpeg" /></a>
-    <h2 class="">{{'Your Cart Is Currently Empty!' | translate}}</h2>
+<ng-template #emptyCart>
+  <div class="container text-center mt-4">
+    <a class="" routerLink="/products"
+      ><img src="assets/images/cart.jpeg" alt="Empty Cart Image"
+    /></a>
+    <h2 class="mt-3">{{ "Your Cart Is Currently Empty!" | translate }}</h2>
     <div>
-      {{'Before proceed to checkout you must add some products to your shopping cart.' | translate}}
+      {{
+        "Before proceed to checkout you must add some products to your shopping cart."
+          | translate
+      }}
     </div>
-    <p>{{"You will find a lot of interesting products on our 'Products' page." | translate}}</p>
-    <a class="btn btn-primary" routerLink="/products">{{'Return To Shop' | translate}}</a>
+    <p>
+      {{
+        "You will find a lot of interesting products on our 'Products' page."
+          | translate
+      }}
+    </p>
+    <a class="btn btn-primary" routerLink="/products">{{
+      "Return To Shop" | translate
+    }}</a>
   </div>
 </ng-template>

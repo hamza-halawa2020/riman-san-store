@@ -8,7 +8,6 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class CartService {
   total: any;
-  cartChanged: any = new Subject();
   constructor(
     private toast: NgToastService,
     public translate: TranslateService
@@ -17,10 +16,6 @@ export class CartService {
   }
   private cartDataList: any[] = [];
   private counterCart = new BehaviorSubject<any>(0);
-  // Call this method whenever the cart contents are updated
-  notifyCartChanged() {
-    this.cartChanged.next();
-  }
 
   private getCart() {
     const storedCart = localStorage.getItem('cart');
@@ -32,6 +27,18 @@ export class CartService {
       }
     }
     // Update the counterCart with the actual number of items in the cart
+    this.counterCart.next(this.cartDataList.length);
+  }
+
+  removeProduct(index: number) {
+    this.cartDataList.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(this.cartDataList));
+    this.counterCart.next(this.cartDataList.length);
+  }
+
+  removeAllProduct() {
+    this.cartDataList = [];
+    localStorage.setItem('cart', JSON.stringify(this.cartDataList));
     this.counterCart.next(this.cartDataList.length);
   }
 

@@ -1,9 +1,11 @@
+import { Subscriber } from 'rxjs';
 import { Component } from '@angular/core';
 import { OrderService } from '../services/order/order.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 import { CartService } from '../services/cart/cart.service';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-cart',
@@ -14,7 +16,7 @@ export class CartComponent {
   card: any[] = [];
   orderForm: FormGroup;
   formSubmitted: boolean = false;
-  x = 'http://127.0.0.1:8000/img/';
+  imgUrl = `${environment.imgUrl}/`;
   Shipping_expenses = 50;
 
   constructor(
@@ -83,18 +85,17 @@ export class CartComponent {
         total += item.price * item.quantity;
       }
     }
-
     return total;
   }
 
-  removeProduct(index: any) {
-    this.card.splice(index, 1);
-    localStorage.setItem('cart', JSON.stringify(this.card));
+  removeProduct(index: number) {
+    this.catService.removeProduct(index);
+    this.getCartProducts();
   }
 
   removeAllProduct() {
-    this.card = [];
-    localStorage.setItem('cart', JSON.stringify(this.card));
+    this.catService.removeAllProduct();
+    this.getCartProducts();
   }
 
   onSubmit() {

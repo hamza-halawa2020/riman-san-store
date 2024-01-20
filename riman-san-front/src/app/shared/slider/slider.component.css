@@ -24,3 +24,7 @@
     background-color: #000;
     border-radius: 30%;
   }
+  img {
+    max-height: 15rem;
+  }
+  

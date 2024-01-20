@@ -12,27 +12,21 @@ use App\Http\Requests\StoreOrderDetailsRequest;
 use Gate;
 use Exception;
 
-
-
-
-
-
-
 class OrderDetailsController extends Controller
 {
-    // function __construct()
-    // {
-    //     $this->middleware("auth:sanctum")->except(['store']);
-    // }
+    function __construct()
+    {
+        $this->middleware("auth:sanctum")->except(['store']);
+    }
     public function index()
     {
         try {
-            // if (Gate::allows("is-admin")) {
+            if (Gate::allows("is-admin")) {
                 $orders = Order_details::all();
                 return OrderDetailsResource::collection($orders);
-            // } else {
-            //     return response()->json(['message' => 'not allow to show orders.'], 403);
-            // }
+            } else {
+                return response()->json(['message' => 'not allow to show orders.'], 403);
+            }
         } catch (Exception $e) {
             return response()->json($e, 500);
         }

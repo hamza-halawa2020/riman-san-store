@@ -12,35 +12,27 @@ use Exception;
 
 class OrderController extends Controller
 {
-    // function __construct()
-    // {
-    //     $this->middleware("auth:sanctum")->except(['store']);
-    // }
+    function __construct()
+    {
+        $this->middleware("auth:sanctum")->except(['store']);
+    }
 
 
     public function index()
     {
         try {
-            // if (Gate::allows("is-admin")) {
+            if (Gate::allows("is-admin")) {
             $orders = Order::with('Order_details.product')->paginate(10);
 
             return OrderResource::collection($orders);
-            // } else {
-            //     return response()->json(['message' => 'not allow to show orders.'], 403);
-            // }
+            } else {
+                return response()->json(['message' => 'not allow to show orders.'], 403);
+            }
         } catch (Exception $e) {
             return response()->json($e, 500);
         }
     }
 
-
-
-
-
-
-
-
-    
 
 public function store(StoreOrderRequest $request)
 {
