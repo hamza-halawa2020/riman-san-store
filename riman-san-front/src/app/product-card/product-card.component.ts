@@ -21,7 +21,7 @@ export class ProductCardComponent {
 
   ngOnInit() {
     // console.log('imgUrl:', this.imgUrl);
-    console.log('products:', this.products);
+    // console.log('products:', this.products);
 
 
   }
