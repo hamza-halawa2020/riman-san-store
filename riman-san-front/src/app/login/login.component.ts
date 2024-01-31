@@ -39,7 +39,7 @@ export class LoginComponent {
       this.formSubmitted = true;
       this.auth.login(this.login.value).subscribe({
         next: (res: any) => {
-          const took = (TokenAuthInterceptor.accessToken = res.token);
+          // const took = (TokenAuthInterceptor.accessToken = res.token);
 
           // console.log(took);
 
