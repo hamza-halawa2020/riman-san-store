@@ -25,12 +25,14 @@ export class LoginService {
     }
     );
   }
-  
+  isAuthenticated(): boolean {
+    return this.getTokenFromCookie().token? true : false;
+  }
 
   setTokenInCookie(token: string) {
     this.cookieService.set('token', token);
   }
-  getTokenFromCookie(): string {
+  getTokenFromCookie(): any {
     return this.cookieService.get('token');
   }
   setRoleInCookie(role: string) {
