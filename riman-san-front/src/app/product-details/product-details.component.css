@@ -20,21 +20,13 @@
 }
 
 
-
-
-
-
-
-
-.showmore {
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.main_image:hover img {
+  transform: scale(1.9);
+  transition: transform 0.5s ease-in-out;
 }
 
-@media only screen and (max-width: 768px) {
+
+  @media only screen and (max-width: 768px) {
   .mobile-first {
     order: -1 !important;
   }
