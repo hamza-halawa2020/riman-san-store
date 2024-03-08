@@ -4,13 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Exception;
-use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -18,7 +17,6 @@ class UserController extends Controller
     {
         $this->middleware("auth:sanctum")->except('store');
         $this->middleware("limitReq");
-
     }
 
     public function index()
@@ -37,20 +35,13 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-
         try {
-            $this->validate($request, [
-                'name' => 'required|string',
-                'phone' => ['required', 'regex:/^(010|011|012|015)\d{8}$/','unique:users'],
-                'password' => 'required'
-            ]);
-      
+            $user = $request->validated();
             $user = User::create([
-                'name'=> $request->name,
-                'phone'=> $request->phone,
-                'password'=> bcrypt($request->password),
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'password' => bcrypt($request->password),
             ]);
-
             return response()->json(['data' => new UserResource($user)], 200);
         } catch (Exception $e) {
             return response()->json($e, 500);
@@ -74,22 +65,13 @@ class UserController extends Controller
     {
         try {
             $user = User::findOrFail($id);
-            $data = $this->validate($request, [
-                'name' => 'sometimes|string',
-                'phone' => [
-                    'sometimes',
-                    'regex:/^(010|011|012|015)\d{8}$/',
-                     Rule::unique('users')->ignore($user->id),
-                ],
-                'role' => 'sometimes|in:admin,user',
-
-            ]);
+            $data = $request->validated();
             if (Gate::allows("is-admin")) {
                 $user->update([
                     'name' => $data['name'] ?? $user->name,
                     'phone' => $data['phone'] ?? $user->phone,
                     'role' => $data['role'] ?? $user->role,
-                    // 'password' => isset($data['password']) ? bcrypt($data['password']) : $user->password,
+                    'password' => isset($data['password']) ? bcrypt($data['password']) : $user->password,
                 ]);
                 return response()->json(['data' => new UserResource($user)], 200);
             } else {

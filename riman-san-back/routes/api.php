@@ -35,5 +35,4 @@ Route::apiResource('users', UserController::class);
 Route::apiResource('contacts', ContactController::class);
 Route::apiResource('orders', OrderController::class);
 Route::apiResource('orderdetails', OrderDetailsController::class);
-Route::apiResource('reviews', ReviewController::class);
 Route::post('login', [AuthController::class, 'login']);

@@ -21,12 +21,22 @@ class UpdateContactRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'fullName' => 'required|string',
-            'email' => 'required|email',
-            'subject' => 'required',
-            'message' => 'required',
-        ];
+
+        $rules = [];
+
+        if ($this->filled('fullName')) {
+            $rules['fullName'] = 'required|string';
+        }
+        if ($this->filled('email')) {
+            $rules['email'] = 'required|email';
+        }
+        if ($this->filled('subject')) {
+            $rules['subject'] = 'required';
+        }
+        if ($this->filled('message')) {
+            $rules['message'] = 'required';
+        }
+        return $rules;
 
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Exception;
 
 class OrderController extends Controller
@@ -22,9 +22,9 @@ class OrderController extends Controller
     {
         try {
             if (Gate::allows("is-admin")) {
-            $orders = Order::with('Order_details.product')->paginate(10);
+                $orders = Order::with('Order_details.product')->all();
 
-            return OrderResource::collection($orders);
+                return OrderResource::collection($orders);
             } else {
                 return response()->json(['message' => 'not allow to show orders.'], 403);
             }
@@ -34,31 +34,30 @@ class OrderController extends Controller
     }
 
 
-public function store(StoreOrderRequest $request)
-{
-    try {
-        $orderData = $request->only([
-            'name',
-            'address',
-            'phone',
-            'city',
-            'notes',
-        ]);
-        $order = Order::create($orderData);
-        $orderDetailsData = $request->input('order_details');
-        foreach ($orderDetailsData as $detailData) {
-            $order->Order_details()->create([
-                'product_id' => $detailData['product_id'],
-                'quantity' => $detailData['quantity'],
+    public function store(StoreOrderRequest $request)
+    {
+        try {
+            $order = $request->validated();
+            $order = Order::create([
+                'name' => $request->name,
+                'address' => $request->address,
+                'phone' => $request->phone,
+                'city' => $request->city,
+                'notes' => $request->notes,
             ]);
+            $orderDetailsData = $request->input('order_details');
+            foreach ($orderDetailsData as $detailData) {
+                $order->Order_details()->create([
+                    'product_id' => $detailData['product_id'],
+                    'quantity' => $detailData['quantity'],
+                ]);
+            }
+            $order->load('order_details.product');
+            return response()->json(['data' => new OrderResource($order)], 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
-        $order->load('order_details.product');
-        return response()->json(['data' => new OrderResource($order)], 200);
-    } catch (Exception $e) {
-        return response()->json(['error' => $e->getMessage()], 500);
     }
-}
-
     public function show($orderId)
     {
         try {
@@ -72,7 +71,6 @@ public function store(StoreOrderRequest $request)
 
     public function update(Request $request, string $id)
     {
-
     }
 
     /**

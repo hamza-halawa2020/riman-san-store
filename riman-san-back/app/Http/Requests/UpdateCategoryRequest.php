@@ -21,9 +21,11 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required|string|unique:categories',
+        return [];
 
-        ];
+        if ($this->filled('name')) {
+            $rules['name'] = 'sometimes|string|unique:categories';
+        }
+
     }
 }

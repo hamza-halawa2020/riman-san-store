@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 
-use Gate;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
@@ -19,15 +19,14 @@ class CategoryController extends Controller
      */
     function __construct()
     {
-        $this->middleware("auth:sanctum")->except(['index','show']);
+        $this->middleware("auth:sanctum")->except(['index', 'show']);
     }
 
     public function index()
     {
         try {
-            $categories = Category::paginate(5);
+            $categories = Category::all();
             return CategoryResource::collection($categories);
-
         } catch (Exception $e) {
             return response()->json($e, 500);
         }
@@ -38,22 +37,19 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
         try {
-            $this->validate($request, [
-                'name' => 'required|unique:categories,name'
-            ]);
+            $category = $request->validated();
             if (Gate::allows("is-admin")) {
-            $category = Category::create($request->all());
-            return response()->json(['data' => new CategoryResource($category)], 200);
+                $category = Category::create([
+                    'name' => $request->name,
+                ]);
+                return response()->json(['data' => new CategoryResource($category)], 200);
             } else {
                 return response()->json(['message' => 'not allow to Store category.'], 403);
             }
         } catch (Exception $e) {
             return response()->json($e, 500);
         }
-
     }
-
-
 
     /**
      * Display the specified resource.
@@ -75,13 +71,13 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, string $id)
     {
         try {
-            $this->validate($request, [
-                'name' => 'required|unique:categories,name'
-            ]);
+            $data = $request->validated();
             if (Gate::allows("is-admin")) {
-            $category = Category::findOrFail($id);
-            $category->update($request->all());
-            return response()->json(['data' => new CategoryResource($category)], 200);
+                $category = Category::findOrFail($id);
+                $category->update([
+                    'name' => $data['name']?? $category->name,
+                ]);
+                return response()->json(['data' => new CategoryResource($category)], 200);
             } else {
                 return response()->json(['message' => 'not allow to update category.'], 403);
             }
@@ -89,8 +85,6 @@ class CategoryController extends Controller
             return response()->json($e, 500);
         }
     }
-
-
     /**
      * Remove the specified resource from storage.
      */
@@ -98,9 +92,9 @@ class CategoryController extends Controller
     {
         try {
             if (Gate::allows("is-admin")) {
-            $user = Category::findOrFail($id);
-            $user->delete();
-            return response()->json(['data' => 'Category deleted successfully'], 200);
+                $user = Category::findOrFail($id);
+                $user->delete();
+                return response()->json(['data' => 'Category deleted successfully'], 200);
             } else {
                 return response()->json(['message' => 'not allow to delete Category.'], 403);
             }

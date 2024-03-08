@@ -8,7 +8,7 @@ use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use App\Http\Requests\StoreContactRequest;
 use App\Http\Requests\UpdateContactRequest;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Exception;
 
 
@@ -23,8 +23,7 @@ class ContactController extends Controller
     {
         try {
             if (Gate::allows("is-admin")) {
-                $contacts = Contact::paginate(10);
-
+                $contacts = Contact::all();
                 return ContactResource::collection($contacts);
             } else {
                 return response()->json(['message' => 'not allow to show contacts.'], 403);
@@ -36,13 +35,14 @@ class ContactController extends Controller
     public function store(StoreContactRequest $request)
     {
         try {
-            $this->validate($request, [
-                'fullName' => 'required|string',
-                'email' => 'required|email',
-                'subject' => 'required',
-                'message' => 'required',
+            $contact = $request->validated();
+            $contact = Contact::create([
+                'fullName' => $request->fullName,
+                'email' => $request->email,
+                'subject' => $request->subject,
+                'message' => $request->message
+
             ]);
-            $contact = Contact::create($request->all());
             return response()->json(['data' => new ContactResource($contact)], 200);
         } catch (Exception $e) {
             return response()->json($e, 500);
@@ -66,15 +66,15 @@ class ContactController extends Controller
     public function update(UpdateContactRequest $request, string $id)
     {
         try {
-            $this->validate($request, [
-                'fullName' => 'required|string',
-                'email' => 'required|email',
-                'subject' => 'required',
-                'message' => 'required',
-            ]);
+            $contact = Contact::findOrFail($id);
+            $data = $request->validated();
             if (Gate::allows("is-admin")) {
-                $contact = Contact::findOrFail($id);
-                $contact->update($request->all());
+                $contact->update([
+                    'fullName' => $data['fullName']?? $contact->fullName,
+                    'email' => $data['email']?? $contact->email,
+                    'subject' => $data['subject']?? $contact->subject,
+                    'message' => $data['message']?? $contact->message,
+                ]);
                 return response()->json(['data' => new ContactResource($contact)], 200);
             } else {
                 return response()->json(['message' => 'not allow to update contacts.'], 403);
