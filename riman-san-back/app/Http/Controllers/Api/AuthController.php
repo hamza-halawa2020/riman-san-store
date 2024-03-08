@@ -10,6 +10,11 @@ use Exception;
 class AuthController extends Controller
 {
 
+    function __construct()
+    {
+        $this->middleware("limitReq");
+    }
+
 //this function when the user login the old token saved in database and the new 
     //     public function login(Request $request)
 //     {
