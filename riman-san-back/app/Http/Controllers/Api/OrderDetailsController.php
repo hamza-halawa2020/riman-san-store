@@ -5,11 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-
 use App\Http\Resources\OrderDetailsResource;
 use App\Models\Order_details;
 use App\Http\Requests\StoreOrderDetailsRequest;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Exception;
 
 class OrderDetailsController extends Controller
@@ -51,10 +50,11 @@ class OrderDetailsController extends Controller
     }
 
 
+
     public function store(StoreOrderDetailsRequest $request)
     {
         try {
-        $orderData = $request->all();
+        $orderData = $request->validated();
         $order = Order_details::create($orderData);
         return response()->json(['data' => new OrderDetailsResource($order)], 200);
         } catch (Exception $e) {

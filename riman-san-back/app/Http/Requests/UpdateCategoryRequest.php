@@ -21,11 +21,11 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        $rules = [];
 
         if ($this->filled('name')) {
             $rules['name'] = 'sometimes|string|unique:categories';
         }
-
+        return $rules;
     }
 }

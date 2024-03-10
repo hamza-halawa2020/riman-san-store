@@ -26,7 +26,7 @@ class StoreOrderRequest extends FormRequest
             'address' => 'required|string',
             'phone' => 'required',
             'city' => 'required|string',
-            'notes'=>'',
+            'notes'=>'string',
 
         ];
 

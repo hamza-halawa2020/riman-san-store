@@ -41,7 +41,6 @@ class ContactController extends Controller
                 'email' => $request->email,
                 'subject' => $request->subject,
                 'message' => $request->message
-
             ]);
             return response()->json(['data' => new ContactResource($contact)], 200);
         } catch (Exception $e) {
@@ -61,8 +60,7 @@ class ContactController extends Controller
             return response()->json($e, 500);
         }
     }
-
-
+    
     public function update(UpdateContactRequest $request, string $id)
     {
         try {

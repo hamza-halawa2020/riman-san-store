@@ -21,13 +21,24 @@ class UpdateProductRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required|string|unique:products',
-            'description' => 'required|string',
-            'img' => 'required',
-            'price' => 'required',
-            'category_id' => 'required',
+        $rules = [];
 
-        ];
+        if ($this->filled('name')) {
+            $rules['name'] = 'required|string';
+        }
+        if ($this->filled('description')) {
+            $rules['description'] = 'required|string';
+        }
+        if ($this->filled('images.*.image')) {
+            $rules['images.*.image'] = 'required';
+        }
+        if ($this->filled('price')) {
+            $rules['price'] = 'required';
+        }
+        if ($this->filled('category_id')) {
+            $rules['category_id'] = 'required';
+        }
+
+        return $rules;
     }
 }

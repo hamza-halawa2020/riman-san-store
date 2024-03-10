@@ -17,13 +17,11 @@ class OrderController extends Controller
         $this->middleware("auth:sanctum")->except(['store']);
     }
 
-
     public function index()
     {
         try {
             if (Gate::allows("is-admin")) {
                 $orders = Order::with('Order_details.product')->all();
-
                 return OrderResource::collection($orders);
             } else {
                 return response()->json(['message' => 'not allow to show orders.'], 403);
